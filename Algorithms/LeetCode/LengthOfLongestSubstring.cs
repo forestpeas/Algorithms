@@ -25,6 +25,11 @@ namespace Algorithms.LeetCode
      */
     public class LengthOfLongestSubstringSolution
     {
+        // Your runtime beats 74.97 % of csharp submissions.
+        // Your memory usage beats 81.50 % of csharp submissions.
+        // if map changed to int[128]:
+        // Your runtime beats 99.53 % of csharp submissions.
+        // Your memory usage beats 84.25 % of csharp submissions.
         public int LengthOfLongestSubstring(string s)
         {
             int n = s.Length, result = 0;
