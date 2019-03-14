@@ -1,5 +1,4 @@
-﻿using System;
-using System.Text;
+﻿using System.Text;
 
 namespace Algorithms.LeetCode
 {
@@ -31,19 +30,20 @@ namespace Algorithms.LeetCode
      */
     public class ZigZagConversion
     {
+        // Your runtime beats 100.00 % of csharp submissions.
+        // Your memory usage beats 27.38 % of csharp submissions.
         public string Convert(string s, int numRows)
         {
-            if (s == null || numRows < 1) throw new ArgumentException();
-            if (s == "" || numRows == 1) return s;
+            if (numRows == 1) return s;
             int n = s.Length;
-            if (n == 1) return s;
             var sb = new StringBuilder(n);
             // It's like periodic function in mathematics.
             for (int i = 0; i < numRows; i++)
             {
                 // (2 * numRows - 2) is the period T
                 int period = 2 * numRows - 2;
-                for (int j = 0; j < n / period + 1; j++)
+                int periodNum = n / period + 1;
+                for (int j = 0; j < periodNum; j++)
                 {
                     int index = j * period + i;
                     if (index < n) sb.Append(s[index]);
