@@ -3,6 +3,7 @@
 namespace Algorithms.LeetCode
 {
     /* 6. ZigZag Conversion
+     * 
      * The string "PAYPALISHIRING" is written in a zigzag pattern on a given number of rows like this:
      * 
      * P   A   H   N
