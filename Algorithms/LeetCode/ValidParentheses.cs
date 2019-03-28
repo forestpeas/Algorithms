@@ -41,27 +41,30 @@ namespace Algorithms.LeetCode
      */
     class ValidParentheses
     {
+        // Your runtime beats 71.72 % of csharp submissions.
+        // Your memory usage beats 74.19 % of csharp submissions.
         public bool IsValid(string s)
         {
+            var mappings = new Dictionary<char, char>()
+            {
+                { ')', '(' },
+                { '}', '{' },
+                { ']', '[' }
+            };
+
             var stack = new Stack<char>();
             foreach (char c in s)
             {
-                switch (c)
+                if (mappings.TryGetValue(c, out char openingBracket))
                 {
-                    case '(':
-                    case '{':
-                    case '[':
-                        stack.Push(c);
-                        break;
-                    case ')':
-                        if (stack.Count == 0 || stack.Pop() != '(') return false;
-                        break;
-                    case '}':
-                        if (stack.Count == 0 || stack.Pop() != '{') return false;
-                        break;
-                    case ']':
-                        if (stack.Count == 0 || stack.Pop() != '[') return false;
-                        break;
+                    if (stack.Count == 0 || stack.Pop() != openingBracket)
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    stack.Push(c);
                 }
             }
             if (stack.Count == 0) return true;
