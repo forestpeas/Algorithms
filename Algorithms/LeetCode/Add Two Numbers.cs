@@ -1,4 +1,6 @@
-﻿namespace Algorithms.LeetCode
+﻿using Algorithms.DataStructures;
+
+namespace Algorithms.LeetCode
 {
     /* 2. Add Two Numbers
      * 

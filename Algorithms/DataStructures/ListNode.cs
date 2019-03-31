@@ -1,4 +1,4 @@
-﻿namespace Algorithms.LeetCode
+﻿namespace Algorithms.DataStructures
 {
     public class ListNode
     {
