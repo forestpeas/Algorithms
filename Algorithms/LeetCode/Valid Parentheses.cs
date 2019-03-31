@@ -39,7 +39,7 @@ namespace Algorithms.LeetCode
      * Input: "{[]}"
      * Output: true
      */
-    class ValidParentheses
+    public class ValidParentheses
     {
         // Your runtime beats 71.72 % of csharp submissions.
         // Your memory usage beats 74.19 % of csharp submissions.
