@@ -23,14 +23,22 @@ namespace Algorithms.LeetCode
      */
     public class MedianOfTwoSortedArrays
     {
+        // Runtime is abysmal. Maybe I can leave out some comparisons in the loop body by changing the meanings of
+        // i and j, but I'll just leave it here because it's easy for me to understand the code.
         public double FindMedianSortedArrays(int[] nums1, int[] nums2)
         {
+            //i and j are two indexes pointing to the first element on the right side of the "split line".
+            //Every element on the left should be smaller than those on the right.
+            //for example:
+            //1 | 2 5
+            //3 | 7
+            //
+            //1 2 | 5
+            //    | 3 7
+            //step 1: i points to 2, j points to 7
+            //step 2: i points to 5, j points to 3
             int m = nums1.Length, n = nums2.Length;
-            if (m == 0 && n == 0)
-            {
-                throw new ArgumentException();
-            }
-            if (m < n)
+            if (m < n) // Because the final splitting line will always cuts through the longer array.
             {
                 return FindMedianSortedArrays(nums2, nums1);
             }
@@ -40,12 +48,12 @@ namespace Algorithms.LeetCode
             while (lo <= hi)
             {
                 int i = (hi + lo) / 2;
-                int j = (m + n) / 2 - i;
-                if (j < 0)
+                int j = (m + n) / 2 - i; // i + j = m - i + n - j
+                if (j < 0) // When "i" is too big, we may not find a proper "j" in nums2 to counteract i.
                 {
                     hi = i;
                 }
-                else if (j > n)
+                else if (j > n)// Similarly, "i" can't be too small.
                 {
                     lo = i + 1;
                 }
