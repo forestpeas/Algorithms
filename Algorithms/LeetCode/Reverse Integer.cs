@@ -33,13 +33,11 @@
                 // 7 is because int.MaxValue(2147483647)'s least significant digit
                 // is 7, and result * 10 is at most 2147483640. Similar logic can
                 // be applied when result is negative.
-                if (result > int.MaxValue / 10
-                    || (result == int.MaxValue / 10 && leastSignificantDigit > 7))
+                if (result > int.MaxValue / 10 || (result == int.MaxValue / 10 && leastSignificantDigit > 7))
                 {
                     return 0;
                 }
-                if (result < int.MinValue / 10
-                    || (result == int.MaxValue / 10 && leastSignificantDigit < -8))
+                if (result < int.MinValue / 10 || (result == int.MinValue / 10 && leastSignificantDigit < -8))
                 {
                     return 0;
                 }
