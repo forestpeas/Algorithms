@@ -49,11 +49,11 @@ namespace Algorithms.LeetCode
             {
                 int i = (hi + lo) / 2;
                 int j = (m + n) / 2 - i; // i + j = m - i + n - j
-                if (j < 0) // When "i" is too big, we may not find a proper "j" in nums2 to counteract i.
+                if (j < 0) // When i is too big, we may not find a proper j in nums2 to counteract i.
                 {
                     hi = i;
                 }
-                else if (j > n)// Similarly, "i" can't be too small.
+                else if (j > n)// Similarly, i can't be too small.
                 {
                     lo = i + 1;
                 }
