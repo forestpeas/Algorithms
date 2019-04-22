@@ -12,6 +12,7 @@ namespace Algorithms.Tests
         {
             Sort(SelectionSort.Sort);
             Sort(InsertionSort.Sort);
+            Sort(BubbleSort.Sort);
         }
 
         private void Sort(Action<int[]> sort)
