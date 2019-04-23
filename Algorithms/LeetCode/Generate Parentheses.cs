@@ -2,15 +2,31 @@
 
 namespace Algorithms.LeetCode
 {
+    /* 22. Generate Parentheses
+     * 
+     * Given n pairs of parentheses, write a function to generate all combinations of well-formed parentheses.
+     * 
+     * For example, given n = 3, a solution set is:
+     * 
+     * [
+     *   "((()))",
+     *   "(()())",
+     *   "(())()",
+     *   "()(())",
+     *   "()()()"
+     * ]
+     */
     public class GenerateParentheses
     {
+        // Your runtime beats 94.80 % of csharp submissions.
+        // Your memory usage beats 14.76 % of csharp submissions.
         public IList<string> GenerateParenthesis(int n)
         {
-            List<string> result = new List<string>();
-            Backtrack(result, "", 0, 0, n);
-            return result;
+            List<string> list = new List<string>();
+            Backtrack("", 0, 0, n);
+            return list;
 
-            void Backtrack(List<string> list, string str, int open, int close, int max)
+            void Backtrack(string str, int open, int close, int max)
             {
                 if (str.Length == max * 2)
                 {
@@ -20,11 +36,11 @@ namespace Algorithms.LeetCode
 
                 if (open < max)
                 {
-                    Backtrack(list, str + "(", open + 1, close, max);
+                    Backtrack(str + "(", open + 1, close, max);
                 }
                 if (close < open)
                 {
-                    Backtrack(list, str + ")", open, close + 1, max);
+                    Backtrack(str + ")", open, close + 1, max);
                 }
             }
         }
