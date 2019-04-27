@@ -9,5 +9,16 @@
         {
             val = x;
         }
+
+        public ListNode(int x, ListNode next)
+        {
+            val = x;
+            this.next = next;
+        }
+
+        public override string ToString()
+        {
+            return $"{val} -> {(next == null ? "null" : next.val.ToString())}";
+        }
     }
 }
