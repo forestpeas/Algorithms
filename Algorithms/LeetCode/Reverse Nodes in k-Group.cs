@@ -23,8 +23,8 @@ namespace Algorithms.LeetCode
      */
     public class ReverseNodesInKGroup
     {
-        // Your runtime beats 59.09 % of csharp submissions.
-        // Your memory usage beats 50.00 % of csharp submissions.
+        // Your runtime beats 100.00 % of csharp submissions.
+        // Your memory usage beats 12.50 % of csharp submissions.
         public ListNode ReverseKGroup(ListNode head, int k)
         {
             // Similar to "24. Swap Nodes in Pairs" but a bit more complex and needs more careful considerations.
@@ -48,18 +48,14 @@ namespace Algorithms.LeetCode
             }
 
             ListNode firstBeforeReversed = head; // the current group's first node(before reversed)
-            ListNode prevLastAfterReversed = null; // the pprevious group's last node(after reversed)
+            ListNode prevLastAfterReversed = new ListNode(-1); // the previous group's last node(after reversed)
+            ListNode prev = null;
+            ListNode curr = firstBeforeReversed;
+            ListNode next = null;
             for (int swapTimes = length / k; swapTimes > 0; swapTimes--)
             {
-                ListNode prev = null;
-                ListNode curr = firstBeforeReversed;
-                ListNode next = null;
                 for (int i = 1; i <= k; i++) // handle every k-group
                 {
-                    if (i == k && prevLastAfterReversed != null) // if this is the last node of this group
-                    {
-                        prevLastAfterReversed.next = curr;
-                    }
                     next = curr.next;
                     curr.next = prev;
 
@@ -67,15 +63,15 @@ namespace Algorithms.LeetCode
                     curr = next;
                 }
 
-                //if all groups are reversed，remember those remaining nodes at the end
-                if (swapTimes == 1)
-                {
-                    firstBeforeReversed.next = next;
-                }
+                // now "prev" is the last node of the group(before reversed)
+                prevLastAfterReversed.next = prev;
 
                 prevLastAfterReversed = firstBeforeReversed;
                 firstBeforeReversed = next;
             }
+
+            //When all groups are reversed，remember those remaining nodes at the end
+            prevLastAfterReversed.next = next;
 
             return ret;
         }
