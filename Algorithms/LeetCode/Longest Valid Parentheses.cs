@@ -24,6 +24,8 @@ namespace Algorithms.LeetCode
         // Your memory usage beats 14.81 % of csharp submissions.
         public int LongestValidParentheses(string s)
         {
+            // stack contains the length of a longest valid string on the left side of a "("
+            // when we encounter a ")" that corresponds to that "(", we pop the length from the stack and add it to the total length.
             Stack<int> stack = new Stack<int>();
             int currentLength = 0;
             int result = 0;
