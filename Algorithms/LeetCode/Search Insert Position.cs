@@ -27,8 +27,8 @@
      */
     public class SearchInsertPosition
     {
-        // Your runtime beats 10.88 % of csharp submissions.
-        // Your memory usage beats 71.67 % of csharp submissions.
+        // Your runtime beats 99.32 % of csharp submissions.
+        // Your memory usage beats 8.33% of csharp submissions.
         public int SearchInsert(int[] nums, int target)
         {
             int lo = 0;
@@ -36,12 +36,11 @@
             while (lo <= hi)
             {
                 int mid = (lo + hi) / 2;
-                int midValue = nums[mid];
-                if (midValue > target)
+                if (nums[mid] > target)
                 {
                     hi = mid - 1;
                 }
-                else if (midValue < target)
+                else if (nums[mid] < target)
                 {
                     lo = mid + 1;
                 }
