@@ -78,6 +78,7 @@ namespace Algorithms.LeetCode
 
                 sum -= candidates[stack.Pop()];
 
+                // Pop again because there is no need to replace the last element with a bigger one.
                 if (stack.Count == 0) break;
                 i = stack.Pop();
                 sum -= candidates[i];
