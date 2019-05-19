@@ -35,7 +35,7 @@ namespace Algorithms.LeetCode
     public class CombinationSumSolution
     {
         // Your runtime beats 45.24 % of csharp submissions.
-        // Your memory usage beats 36.54 % of csharp submissions.
+        // Your memory usage beats 31.81 % of csharp submissions.
         public IList<IList<int>> CombinationSum(int[] candidates, int target)
         {
             // Backtracking
@@ -56,13 +56,12 @@ namespace Algorithms.LeetCode
             int i = 0;
             while (true)
             {
-                if (i >= candidates.Length)
+                while (i >= candidates.Length)
                 {
-                    if (stack.Count == 0) break;
+                    if (stack.Count == 0) return result;
                     i = stack.Pop();
                     sum -= candidates[i];
                     i++;
-                    continue;
                 }
 
                 do
@@ -79,12 +78,11 @@ namespace Algorithms.LeetCode
                 sum -= candidates[stack.Pop()];
 
                 // Pop again because there is no need to replace the last element with a bigger one.
-                if (stack.Count == 0) break;
+                if (stack.Count == 0) return result;
                 i = stack.Pop();
                 sum -= candidates[i];
                 i++;
             }
-            return result;
         }
     }
 }
