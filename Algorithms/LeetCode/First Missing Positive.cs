@@ -26,6 +26,11 @@
         // Your memory usage beats 25.76 % of csharp submissions.
         public int FirstMissingPositive(int[] nums)
         {
+            // Because the description requires us to use constant space, we have to use the input array
+            // to record some progress.
+            // We put every number in its "appropriate" position, that is, put i in nums[i - 1].
+            // For example, we put 4 in nums[3], 3 in nums[2].
+            // After that, the first "inappropriate" number's position is the expected result.
             for (int i = 0; i < nums.Length; i++)
             {
                 int num = nums[i];
@@ -36,7 +41,6 @@
                         int next = nums[num - 1];
                         if (next == num) break;
                         nums[num - 1] = num;
-                        if ((num - 1) == i) break;
                         num = next;
                     }
                 }
