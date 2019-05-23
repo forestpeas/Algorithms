@@ -63,5 +63,34 @@ namespace Algorithms.LeetCode
             }
             return result;
         }
+
+        // Refer to : https://leetcode.com/problems/trapping-rain-water/discuss/17357/Sharing-my-simple-c++-code:-O(n)-time-O(1)-space
+        public int TwoPointers(int[] height)
+        {
+            /* instead of calculating area by height * width, we can think it in a cumulative way. In other words, sum water amount of each bin(width=1).
+             * Search from left to right and maintain a max height of left and right separately, which is like a one-side wall of partial container. 
+             * Fix the higher one and flow water from the lower part. For example, if current height of left is lower, we fill water in the left bin. 
+             * Until left meets right, we filled the whole container.
+             */
+            int left = 0; int right = height.Length - 1;
+            int result = 0;
+            int maxleft = 0, maxright = 0;
+            while (left <= right)
+            {
+                if (height[left] <= height[right])
+                {
+                    if (height[left] >= maxleft) maxleft = height[left];
+                    else result += maxleft - height[left];
+                    left++;
+                }
+                else
+                {
+                    if (height[right] >= maxright) maxright = height[right];
+                    else result += maxright - height[right];
+                    right--;
+                }
+            }
+            return result;
+        }
     }
 }
