@@ -77,6 +77,7 @@
             for (int i = 1; i <= m; i++)
             {
                 for (int j = 1; j <= n; j++)
+                {
                     if (p[j - 1] != '*')
                     {
                         f[i, j] = f[i - 1, j - 1] && (s[i - 1] == p[j - 1] || '.' == p[j - 1]);
@@ -87,6 +88,7 @@
                         // Or, string adds some more matching chars to the x*.
                         f[i, j] = f[i, j - 2] || ((s[i - 1] == p[j - 2] || '.' == p[j - 2]) && f[i - 1, j]);
                     }
+                }
             }
 
             return f[m, n];
