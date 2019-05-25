@@ -79,13 +79,46 @@
                     else
                     {
                         // '*' matches empty(for example: s = "ab", p = "ab*).
-                        // Or, '*' swallows a new char(that is s[i-1]).
+                        // Or, '*' swallows a new character(that is s[i-1]).
                         mem[i, j] = mem[i, j - 1] || mem[i - 1, j];
                     }
                 }
             }
 
             return mem[s.Length, p.Length];
+        }
+
+        public bool IsMatchWithConstantSpace(string s, string p)
+        {
+            // i is a pointer for the string, and j is a pointer for thr pattern.
+            // When a '*' is found, ii records i and jj records j.
+            int i = 0, j = 0, ii = 0, jj = -1;
+            while (i < s.Length)
+            {
+                if (j < p.Length && (p[j] == '?' || s[i] == p[j]))
+                {
+                    i++;
+                    j++;
+                }
+                // When a '*' is found, first we assume the '*' matches empty.
+                else if (j < p.Length && p[j] == '*')
+                {
+                    jj = j;
+                    ii = i;
+                    j++;
+                }
+                // Dead end. We have to go back and let the last '*' swallow one more character.
+                else if (jj != -1)
+                {
+                    j = jj + 1;
+                    i = ++ii;
+                }
+                else return false;
+            }
+
+            while (j < p.Length && p[j] == '*') j++;
+
+            return j == p.Length;
         }
     }
 }
