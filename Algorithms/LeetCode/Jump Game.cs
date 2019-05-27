@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Algorithms.LeetCode
+﻿namespace Algorithms.LeetCode
 {
     /* 55. Jump Game
      * 
@@ -25,28 +23,38 @@ namespace Algorithms.LeetCode
     {
         public bool CanJump(int[] nums)
         {
-            var deadEnds = new HashSet<int>();
-            return CanJumpCore(0);
+            return CanJumpCore(0, 0) >= nums.Length - 1;
 
-            bool CanJumpCore(int start)
+            // Returns the farthest index that "start" can reach.
+            // "end" is the farthest index we have reached.
+            // For example: nums = [5, 4, 5, 2, 1, 0, 0, 0, 0]
+            // When we reach nums[2] = 5, we will check nums[2 + 5], nums[2 + 4], 
+            // and when we get to nums[2 + 3], we can stop, because nums[2 + 3] ~ nums[2 + 1] was already checked by nums[0 + 5], nums[0 + 4]...
+            int CanJumpCore(int start, int end)
             {
                 if (start >= nums.Length - 1)
                 {
-                    return true;
+                    return start;
                 }
-                if (deadEnds.Contains(start))
-                {
-                    return false;
-                }
+                int farthest = start + nums[start];
                 for (int jumpLength = nums[start]; jumpLength > 0; jumpLength--)
                 {
-                    if (CanJumpCore(start + jumpLength))
+                    int nextJumpPosition = start + jumpLength;
+                    if (nextJumpPosition > end)
                     {
-                        return true;
+                        farthest = CanJumpCore(nextJumpPosition, farthest);
+                        if (farthest >= nums.Length - 1)
+                        {
+                            return farthest;
+                        }
+                    }
+                    else
+                    {
+                        return farthest;
                     }
                 }
-                deadEnds.Add(start);
-                return false;
+
+                return farthest;
             }
         }
     }
