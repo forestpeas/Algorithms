@@ -1,4 +1,6 @@
-﻿namespace Algorithms.LeetCode
+﻿using System;
+
+namespace Algorithms.LeetCode
 {
     /* 55. Jump Game
      * 
@@ -21,6 +23,18 @@
      */
     public class JumpGame
     {
+        public bool CanJumpWithGreedySolution(int[] nums)
+        {
+            int max = 0;
+            for (int i = 0; i <= max; i++)
+            {
+                max = Math.Max(max, i + nums[i]);
+                if (max >= nums.Length - 1) return true;
+            }
+            return false;
+        }
+
+        // I figured this one out myself and it's a little bit complicated. Just see the Greedy solution above.
         public bool CanJump(int[] nums)
         {
             return CanJumpCore(0, 0) >= nums.Length - 1;
