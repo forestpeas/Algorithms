@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Algorithms.LeetCode
+﻿namespace Algorithms.LeetCode
 {
     /* 45. Jump Game II
      * 
@@ -22,24 +20,27 @@ namespace Algorithms.LeetCode
     {
         public int Jump(int[] nums)
         {
+            if (nums.Length < 1) return 0;
+
             int[] mem = new int[nums.Length];
+            mem[nums.Length - 1] = nums.Length;
             for (int i = nums.Length - 2; i >= 0; i--)
-            {
-                if (nums[i] >= nums.Length - i - 1)
+            { 
+                int j = i + 1;
+                while (j < nums.Length && (mem[j] - i) <= nums[i])
                 {
-                    mem[i] = 1;
+                    j = mem[j];
                 }
-                else
-                {
-                    int min = int.MaxValue - 1;
-                    for (int j = i + 1; j <= i + nums[i]; j++)
-                    {
-                        min = Math.Min(min, mem[j]);
-                    }
-                    mem[i] = min + 1;
-                }
+                if (j == nums.Length) j = nums.Length - 1;
+                mem[i] = j;
             }
-            return mem[0];
+            int result = 0;
+            for (int i = 0; mem[i] < nums.Length;)
+            {
+                result++;
+                i = mem[i];
+            }
+            return result;
         }
     }
 }
