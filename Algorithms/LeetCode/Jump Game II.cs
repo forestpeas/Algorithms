@@ -1,4 +1,6 @@
-﻿namespace Algorithms.LeetCode
+﻿using System;
+
+namespace Algorithms.LeetCode
 {
     /* 45. Jump Game II
      * 
@@ -18,15 +20,34 @@
      */
     public class JumpGameII
     {
+        // A second solution. Refer to https://leetcode.com/problems/jump-game-ii/discuss/18014/Concise-O(n)-one-loop-JAVA-solution-based-on-Greedy
+        public int Jump2(int[] nums)
+        {
+            // BFS
+            int jumps = 0, curEnd = 0, curFarthest = 0;
+            for (int i = 0; i < nums.Length - 1; i++)
+            {
+                curFarthest = Math.Max(curFarthest, i + nums[i]);
+                if (i == curEnd)
+                {
+                    jumps++;
+                    curEnd = curFarthest;
+                }
+            }
+            return jumps;
+        }
+
         public int Jump(int[] nums)
         {
             if (nums.Length < 1) return 0;
 
+            // "mem[i]" is the pointer to the next node in the shortest "path".
             int[] mem = new int[nums.Length];
             mem[nums.Length - 1] = nums.Length;
             for (int i = nums.Length - 2; i >= 0; i--)
-            { 
+            {
                 int j = i + 1;
+                // Skip the path that "i" can directly jump through.
                 while (j < nums.Length && (mem[j] - i) <= nums[i])
                 {
                     j = mem[j];
