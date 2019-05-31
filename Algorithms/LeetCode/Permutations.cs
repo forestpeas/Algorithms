@@ -21,26 +21,22 @@ namespace Algorithms.LeetCode
      */
     public class Permutations
     {
+        private readonly HashSet<int> fixedIndexes = new HashSet<int>();
+
         public IList<IList<int>> Permute(int[] nums)
         {
-            if (nums.Length == 1) return new List<int>[] { new List<int>() { nums[0] } };
+            if (nums.Length == fixedIndexes.Count) return new List<int>[] { new List<int>() };
             var results = new List<IList<int>>();
             for (int i = 0; i < nums.Length; i++)
             {
-                int[] subNums = new int[nums.Length - 1];
-                for (int j = 0, k = 0; j < nums.Length; j++)
-                {
-                    if (j != i)
-                    {
-                        subNums[k] = nums[j];
-                        k++;
-                    }
-                }
-                foreach (var subResult in Permute(subNums))
+                if (fixedIndexes.Contains(i)) continue;
+                fixedIndexes.Add(i);
+                foreach (var subResult in Permute(nums))
                 {
                     subResult.Add(nums[i]);
                     results.Add(subResult);
                 }
+                fixedIndexes.Remove(i);
             }
             return results;
         }
