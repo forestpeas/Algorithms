@@ -21,7 +21,7 @@
             {
                 if (sum < 0)
                 {
-                    sum = nums[i];
+                    sum = nums[i]; // Reset sum.
                 }
                 else
                 {
