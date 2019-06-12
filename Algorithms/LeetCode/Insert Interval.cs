@@ -23,7 +23,7 @@ namespace Algorithms.LeetCode
     {
         public int[][] Insert(int[][] intervals, int[] newInterval)
         {
-            // Had to deal with some special corner cases that are covered in the solution afterwards.
+            // Had to deal with some special corner cases that are not covered in the solution afterwards.
             if (intervals.Length < 1) return new int[][] { newInterval };
             if (intervals[0][0] > newInterval[0])
             {
