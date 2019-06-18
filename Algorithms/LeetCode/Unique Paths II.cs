@@ -38,7 +38,7 @@
             // 1  1  2  4
             // 1  2  4  8
             if (obstacleGrid.Length < 1) return 0;
-            int[] mem = new int[obstacleGrid[0].Length];
+            int[] mem = new int[obstacleGrid[0].Length]; // "mem" records every row in the grid above
             mem[0] = 1;
             for (int i = 0; i < obstacleGrid.Length; i++)
             {
