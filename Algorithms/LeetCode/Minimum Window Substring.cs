@@ -24,6 +24,10 @@ namespace Algorithms.LeetCode
     {
         public string MinWindow(string s, string t)
         {
+            // Check each character in "s". If a character is in "t", put it in a queue.
+            // Repeat the process until we find enough characters. Now we have a potential answer.
+            // Continue the process until we find a character that is equal to the head of the queue.
+            // So we can surely remove the first character from the queue and maybe some more.
             var charCounts = new Dictionary<char, int>();
             var requiredCounts = new Dictionary<char, int>();
             foreach (var character in t)
@@ -52,15 +56,7 @@ namespace Algorithms.LeetCode
             }
             if (charsSoFar != totalChars) return string.Empty;
             if (queue.Count == 0) return string.Empty;
-            char c = s[queue.Peek()];
-            int countOfC = charCounts[c];
-            while (countOfC > requiredCounts[c])
-            {
-                charCounts[c] = countOfC - 1;
-                queue.Dequeue();
-                c = s[queue.Peek()];
-                countOfC = charCounts[c];
-            }
+            RemoveChars(queue, charCounts, requiredCounts, s);
 
             i++;
             int startIndex = queue.Peek();
@@ -73,15 +69,7 @@ namespace Algorithms.LeetCode
                     queue.Enqueue(i);
                     if (s[queue.Peek()] == s[i])
                     {
-                        c = s[queue.Peek()];
-                        countOfC = charCounts[c];
-                        while (countOfC > requiredCounts[c])
-                        {
-                            charCounts[c] = countOfC - 1;
-                            queue.Dequeue();
-                            c = s[queue.Peek()];
-                            countOfC = charCounts[c];
-                        }
+                        RemoveChars(queue, charCounts, requiredCounts, s);
                         int newSubStringLength = i - queue.Peek() + 1;
                         if (newSubStringLength < subStringLength)
                         {
@@ -92,6 +80,19 @@ namespace Algorithms.LeetCode
                 }
             }
             return s.Substring(startIndex, subStringLength);
+        }
+
+        private void RemoveChars(Queue<int> queue, Dictionary<char, int> charCounts, Dictionary<char, int> requiredCounts, string s)
+        {
+            char queueFirstChar = s[queue.Peek()];
+            int queueFirstCharCount = charCounts[queueFirstChar];
+            while (queueFirstCharCount > requiredCounts[queueFirstChar])
+            {
+                charCounts[queueFirstChar] = queueFirstCharCount - 1;
+                queue.Dequeue();
+                queueFirstChar = s[queue.Peek()];
+                queueFirstCharCount = charCounts[queueFirstChar];
+            }
         }
     }
 }
