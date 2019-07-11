@@ -1,4 +1,6 @@
-﻿namespace Algorithms.DataStructures
+﻿using System.Text;
+
+namespace Algorithms.DataStructures
 {
     public class ListNode
     {
@@ -18,7 +20,13 @@
 
         public override string ToString()
         {
-            return $"{val} -> {(next == null ? "null" : next.val.ToString())}";
+            StringBuilder sb = new StringBuilder();
+            sb.Append(val);
+            for (var node = next; node != null; node = node.next)
+            {
+                sb.Append($" -> {node.val}");
+            }
+            return sb.ToString();
         }
     }
 }
