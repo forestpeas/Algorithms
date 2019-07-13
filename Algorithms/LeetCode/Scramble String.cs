@@ -55,9 +55,20 @@ namespace Algorithms.LeetCode
         public bool IsScramble(string s1, string s2)
         {
             // Assume s2 is at least an anagram of s1.
+            // We need to find a "splitting line" in s1 and s2 such that the left parts contain the same characters (so do the right parts).
+            // For example: s1 = "great", s2 = "rgeta", they can be split into:
+            // gr | eat
+            // rg | eta
+            // This is a necessary condition in which s2 is a scrambled string of s1. Then we have two sub-problems.
+            // But don't forget the left part of s1 can also be equal(that is, contains the same characters) to the right part of s2.
+            // For example: s1 = "great", s2 = "eatgr"
+            // gr | eat
+            // eat | gr
             if (s1 == s2) return true;
             var CharCounts1 = new Dictionary<char, int>();
-            for (int i = 0; i < s1.Length - 1; i++)
+            var CharCounts2FromStart = new Dictionary<char, int>();
+            var CharCounts2FromEnd = new Dictionary<char, int>();
+            for (int i = 0, fromStart = 0, fromEnd = s2.Length - 1; i < s1.Length - 1; i++)
             {
                 if (CharCounts1.TryGetValue(s1[i], out int count1))
                 {
@@ -67,13 +78,12 @@ namespace Algorithms.LeetCode
                 {
                     CharCounts1.Add(s1[i], 1);
                 }
-                var CharCounts2 = new Dictionary<char, int>();
-                int j = 0;
-                for (; j <= i; j++)
+
+                for (; fromStart <= i; fromStart++)
                 {
-                    if (CharCounts1.TryGetValue(s2[j], out count1))
+                    if (CharCounts1.TryGetValue(s2[fromStart], out count1))
                     {
-                        if (CharCounts2.TryGetValue(s2[j], out int count2))
+                        if (CharCounts2FromStart.TryGetValue(s2[fromStart], out int count2))
                         {
                             count2++;
                         }
@@ -81,20 +91,20 @@ namespace Algorithms.LeetCode
                         {
                             count2 = 1;
                         }
-                        if (count2 > count1) break;
-                        CharCounts2[s2[j]] = count2;
+                        if (count2 > count1) break; // "count2 < count1" is OK because there may be more of this character next.
+                        CharCounts2FromStart[s2[fromStart]] = count2;
                     }
                     else break;
                 }
-                if (j == i + 1 && CharCounts1.Count == CharCounts2.Count
+                if (fromStart == i + 1 && CharCounts1.Count == CharCounts2FromStart.Count
                     && IsScramble(s1.Substring(0, i + 1), s2.Substring(0, i + 1))
                     && IsScramble(s1.Substring(i + 1), s2.Substring(i + 1))) return true;
-                CharCounts2.Clear();
-                for (j = s1.Length - i - 1; j < s1.Length; j++)
+
+                for (; fromEnd >= s2.Length - i - 1; fromEnd--)
                 {
-                    if (CharCounts1.TryGetValue(s2[j], out count1))
+                    if (CharCounts1.TryGetValue(s2[fromEnd], out count1))
                     {
-                        if (CharCounts2.TryGetValue(s2[j], out int count2))
+                        if (CharCounts2FromEnd.TryGetValue(s2[fromEnd], out int count2))
                         {
                             count2++;
                         }
@@ -103,11 +113,11 @@ namespace Algorithms.LeetCode
                             count2 = 1;
                         }
                         if (count2 > count1) break;
-                        CharCounts2[s2[j]] = count2;
+                        CharCounts2FromEnd[s2[fromEnd]] = count2;
                     }
                     else break;
                 }
-                if (j == s1.Length && CharCounts1.Count == CharCounts2.Count
+                if (fromEnd == s2.Length - i - 2 && CharCounts1.Count == CharCounts2FromEnd.Count
                     && IsScramble(s1.Substring(0, i + 1), s2.Substring(s1.Length - i - 1))
                     && IsScramble(s1.Substring(i + 1), s2.Substring(0, s1.Length - i - 1))) return true;
             }
