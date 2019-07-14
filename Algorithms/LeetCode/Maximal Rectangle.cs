@@ -44,7 +44,7 @@ namespace Algorithms.LeetCode
             }
             return largestArea;
 
-            // The DP solution is hard to come up with, and harder to prove.
+            // The DP solution is hard to come up with, and harder to prove. I don't think it's worth the effort.
             // https://leetcode.com/problems/maximal-rectangle/discuss/29054/Share-my-DP-solution/28029
         }
     }
