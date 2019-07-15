@@ -26,6 +26,7 @@ namespace Algorithms.LeetCode
     {
         public IList<IList<int>> Subsets(int[] nums)
         {
+            // Iterative approach: add the current number to each subset in the last step.
             // For example: nums = [1,2,3]
             // First Step:
             // []
@@ -45,16 +46,15 @@ namespace Algorithms.LeetCode
             // [3]
             // [1,3]
             // [2,3]
-            // [1,2,3]
+            // [1,2,3] 
             var subsets = new List<IList<int>>() { new List<int>() };
-            for (int i = 0; i < nums.Length; i++)
+            foreach (int num in nums)
             {
-                var newSubsets = new List<IList<int>>();
-                foreach (var subset in subsets)
+                int length = subsets.Count;
+                for (int i = 0; i < length; i++)
                 {
-                    newSubsets.Add(new List<int>(subset) { nums[i] });
+                    subsets.Add(new List<int>(subsets[i]) { num });
                 }
-                subsets.AddRange(newSubsets);
             }
             return subsets;
         }
