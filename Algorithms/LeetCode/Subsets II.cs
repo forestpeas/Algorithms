@@ -43,16 +43,16 @@ namespace Algorithms.LeetCode
             // [1,2] -> [1,2,2]
             // But this approach only works when duplicates are successive. 
             // So we need to sort the nums first.
+            if (nums.Length < 1) return new int[][] { new int[0] };
             Array.Sort(nums);
-            var hashSet = new HashSet<int>();
-            var subsets = new List<IList<int>>() { new List<int>() };
-            int lastLength = 0;
-            foreach (int num in nums)
+            var subsets = new List<IList<int>>() { new int[0], new int[1] { nums[0] } };
+            int lastLength = 1;
+            for (int i = 1; i < nums.Length; i++)
             {
                 int length = subsets.Count;
-                for (int j = hashSet.Add(num) ? 0 : lastLength; j < length; j++)
+                for (int j = nums[i] == nums[i - 1] ? lastLength : 0; j < length; j++)
                 {
-                    subsets.Add(new List<int>(subsets[j]) { num });
+                    subsets.Add(new List<int>(subsets[j]) { nums[i] });
                 }
                 lastLength = length;
             }
