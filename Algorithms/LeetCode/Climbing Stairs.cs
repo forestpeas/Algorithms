@@ -29,8 +29,8 @@
         public int ClimbStairs(int n)
         {
             if (n < 3) return n;
-            int last = 2;
             int lastLast = 1;
+            int last = 2;
             for (int i = 3; i <= n; i++)
             {
                 int current = last + lastLast;
