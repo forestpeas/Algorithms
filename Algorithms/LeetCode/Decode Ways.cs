@@ -31,20 +31,15 @@
             // s = "101", ouput = 1 (ways: 10 and 1)
             //
             // The idea is similar to "Problem 70. Climbing Stairs".
-            int lastLast = s[0] == '0' ? 0 : 1;
-            if (s.Length == 1) return lastLast;
-            int last;
-            if (s[0] == '0' || (s[0] > '2' && s[1] == '0')) last = 0;
-            else if (s[0] < '3' && s[1] == '0') last = 1;
-            else if (s[0] == '1') last = 2;
-            else if (s[0] == '2' && s[1] < '7') last = 2;
-            else last = 1;
-
-            for (int i = 2; i < s.Length; i++)
+            int lastLast = 1;
+            int last = s[0] == '0' ? 0 : 1;
+            for (int i = 1; i < s.Length; i++)
             {
+                // See if we can "take 2 steps once".
                 int tmp = 0;
                 if (s[i - 1] == '0') tmp = 0;
                 else if ((s[i - 1] == '1') || (s[i - 1] == '2' && s[i] < '7')) tmp = lastLast;
+
                 int current = (s[i] == '0' ? 0 : last) + tmp;
                 lastLast = last;
                 last = current;
