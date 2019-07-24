@@ -16,7 +16,44 @@
      */
     public class InterleavingString
     {
-        // Recursive solution.
+        // DP solution.
+        public bool IsInterleave(string s1, string s2, string s3)
+        {
+            if (s1 == string.Empty) return s2 == s3;
+            if (s2 == string.Empty) return s1 == s3;
+            if (s1.Length + s2.Length != s3.Length) return false;
+
+            // Let mem[i,j] be whether s1[0...i-1] and s2[0...j-1] can form the interleaving string of s3[0...i+j-1].
+            // mem[0,j] or mem[i,0] means "s1 is empty" or "s2 is empty".
+            // mem[i+1,j+1] = (mem[i,j+1] && s1[i] == s3[i + j + 1]) || (mem[i+1,j] && s2[j] == s3[i + j + 1])
+            // I can think it this way: if the corresponding s3 is "short of one character from s1", i.e. s1[i]
+            // complete it by checking whether s1[i] == s3[i + j + 1]
+            // And the same goes for s2.
+            // As always, mem[i,j] can by optimized to a one-dimensional array.
+            bool[] mem = new bool[s2.Length + 1];
+            mem[0] = true;
+            for (int j = 0; j < s1.Length; j++)
+            {
+                if (mem[j] && s2[j] == s3[j])
+                {
+                    mem[j + 1] = true;
+                }
+                else break;
+            }
+
+            for (int i = 0; i < s1.Length; i++)
+            {
+                mem[0] = mem[0] && s1[i] == s3[i];
+
+                for (int j = 0; j < s2.Length; j++)
+                {
+                    mem[j + 1] = (mem[j + 1] && s1[i] == s3[i + j + 1]) || (mem[j] && s2[j] == s3[i + j + 1]);
+                }
+            }
+            return mem[s2.Length];
+        }
+
+        // Recursive solution. Also backtracking.
         public bool IsInterleaveRecursive(string s1, string s2, string s3)
         {
             if (s1.Length + s2.Length != s3.Length) return false;
