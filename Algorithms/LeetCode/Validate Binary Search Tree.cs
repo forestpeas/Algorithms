@@ -1,4 +1,5 @@
 ﻿using Algorithms.DataStructures;
+using System.Collections.Generic;
 
 namespace Algorithms.LeetCode
 {
@@ -34,6 +35,32 @@ namespace Algorithms.LeetCode
      */
     public class ValidateBinarySearchTree
     {
+        // Inorder traversal solution. Inspired by Approach 3 of https://leetcode.com/articles/validate-binary-search-tree/ 
+        public bool InorderTraversalIsValidBST(TreeNode root)
+        {
+            Stack<TreeNode> stack = new Stack<TreeNode>();
+            double inorder = double.MinValue;
+
+            // This stack approach is from https://leetcode.com/articles/binary-tree-inorder-traversal/
+            while (stack.Count != 0 || root != null)
+            {
+                while (root != null)
+                {
+                    stack.Push(root);
+                    root = root.left;
+                }
+                root = stack.Pop();
+                // If next element in inorder traversal
+                // is smaller than the previous one
+                // that's not BST.
+                if (root.val <= inorder) return false;
+                inorder = root.val;
+                root = root.right;
+            }
+            return true;
+        }
+
+        // Recursive solution.
         public bool IsValidBST(TreeNode root)
         {
             if (root != null)
