@@ -67,6 +67,7 @@ namespace Algorithms.LeetCode
             // First we find a number that is less than its previous element, i.e. 3 and 2.
             // We cannot find a second number that is less than its previous element.
             // Simply swap 3 with 2.
+            // To achieve constant space, Morris Traversal is needed, refer to Approach 3 of https://leetcode.com/articles/binary-tree-inorder-traversal/.
             Stack<TreeNode> stack = new Stack<TreeNode>();
             TreeNode node = root;
             TreeNode mistakenNode = null;
