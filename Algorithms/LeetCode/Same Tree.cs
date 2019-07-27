@@ -44,11 +44,8 @@ namespace Algorithms.LeetCode
             if (p == null && q == null) return true;
             if (p == null || q == null) return false;
             if (p.val != q.val) return false;
-            if (!IsSameTree(p.left, q.left))
-            {
-                return false;
-            }
-            return IsSameTree(p.right, q.right);
+
+            return IsSameTree(p.left, q.left) && IsSameTree(p.right, q.right);
         }
     }
 }
