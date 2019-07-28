@@ -9,12 +9,49 @@ namespace Algorithms.LeetCode
      */
     public class IntersectionOfTwoLinkedLists
     {
+        // Inspired by https://leetcode.com/problems/intersection-of-two-linked-lists/discuss/49785/Java-solution-without-knowing-the-difference-in-len!/165648.
+        public ListNode GetIntersectionNodeTwoPointers(ListNode headA, ListNode headB)
+        {
+            if (headA == null || headB == null) return null;
+
+            ListNode a = headA;
+            ListNode b = headB;
+            ListNode tailA = null;
+            ListNode tailB = null;
+            while (a != b)
+            {
+                if (a.next == null)
+                {
+                    tailA = a;
+                    if (tailB != null && tailA != tailB) return null;
+                    a = headB;
+                }
+                else
+                {
+                    a = a.next;
+                }
+                if (b.next == null)
+                {
+                    tailB = b;
+                    if (tailA != null && tailA != tailB) return null;
+                    b = headA;
+                }
+                else
+                {
+                    b = b.next;
+                }
+            }
+
+            return a;
+        }
+
         public ListNode GetIntersectionNode(ListNode headA, ListNode headB)
         {
             // First traverse the the two linked lists and count the lengths of them.
             // For example, lengthA = 5, lengthB = 6.
             // Then traverse them again, but this time headB will start from headB.next, because 6-5=1.
             // I think this solution is essentially the same to "Approach 3: Two Pointers" of https://leetcode.com/articles/intersection-of-two-linked-lists/.
+            // But this solution needs two traversals in all cases, while the two pointers solution only needs one traversal in some cases.
             if (headA == null || headB == null) return null;
             int lengthA = 1;
             var nodeA = headA;
