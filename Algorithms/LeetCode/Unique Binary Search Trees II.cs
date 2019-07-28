@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Algorithms.LeetCode
 {
-    /*95. Unique Binary Search Trees II
+    /* 95. Unique Binary Search Trees II
      * 
      * Given an integer n, generate all structurally unique BST's (binary search trees) that store values 1 ... n.
      * 
