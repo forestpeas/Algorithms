@@ -39,6 +39,18 @@
             return G[n];
         }
 
+        // Using Catalan Number Formula:
+        // C(2n,n)/(n+1)
+        public int NumTreesCatalanNumber(int n)
+        {
+            long ans = 1;
+            for (int i = n + 1; i <= 2 * n; i++)
+            {
+                ans = ans * i / (i - n);
+            }
+            return (int)(ans / (n + 1));
+        }
+
         // Solution based on the solution of "Problem 95. Unique Binary Search Trees II".
         // Time Limit Exceeded
         public int NumTreesRecursion(int n)
