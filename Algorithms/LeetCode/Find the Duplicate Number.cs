@@ -24,6 +24,31 @@
      */
     public class FindTheDuplicateNumber
     {
+        // Inspired by https://leetcode.com/articles/find-the-duplicate-number/.
+        // Similar to "Problem 142. Linked List Cycle II".
+        public int FindDuplicate_FloydsTortoiseAndHare(int[] nums)
+        {
+            // Find the intersection point of the two runners.
+            int tortoise = 0;
+            int hare = 0;
+            do
+            {
+                tortoise = nums[tortoise];
+                hare = nums[nums[hare]];
+            } while (tortoise != hare);
+
+            // Find the "entrance" to the cycle.
+            int ptr1 = nums[0];
+            int ptr2 = tortoise;
+            while (ptr1 != ptr2)
+            {
+                ptr1 = nums[ptr1];
+                ptr2 = nums[ptr2];
+            }
+
+            return ptr1;
+        }
+
         public int FindDuplicate(int[] nums)
         {
             // Similar to binary search.
