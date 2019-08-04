@@ -22,41 +22,26 @@ namespace Algorithms.LeetCode
     {
         public IList<TreeNode> GenerateTrees(int n)
         {
-            // Recursion. For example: n = 5. 
+            // Basically this is a Catalan number problem.
+            // For example: n = 5. 
             // foreach(i in n)
             // let i be the root.
             // its left node should be all possible results of GenerateTrees(0, i - 1).
             // its right node should be all possible results of GenerateTrees(i + 1, n).
+            if (n == 0) return new TreeNode[0];
             return GenerateTrees(1, n);
         }
 
         // This method returns all possible BST's that store values [start...end].
         private IList<TreeNode> GenerateTrees(int start, int end)
         {
-            if (start == end) return new TreeNode[] { new TreeNode(start) };
+            if (start > end) return new TreeNode[] { null };
+
             var results = new List<TreeNode>();
             for (int i = start; i <= end; i++)
             {
-                IList<TreeNode> leftResults;
-                if (i == start)
-                {
-                    leftResults = new TreeNode[] { null };
-                }
-                else
-                {
-                    leftResults = GenerateTrees(start, i - 1);
-                }
-
-                IList<TreeNode> rightResults;
-                if (i == end)
-                {
-                    rightResults = new TreeNode[] { null };
-                }
-                else
-                {
-                    rightResults = GenerateTrees(i + 1, end);
-                }
-
+                IList<TreeNode> leftResults = GenerateTrees(start, i - 1);
+                IList<TreeNode> rightResults = GenerateTrees(i + 1, end);
                 foreach (var leftResult in leftResults)
                 {
                     foreach (var rightResult in rightResults)

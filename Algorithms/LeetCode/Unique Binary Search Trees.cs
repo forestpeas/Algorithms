@@ -50,44 +50,5 @@
             }
             return (int)(ans / (n + 1));
         }
-
-        // Solution based on the solution of "Problem 95. Unique Binary Search Trees II".
-        // Time Limit Exceeded
-        public int NumTreesRecursion(int n)
-        {
-            return NumTrees(1, n);
-        }
-
-        private int NumTrees(int start, int end)
-        {
-            if (start == end) return 1;
-            int total = 0;
-            for (int i = start; i <= end; i++)
-            {
-                int leftTotal;
-                if (i == start)
-                {
-                    leftTotal = 1;
-                }
-                else
-                {
-                    leftTotal = NumTrees(start, i - 1);
-                }
-
-                int rightTotal;
-                if (i == end)
-                {
-                    rightTotal = 1;
-                }
-                else
-                {
-                    rightTotal = NumTrees(i + 1, end);
-                }
-
-                total += leftTotal * rightTotal;
-            }
-
-            return total;
-        }
     }
 }

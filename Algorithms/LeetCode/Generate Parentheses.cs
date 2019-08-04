@@ -56,30 +56,12 @@ namespace Algorithms.LeetCode
 
         private IList<string> GenerateParenthesis2(int start, int end)
         {
-            if (start == end) return new string[] { "()" };
+            if (start > end) return new string[] { string.Empty };
             var results = new List<string>();
             for (int i = start; i <= end; i++)
             {
-                IList<string> leftResults;
-                if (i == start)
-                {
-                    leftResults = new string[] { string.Empty };
-                }
-                else
-                {
-                    leftResults = GenerateParenthesis2(start, i - 1);
-                }
-
-                IList<string> rightResults;
-                if (i == end)
-                {
-                    rightResults = new string[] { string.Empty };
-                }
-                else
-                {
-                    rightResults = GenerateParenthesis2(i + 1, end);
-                }
-
+                IList<string> leftResults = GenerateParenthesis2(start, i - 1);
+                IList<string> rightResults = GenerateParenthesis2(i + 1, end);
                 foreach (var leftResult in leftResults)
                 {
                     foreach (var rightResult in rightResults)
