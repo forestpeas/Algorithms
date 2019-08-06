@@ -9,16 +9,16 @@ namespace Algorithms.LeetCode
      * Find two lines, which together with x-axis forms a container, such that the container contains the most water.
      * 
      * Note: You may not slant the container and n is at least 2.
+     * 
+     * For more illustration, refer to https://leetcode.com/problems/container-with-most-water/
      */
     public class ContainerWithMostWater
     {
-        // Your runtime beats 100.00 % of csharp submissions.
-        // Your memory usage beats 49.62 % of csharp submissions.
         public int MaxArea(int[] height)
         {
             // Greedy algorithm. We start from the container with the most wide width. Because the area is always
             // constricted by the shorter line, we move the shorter line inwards, looking for a probably longer line instead.
-            // In this way, we have the max area of all the lines we've currently visited.
+            // In this way, we maintain the max area of all the "line pairs" we've visited.
             int maxArea = 0, lo = 0, hi = height.Length - 1;
             while (lo < hi)
             {

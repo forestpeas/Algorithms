@@ -5,7 +5,8 @@ namespace Algorithms.LeetCode
 {
     /* 18. 4Sum
      * 
-     * Given an array nums of n integers and an integer target, are there elements a, b, c, and d in nums such that a + b + c + d = target? Find all unique quadruplets in the array which gives the sum of target.
+     * Given an array nums of n integers and an integer target, are there elements a, b, c, and d in nums such that
+     * a + b + c + d = target? Find all unique quadruplets in the array which gives the sum of target.
      * 
      * Note: The solution set must not contain duplicate quadruplets.
      * 
@@ -22,21 +23,19 @@ namespace Algorithms.LeetCode
      */
     public class FourSumSolution
     {
-        // Your runtime beats 58.84 % of csharp submissions.
-        // Your memory usage beats 86.11 % of csharp submissions.
         public IList<IList<int>> FourSum(int[] nums, int target)
         {
-            // solution below is similar to the 3Sum problem
+            // Similar to "Problem 15. 3Sum".
             var ret = new List<IList<int>>();
             if (nums == null || nums.Length < 4) return ret;
             Array.Sort(nums);
             for (int j = 0; j < nums.Length - 3; j++)
             {
                 if (j != 0 && nums[j] == nums[j - 1]) continue; // skip duplicates
-                //find "3Sum" in nums[j+1,...,nums.Length -1], target is target-nums[j]
+                // Find "3Sum" in nums[j+1,...,nums.Length -1], target is target-nums[j]
                 for (int i = j + 1; i < nums.Length - 2; i++)
                 {
-                    //find "2Sum" in nums[i+1,...,nums.Length -1], target is target-nums[j]-nums[i]
+                    // Find "2Sum" in nums[i+1,...,nums.Length -1], target is target-nums[j]-nums[i]
                     if (i == j + 1 || nums[i] != nums[i - 1])
                     {
                         for (int lo = i + 1, hi = nums.Length - 1; lo < hi;)

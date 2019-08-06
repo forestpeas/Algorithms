@@ -41,8 +41,6 @@ namespace Algorithms.LeetCode
      */
     public class ValidParentheses
     {
-        // Your runtime beats 71.72 % of csharp submissions.
-        // Your memory usage beats 74.19 % of csharp submissions.
         public bool IsValid(string s)
         {
             var mappings = new Dictionary<char, char>()
@@ -67,8 +65,7 @@ namespace Algorithms.LeetCode
                     stack.Push(c);
                 }
             }
-            if (stack.Count == 0) return true;
-            return false;
+            return stack.Count == 0;
         }
     }
 }

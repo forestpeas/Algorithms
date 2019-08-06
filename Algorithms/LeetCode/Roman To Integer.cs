@@ -55,10 +55,9 @@
      */
     public class RomanToInteger
     {
-        // Your runtime beats 99.67 % of csharp submissions.
-        // Your memory usage beats 80.87 % of csharp submissions.
         public int RomanToInt(string s)
         {
+            // From https://leetcode.com/problems/roman-to-integer/discuss/6529
             int sum = 0;
             // Minus double value because in the next iteration, one value will be added back.
             if (s.Contains("IV")) { sum -= 2; }

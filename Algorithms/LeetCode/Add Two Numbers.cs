@@ -15,10 +15,9 @@ namespace Algorithms.LeetCode
      */
     public class AddTwoNumbersSolution
     {
-        // Your runtime beats 83.34 % of csharp submissions.
-        // Your memory usage beats 87.14 % of csharp submissions.
         public ListNode AddTwoNumbers(ListNode l1, ListNode l2)
         {
+            // Just like adding 2 numbers when in elementary school.
             ListNode dummyHead = new ListNode(0);
             ListNode p = l1, q = l2, curr = dummyHead;
             int carry = 0;

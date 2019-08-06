@@ -22,8 +22,6 @@
      */
     public class ReverseIntegerSolution
     {
-        // Your runtime beats 100.00 % of csharp submissions.
-        // Your memory usage beats 81.00 % of csharp submissions.
         public int Reverse(int x)
         {
             int result = 0;

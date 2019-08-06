@@ -3,6 +3,7 @@
 namespace Algorithms.LeetCode
 {
     /* 29. Divide Two Integers
+     * 
      * Given two integers dividend and divisor, divide two integers without using multiplication, division and mod operator.
      * Return the quotient after dividing dividend by divisor.
      * The integer division should truncate toward zero.
@@ -18,7 +19,6 @@ namespace Algorithms.LeetCode
      * Output: -2
      * 
      * Note:
-     * 
      *     Both dividend and divisor will be 32-bit signed integers.
      *     The divisor will never be 0.
      *     Assume we are dealing with an environment which could only store integers within the 32-bit signed integer range: [−231,  231 − 1]. 
@@ -26,8 +26,6 @@ namespace Algorithms.LeetCode
      */
     public class DivideTwoIntegers
     {
-        // Your runtime beats 19.36 % of csharp submissions.
-        // Your memory usage beats 96.97 % of csharp submissions.
         public int Divide(int dividend, int divisor)
         {
             if (dividend == int.MinValue && divisor == -1)
@@ -39,6 +37,11 @@ namespace Algorithms.LeetCode
             long dividendL = Math.Abs((long)dividend);
             long divisorL = Math.Abs((long)divisor);
             int quotient = 0;
+            // Plus by divisor is too slow. We can multiply by divisor.
+            // Like divisor * 2, divisor * 4, divisor * 8, ...
+            // But once we get greater than dividend, we stop right before the greater result.
+            // And let dividend = divident - "the result we get".
+            // And continue like this until dividend is less than divisor.
             // For example: dividend = 16, divisor = 3
             // first iteration: dividend = 16, shiftSize = 2, quotient = 4
             // second iteration: dividend = 16 - (3 << 2) = 4, quotient = 4 + 1 = 5

@@ -23,8 +23,6 @@ namespace Algorithms.LeetCode
      */
     public class ReverseNodesInKGroup
     {
-        // Your runtime beats 100.00 % of csharp submissions.
-        // Your memory usage beats 12.50 % of csharp submissions.
         public ListNode ReverseKGroup(ListNode head, int k)
         {
             // Similar to "24. Swap Nodes in Pairs" but a bit more complex and needs more careful considerations.
@@ -70,7 +68,7 @@ namespace Algorithms.LeetCode
                 firstBeforeReversed = next;
             }
 
-            //When all groups are reversed，remember those remaining nodes at the end
+            // When all groups are reversed，remember those remaining nodes at the end.
             prevLastAfterReversed.next = next;
 
             return ret;

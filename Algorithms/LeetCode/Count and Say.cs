@@ -3,6 +3,7 @@
 namespace Algorithms.LeetCode
 {
     /* 38. Count and Say
+     * 
      * The count-and-say sequence is the sequence of integers with the first five terms as following:
      * 
      * 1.     1
@@ -21,10 +22,9 @@ namespace Algorithms.LeetCode
      */
     public class CountAndSaySolution
     {
-        // Your runtime beats 31.48 % of csharp submissions.
-        // Your memory usage beats 74.96 % of csharp submissions.
         public string CountAndSay(int n)
         {
+            // Just implement the description straightforward.
             string s = "1";
             for (int i = 2; i <= n; i++)
             {
@@ -50,8 +50,6 @@ namespace Algorithms.LeetCode
             return s;
         }
 
-        // Your runtime beats 99.87 % of csharp submissions.
-        // Your memory usage beats 97.74 % of csharp submissions.
         public string CountAndSayWithTable(int n)
         {
             // 1 ~ 30

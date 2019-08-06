@@ -3,7 +3,9 @@
 namespace Algorithms.LeetCode
 {
     /* 21. Merge Two Sorted Lists
-     * Merge two sorted linked lists and return it as a new list. The new list should be made by splicing together the nodes of the first two lists.
+     * 
+     * Merge two sorted linked lists and return it as a new list.
+     * The new list should be made by splicing together the nodes of the first two lists.
      * 
      * Example:
      * 
@@ -12,9 +14,7 @@ namespace Algorithms.LeetCode
      */
     public class MergeTwoSortedLists
     {
-        // Your runtime beats 58.41 % of csharp submissions.
-        // Your memory usage beats 55.40 % of csharp submissions
-        public ListNode MergeTwoLists(ListNode l1, ListNode l2)
+        public static ListNode MergeTwoLists(ListNode l1, ListNode l2)
         {
             ListNode p = l1;
             ListNode q = l2;

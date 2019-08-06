@@ -22,20 +22,20 @@
      */
     public class FirstMissingPositiveSolution
     {
-        // Your runtime beats 99.56 % of csharp submissions.
-        // Your memory usage beats 25.76 % of csharp submissions.
         public int FirstMissingPositive(int[] nums)
         {
             // Because the description requires us to use constant space, we have to use the input array
             // to record some progress.
-            // We put every number in its "appropriate" position, that is, put i in nums[i - 1].
+            // We put every number in its proper position, that is, put i in nums[i - 1].
             // For example, we put 4 in nums[3], 3 in nums[2].
-            // After that, the first "inappropriate" number's position is the expected result.
+            // After that, the first "improper" number's position is the expected result.
             for (int i = 0; i < nums.Length; i++)
             {
                 int num = nums[i];
                 if (num <= nums.Length && (num - 1) != i)
                 {
+                    // Put the "improper" number to its proper position.
+                    // And put the "next" to its proper position, too.
                     while (num <= nums.Length && num > 0)
                     {
                         int next = nums[num - 1];

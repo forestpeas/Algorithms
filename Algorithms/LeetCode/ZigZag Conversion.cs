@@ -31,8 +31,6 @@ namespace Algorithms.LeetCode
      */
     public class ZigZagConversion
     {
-        // Your runtime beats 100.00 % of csharp submissions.
-        // Your memory usage beats 27.38 % of csharp submissions.
         public string Convert(string s, int numRows)
         {
             if (numRows == 1) return s;
