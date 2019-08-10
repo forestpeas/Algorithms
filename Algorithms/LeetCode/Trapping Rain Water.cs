@@ -6,6 +6,7 @@ namespace Algorithms.LeetCode
      * 
      * Given n non-negative integers representing an elevation map where the width of each bar is 1, 
      * compute how much water it is able to trap after raining.
+     * For illustration, refer to https://leetcode.com/problems/trapping-rain-water/.
      * 
      * Example:
      * 
@@ -14,8 +15,6 @@ namespace Algorithms.LeetCode
      */
     public class TrappingRainWater
     {
-        // Your runtime beats 99.40 % of csharp submissions.
-        // Your memory usage beats 16.59 % of csharp submissions.
         public int Trap(int[] height)
         {
             // Use a stack to track those heights that may be "useful" in the future.
@@ -65,14 +64,12 @@ namespace Algorithms.LeetCode
             return result;
         }
 
-        // Refer to : https://leetcode.com/problems/trapping-rain-water/discuss/17357/Sharing-my-simple-c++-code:-O(n)-time-O(1)-space
+        // Inspired by : https://leetcode.com/problems/trapping-rain-water/discuss/17357/Sharing-my-simple-c++-code:-O(n)-time-O(1)-space
         public int TwoPointers(int[] height)
         {
-            /* instead of calculating area by height * width, we can think it in a cumulative way. In other words, sum water amount of each bin(width=1).
-             * Search from left to right and maintain a max height of left and right separately, which is like a one-side wall of partial container. 
-             * Fix the higher one and flow water from the lower part. For example, if current height of left is lower, we fill water in the left bin. 
-             * Until left meets right, we filled the whole container.
-             */
+            // For example, when height[left] < height[right], we can always be sure that (maxleft - height[left])
+            // can be added to the result, no matter what values the un-visited heights are. Because height[right]
+            // will always be able to hold the water of (maxleft - height[left]).
             int left = 0; int right = height.Length - 1;
             int result = 0;
             int maxleft = 0, maxright = 0;

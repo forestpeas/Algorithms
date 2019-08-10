@@ -49,8 +49,6 @@
      */
     public class RegularExpressionMatching
     {
-        // Your runtime beats 70.23 % of csharp submissions.
-        // Your memory usage beats 51.02 % of csharp submissions.
         public bool IsMatch(string s, string p)
         {
             int m = s.Length, n = p.Length;

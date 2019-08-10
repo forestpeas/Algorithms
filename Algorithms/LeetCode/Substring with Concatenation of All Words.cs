@@ -3,7 +3,9 @@
 namespace Algorithms.LeetCode
 {
     /* 30. Substring with Concatenation of All Words
-     * You are given a string, s, and a list of words, words, that are all of the same length. Find all starting indices of substring(s) in s that is a concatenation of each word in words exactly once and without any intervening characters.
+     * You are given a string, s, and a list of words, words, that are all of the same length.
+     * Find all starting indices of substring(s) in s that is a concatenation of each word in words exactly once
+     * and without any intervening characters.
      * 
      * Example 1:
      * 
@@ -23,10 +25,10 @@ namespace Algorithms.LeetCode
      */
     public class SubstringWithConcatenationOfAllWords
     {
-        // Your runtime beats 64.17 % of csharp submissions.
-        // Your memory usage beats 69.23 % of csharp submissions.
         public IList<int> FindSubstring(string s, string[] words)
         {
+            // Because words may contain duplicates, use a dictionary to count every word.
+            // The rest is brute-force.
             var result = new List<int>();
             if (words.Length < 1) return result;
 
@@ -43,7 +45,7 @@ namespace Algorithms.LeetCode
                 }
             }
 
-            int wordLength = words[0].Length;
+            int wordLength = words[0].Length; // Words are all of the same length.
             for (int i = 0; i < s.Length - wordLength * words.Length + 1; i++)
             {
                 var knownWords = new Dictionary<string, int>(0);

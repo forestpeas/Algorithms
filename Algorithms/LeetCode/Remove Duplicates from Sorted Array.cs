@@ -23,8 +23,6 @@
     */
     public class RemoveDuplicatesFromSortedArray
     {
-        // Your runtime beats 93.78 % of csharp submissions.
-        // Your memory usage beats 16.67 % of csharp submissions.
         public int RemoveDuplicates(int[] nums)
         {
             // Two Pointers - we can keep two pointers i and j, where i is the slow-runner while j is the fast-runner.

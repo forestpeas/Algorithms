@@ -52,8 +52,6 @@
      */
     public class StringToInteger
     {
-        // Your runtime beats 100.00 % of csharp submissions.
-        // Your memory usage beats 82.52 % of csharp submissions.
         public int MyAtoi(string str)
         {
             if (str == null) return 0;

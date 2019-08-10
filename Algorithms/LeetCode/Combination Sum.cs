@@ -5,13 +5,14 @@ using System.Linq;
 namespace Algorithms.LeetCode
 {
     /* 39. Combination Sum
+     * 
      * Given a set of candidate numbers (candidates) (without duplicates) and a target number (target), 
      * find all unique combinations in candidates where the candidate numbers sums to target.
      * The same repeated number may be chosen from candidates unlimited number of times.
      * 
      * Note:
-     *     All numbers (including target) will be positive integers.
-     *     The solution set must not contain duplicate combinations.
+     * All numbers (including target) will be positive integers.
+     * The solution set must not contain duplicate combinations.
      * 
      * Example 1:
      * 
@@ -34,13 +35,11 @@ namespace Algorithms.LeetCode
      */
     public class CombinationSumSolution
     {
-        // Your runtime beats 45.24 % of csharp submissions.
-        // Your memory usage beats 31.81 % of csharp submissions.
         public IList<IList<int>> CombinationSum(int[] candidates, int target)
         {
             // Backtracking
             // For example: candidates = [2,3,6,7], target = 7
-            // "stack" will go through the following procedures:
+            // "stack" will go through the following steps:
             // 2222
             // 223
             // 233

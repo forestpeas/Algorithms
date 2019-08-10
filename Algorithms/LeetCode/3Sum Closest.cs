@@ -14,18 +14,16 @@ namespace Algorithms.LeetCode
      */
     public class ThreeSumClosestSolution
     {
-        // Your runtime beats 100.00 % of csharp submissions.
-        // Your memory usage beats 54.55 % of csharp submissions.
         public int ThreeSumClosest(int[] nums, int target)
         {
             if (nums == null || nums.Length < 3) return 0;
             Array.Sort(nums);
             int difference = int.MaxValue;
             int closest = 0;
-            // similar to Problem 15 ThreeSum
+            // Similar to Problem 15 ThreeSum
             for (int i = 0; i < nums.Length - 2; i++)
             {
-                // find "2Sum" in nums[i+1,...,nums.Length -1], target is target-nums[i]
+                // Find "2Sum" in nums[i+1,...,nums.Length -1], target is target-nums[i]
                 if (i == 0 || nums[i] != nums[i - 1])
                 {
                     int target2Sum = target - nums[i];

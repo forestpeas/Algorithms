@@ -25,24 +25,22 @@ namespace Algorithms.LeetCode
      */
     public class LengthOfLongestSubstringSolution
     {
-        // Your runtime beats 74.97 % of csharp submissions.
-        // Your memory usage beats 81.50 % of csharp submissions.
-        // if map changed to int[128]:
-        // Your runtime beats 99.53 % of csharp submissions.
-        // Your memory usage beats 84.25 % of csharp submissions.
         public int LengthOfLongestSubstring(string s)
         {
             int n = s.Length, result = 0;
             // Let i and j represent the boundaries of a "Sliding Window": [i,j].
             // map contains the next index of each character in s. So if we find
             // a duplicate character, we can directly update i to the correct index.
-            // if we know that the charset is rather small, we can replace map with
+            // If we know that the charset is rather small, we can replace map with
             // an array, for example: int[128] for ASCII.
             var map = new Dictionary<char, int>();
             for (int j = 0, i = 0; j < n; j++)
             {
                 if (map.ContainsKey(s[j]))
                 {
+                    // For example: s = ..x..y..y...x
+                    // "." are all different characters.
+                    // When we find x = x, i is pointing to the first y.
                     i = Math.Max(map[s[j]], i);
                 }
                 result = Math.Max(result, j - i + 1);

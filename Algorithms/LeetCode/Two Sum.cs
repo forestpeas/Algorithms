@@ -15,10 +15,9 @@ namespace Algorithms.LeetCode
      */
     public class TwoSumSolution
     {
-        // Your runtime beats 84.08 % of csharp submissions.
-        // Your memory usage beats 39.65 % of csharp submissions.
         public int[] TwoSum(int[] nums, int target)
         {
+            // Use a hash table to store the numbers we've visited.
             var map = new Dictionary<int, int>(nums.Length * 2);
             for (int i = 0; i < nums.Length; i++)
             {

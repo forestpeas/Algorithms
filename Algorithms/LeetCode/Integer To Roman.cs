@@ -57,10 +57,9 @@ namespace Algorithms.LeetCode
      */
     public class IntegerToRoman
     {
-        // Your runtime beats 99.51 % of csharp submissions.
-        // Your memory usage beats 19.57 % of csharp submissions.
         public string Convert(int num)
         {
+            // From https://leetcode.com/problems/integer-to-roman/discuss/6274/Simple-Solution
             string[] thousands = new string[4] { "", "M", "MM", "MMM" };
             string[] hundreds = new string[10] { "", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM" };
             string[] tens = new string[10] { "", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC" };

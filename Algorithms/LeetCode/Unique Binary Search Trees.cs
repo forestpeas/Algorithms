@@ -39,43 +39,16 @@
             return G[n];
         }
 
-        // Solution based on the solution of "Problem 95. Unique Binary Search Trees II".
-        // Time Limit Exceeded
-        public int NumTreesRecursion(int n)
+        // Using Catalan Number Formula:
+        // C(2n,n)/(n+1)
+        public int NumTreesCatalanNumber(int n)
         {
-            return NumTrees(1, n);
-        }
-
-        private int NumTrees(int start, int end)
-        {
-            if (start == end) return 1;
-            int total = 0;
-            for (int i = start; i <= end; i++)
+            long ans = 1;
+            for (int i = n + 1; i <= 2 * n; i++)
             {
-                int leftTotal;
-                if (i == start)
-                {
-                    leftTotal = 1;
-                }
-                else
-                {
-                    leftTotal = NumTrees(start, i - 1);
-                }
-
-                int rightTotal;
-                if (i == end)
-                {
-                    rightTotal = 1;
-                }
-                else
-                {
-                    rightTotal = NumTrees(i + 1, end);
-                }
-
-                total += leftTotal * rightTotal;
+                ans = ans * i / (i - n);
             }
-
-            return total;
+            return (int)(ans / (n + 1));
         }
     }
 }

@@ -20,8 +20,6 @@
      */
     public class SearchInRotatedSortedArray
     {
-        // Your runtime beats 99.38 % of csharp submissions.
-        // Your memory usage beats 14.41 % of csharp submissions.
         public int Search(int[] nums, int target)
         {
             // Find the "rotated point" - the index of the smallest value in nums.
@@ -40,7 +38,7 @@
                 }
             }
 
-            // Binary search with the appropriate offset
+            // Binary search with the appropriate offset.
             int offset = lo;
             lo = 0;
             hi = nums.Length - 1;

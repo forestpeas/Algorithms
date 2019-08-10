@@ -1,7 +1,9 @@
 ﻿namespace Algorithms.LeetCode
 {
     /* 34. Find First and Last Position of Element in Sorted Array
-     * Given an array of integers nums sorted in ascending order, find the starting and ending position of a given target value.
+     * 
+     * Given an array of integers nums sorted in ascending order, find the
+     * starting and ending position of a given target value.
      * 
      * Your algorithm's runtime complexity must be in the order of O(log n).
      * 
@@ -19,13 +21,13 @@
      */
     public class FindFirstAndLastPositionOfElementInSortedArray
     {
-        // Your runtime beats 71.95 % of csharp submissions.
-        // Your memory usage beats 90.77 % of csharp submissions.
         public int[] SearchRange(int[] nums, int target)
         {
             int result = BinarySearch(nums, 0, nums.Length - 1, target);
             int start = result;
             int end = result;
+            // Maybe this is O(log n) instead of nO(log n) because in every iteration "result" is "cut in half"
+            // instead of linear decrease.
             while (result != -1)
             {
                 start = result;

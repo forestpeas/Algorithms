@@ -1,4 +1,6 @@
-﻿namespace Algorithms.LeetCode
+﻿using System.Numerics;
+
+namespace Algorithms.LeetCode
 {
     /* 62. Unique Paths
      * 
@@ -8,6 +10,8 @@
      * 
      * How many possible unique paths are there?
      * Note: m and n will be at most 100.
+     * 
+     * For illustration, refer to https://leetcode.com/problems/unique-paths/
      * 
      * Example 1:
      * 
@@ -26,6 +30,27 @@
      */
     public class UniquePathsSolution
     {
+        // The robot will move down m-1 steps, and move right n-1 steps.
+        // let m=m-1, n=n-1, and the robot will move m+n steps in total.
+        // The question becomes equal to "There are m black balls and 
+        // n white balls. Balls with the same color are of no difference.
+        // How mant possible permutations are there？"
+        // Given m+n positions, we only have to choose m positions that are
+        // for the black balls, and the left are for the white balls.
+        // So the answer is C(m+n,m).
+        public int UniquePathsCombination(int m, int n)
+        {
+            if (m == 0 || n == 0) return 0;
+            m--;
+            n--;
+            BigInteger result = 1;
+            for (int i = 1; i <= m; i++)
+            {
+                result = result * (m + n - i + 1) / i;
+            }
+            return (int)result;
+        }
+
         public int UniquePaths(int m, int n)
         {
             // DP solution. "mem[i,j]" means the answer of UniquePaths(i, j).
@@ -59,7 +84,7 @@
             return mem[m - 1, n - 1];
         }
 
-        public int UniquePathsWithRecursion(int m, int n)
+        public int UniquePathsRecursive(int m, int n)
         {
             int result = 0;
             UniquePath(1, 1);

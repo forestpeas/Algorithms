@@ -25,8 +25,6 @@ namespace Algorithms.LeetCode
      */
     public class LetterCombinationsOfAPhoneNumber
     {
-        // Your runtime beats 74.25 % of csharp submissions.
-        // Your memory usage beats 56.63 % of csharp submissions.
         public IList<string> LetterCombinations(string digits)
         {
             if (digits.Length < 1) return new List<string>();
@@ -43,23 +41,23 @@ namespace Algorithms.LeetCode
                 ['9'] = new string[4] { "w", "x", "y", "z" }
             };
 
-            string[] combinations = map[digits[0]];
-            for (int i = 1; i < digits.Length; i++)
+            var combinations = new List<string>() { string.Empty };
+            foreach (char digit in digits)
             {
-                char digit = digits[i];
-                string[] currentCombinations = combinations;
-                combinations = new string[currentCombinations.Length * map[digit].Length];
-                int j = 0;
-                foreach (string letter in map[digit])
+                var mappings = map[digit];
+                // Cartesian product. Submission performance is better if the List is replaced with an array,
+                // but we trade performance for cleaner code.
+                var newCombinations = new List<string>(combinations.Count * mappings.Length);
+                foreach (string letter in mappings)
                 {
-                    foreach (string combination in currentCombinations)
+                    foreach (string combination in combinations)
                     {
-                        combinations[j] = combination + letter;
-                        j++;
+                        newCombinations.Add(combination + letter);
                     }
                 }
+                combinations = newCombinations;
             }
-            return new List<string>(combinations);
+            return combinations;
         }
     }
 }

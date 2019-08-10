@@ -18,10 +18,9 @@ namespace Algorithms.LeetCode
      */
     public class GenerateParentheses
     {
-        // Your runtime beats 94.80 % of csharp submissions.
-        // Your memory usage beats 14.76 % of csharp submissions.
         public IList<string> GenerateParenthesis(int n)
         {
+            // Backtracking
             List<string> list = new List<string>();
             Backtrack("", 0, 0, n);
             return list;
@@ -43,6 +42,36 @@ namespace Algorithms.LeetCode
                     Backtrack(str + ")", open, close + 1, max);
                 }
             }
+        }
+
+        // This solution is very similar to "Problem 95. Unique Binary Search Trees II" both in idea and in structure
+        // because they are all Catalan number problems. They are also equal to this problem: If 1...n is the sequence
+        // of push operations on an initially empty stack. How many different sequences of pop operations are there?
+        // A push is a "(", and a pop is a ")". The root node in BST is the counterpart of the last element that popped
+        // out of the stack.
+        public IList<string> GenerateParenthesis2(int n)
+        {
+            return GenerateParenthesis2(1, n);
+        }
+
+        private IList<string> GenerateParenthesis2(int start, int end)
+        {
+            if (start > end) return new string[] { string.Empty };
+            var results = new List<string>();
+            for (int i = start; i <= end; i++)
+            {
+                IList<string> leftResults = GenerateParenthesis2(start, i - 1);
+                IList<string> rightResults = GenerateParenthesis2(i + 1, end);
+                foreach (var leftResult in leftResults)
+                {
+                    foreach (var rightResult in rightResults)
+                    {
+                        results.Add(leftResult + "(" + rightResult + ")");
+                    }
+                }
+            }
+
+            return results;
         }
     }
 }

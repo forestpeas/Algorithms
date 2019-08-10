@@ -23,8 +23,6 @@ namespace Algorithms.LeetCode
      */
     public class PalindromeNumberSolution
     {
-        // Your runtime beats 61.57 % of csharp submissions.
-        // Your memory usage beats 49.73 % of csharp submissions.
         public bool IsPalindrome(int x)
         {
             // Special cases:
@@ -54,8 +52,6 @@ namespace Algorithms.LeetCode
             return revertedNumber == originNumber;
         }
 
-        // Your runtime beats 98.85 % of csharp submissions.
-        // Your memory usage beats 67.38 % of csharp submissions.
         public bool OfficialSolution(int x)
         {
             if (x < 0 || (x % 10 == 0 && x != 0))

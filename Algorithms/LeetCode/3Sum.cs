@@ -21,8 +21,6 @@ namespace Algorithms.LeetCode
      */
     public class ThreeSumSolution
     {
-        // Your runtime beats 78.78 % of csharp submissions.
-        // Your memory usage beats 85.85 % of csharp submissions.
         public IList<IList<int>> ThreeSum(int[] nums)
         {
             var ret = new List<IList<int>>();

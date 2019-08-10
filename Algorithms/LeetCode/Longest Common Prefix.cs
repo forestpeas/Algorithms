@@ -21,12 +21,11 @@
      */
     public class LongestCommonPrefixcs
     {
-        // Your runtime beats 97.01 % of csharp submissions.
-        // Your memory usage beats 82.11 % of csharp submissions.
         public string LongestCommonPrefix(string[] strs)
         {
             // "Vertical scanning": We compare characters from top to bottom on the same column 
             // (same character index of the strings) before moving on to the next column.
+            // From "Approach 2: Vertical scanning" of https://leetcode.com/articles/longest-common-prefix/
             if (strs == null || strs.Length == 0) return "";
             for (int i = 0; i < strs[0].Length; i++)
             {

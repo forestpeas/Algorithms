@@ -15,11 +15,10 @@
      */
     public class NextPermutationSolution
     {
-        // Your runtime beats 57.61 % of csharp submissions.
-        // Your memory usage beats 62.79 % of csharp submissions.
         public void NextPermutation(int[] nums)
         {
-            /* 1234
+            /* Permutations of 1,2,3,4:
+             * 1234
              * 1243
              * 1324
              * 1342
@@ -30,7 +29,7 @@
              * 2314
              * 2341
              * 2413
-             * 2431 -> 3421 -> 3124
+             * 2431 -> 3421 -> 3124 // Take this as an example
              * 3124
              * 3142
              * 3214
@@ -43,6 +42,8 @@
              * 4231
              * 4312
              * 4321
+             * 
+             * Now the rest is to find the pattern（找规律）!
              */
             if (nums.Length < 2) return;
 

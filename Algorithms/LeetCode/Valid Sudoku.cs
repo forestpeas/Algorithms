@@ -3,6 +3,7 @@
 namespace Algorithms.LeetCode
 {
     /* 36. Valid Sudoku
+     * 
      * Determine if a 9x9 Sudoku board is valid. Only the filled cells need to be validated according to the following rules:
      * Each row must contain the digits 1-9 without repetition.
      * Each column must contain the digits 1-9 without repetition.
@@ -52,10 +53,9 @@ namespace Algorithms.LeetCode
      */
     public class ValidSudoku
     {
-        // Your runtime beats 90.94 % of csharp submissions.
-        // Your memory usage beats 67.82 % of csharp submissions.
         public bool IsValidSudoku(char[][] board)
         {
+            // Brute-force
             for (int i = 0; i < 9; i++)
             {
                 var row = new HashSet<char>();
