@@ -68,5 +68,35 @@ namespace Algorithms.LeetCode
                 if (node.right != null) TraverseCore(node.right);
             }
         }
+
+        // Morris Traversal, O(1) extra space. From "Approach 3: Morris Traversal" of https://leetcode.com/articles/binary-tree-inorder-traversal/.
+        public IList<int> InorderTraversalMorris(TreeNode root)
+        {
+            List<int> res = new List<int>();
+            TreeNode curr = root;
+            TreeNode pre;
+            while (curr != null)
+            {
+                if (curr.left == null)
+                {
+                    res.Add(curr.val);
+                    curr = curr.right; // move to next right node
+                }
+                else
+                {
+                    // has a left subtree
+                    pre = curr.left;
+                    while (pre.right != null) // find rightmost
+                    {
+                        pre = pre.right;
+                    }
+                    pre.right = curr; // put cur after the pre node
+                    TreeNode temp = curr; // store cur node
+                    curr = curr.left; // move cur to the top of the new tree
+                    temp.left = null; // original cur left be null, avoid infinite loops
+                }
+            }
+            return res;
+        }
     }
 }
