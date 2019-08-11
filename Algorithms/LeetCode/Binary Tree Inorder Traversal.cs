@@ -22,43 +22,40 @@ namespace Algorithms.LeetCode
      */
     public class BinaryTreeInorderTraversal
     {
-        // Iterative solution based on the recursive solution below.
         public IList<int> InorderTraversal(TreeNode root)
         {
             var result = new List<int>();
             if (root == null) return result;
             var stack = new Stack<TreeNode>();
-            var node = root;
             while (true)
             {
-                if (node.left != null)
+                // First we traverse the left. So save the root on a stack for
+                // future use (when we have traversed the left).
+                if (root.left != null)
                 {
-                    stack.Push(node);
-                    // set "node.left" to null so that the next time this node is visited (via a pop),
-                    // we will go to the "else branch" blow.
-                    var tmp = node.left;
-                    node.left = null;
-                    node = tmp;
+                    stack.Push(root);
+                    root = root.left;
                 }
                 else
                 {
-                    result.Add(node.val);
-                    if (node.right != null)
+                    // No more left child.
+                    result.Add(root.val);
+
+                    while (root.right == null) // And no right child, too.
                     {
-                        // No need to save "node" on stack because this node won't be needed any more.
-                        node = node.right;
+                        // The current level(also the left of the root up a level) has been traversed, 
+                        // so go up a level to a root we once saved on stack and now it's time to add
+                        // this root to result.
+                        if (!stack.TryPop(out root)) return result;
+                        result.Add(root.val);
                     }
-                    else
-                    {
-                        if (!stack.TryPop(out node)) break;
-                    }
+                    root = root.right; // Traverse the right.
                 }
             }
-            return result;
         }
 
         // Recursive solution
-        public IList<int> RecursiveInorderTraversal(TreeNode root)
+        public IList<int> InorderTraversalRecursive(TreeNode root)
         {
             var result = new List<int>();
             if (root != null) TraverseCore(root);
