@@ -26,17 +26,19 @@
             int resultStart = 0;
             int resultLength = 0;
 
-            // Because default value is false, so we let "mem[i,j] = false" means "s[i]~s[j] is a palindrome". 
-            // Thus we don't have to initialize all the mem[x,y] when x = y.
-            // However, after some time when I came back to this problem,
-            // I think the initialization is worth to make the code clearer.
+            // mem[i,j] means weather s[i]~s[j] is a palindrome. 
             bool[,] mem = new bool[s.Length, s.Length];
+
+            for (int i = 0; i < s.Length; i++)
+            {
+                mem[i, i] = true;
+            }
 
             for (int i = 1; i < s.Length; i++)
             {
                 if (s[i - 1] != s[i])
                 {
-                    mem[i - 1, i] = true;
+                    mem[i - 1, i] = false;
                 }
                 else if (resultLength < 1)
                 {
@@ -50,9 +52,9 @@
                 for (int end = length; end < s.Length; end++)
                 {
                     int start = end - length;
-                    if (s[start] != s[end] || mem[start + 1, end - 1])
+                    if (s[start] != s[end] || !mem[start + 1, end - 1])
                     {
-                        mem[start, end] = true;
+                        mem[start, end] = false;
                     }
                     else if (resultLength < length)
                     {
