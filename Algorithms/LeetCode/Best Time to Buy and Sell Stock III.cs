@@ -65,6 +65,9 @@ namespace Algorithms.LeetCode
                 // Now, we want to sell that stock we bought at a price of -1, how much will we earn?
                 // Apparently it's 5-(-1)= 6. This actually includes the profits of our first trade.
                 // lowestBuyPrice2 is the lowest buy price so far.
+                // Actually this is a special case of a more general approach of DP:
+                // dp[k, i] = max(dp[k, i-1], prices[i] - prices[j] + dp[k-1, j-1]), j=[0..i-1]
+                // For k transactions and i days.
                 lowestBuyPrice2 = Math.Min(lowestBuyPrice2, prices[i] - maxProfit1);
                 maxProfit2 = Math.Max(maxProfit2, prices[i] - lowestBuyPrice2);
             }
