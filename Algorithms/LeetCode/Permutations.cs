@@ -36,11 +36,10 @@ namespace Algorithms.LeetCode
             var results = new List<IList<int>>();
             for (int i = 0; i < nums.Length; i++)
             {
-                if (fixedIndexes.Contains(i)) continue;
-                fixedIndexes.Add(i);
+                if (!fixedIndexes.Add(i)) continue;
                 foreach (var subResult in Permute(nums))
                 {
-                    subResult.Add(nums[i]);
+                    subResult.Add(nums[i]); // Adding to tail is equivalent to adding to head.
                     results.Add(subResult);
                 }
                 fixedIndexes.Remove(i);

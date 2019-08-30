@@ -26,7 +26,7 @@
             int resultStart = 0;
             int resultLength = 0;
 
-            // mem[i,j] means weather s[i]~s[j] is a palindrome. 
+            // mem[i,j] means whether s[i]~s[j] is a palindrome. 
             bool[,] mem = new bool[s.Length, s.Length];
 
             for (int i = 0; i < s.Length; i++)
@@ -40,10 +40,14 @@
                 {
                     mem[i - 1, i] = false;
                 }
-                else if (resultLength < 1)
+                else
                 {
-                    resultLength = 1;
-                    resultStart = i - 1;
+                    mem[i - 1, i] = true;
+                    if (resultLength < 1)
+                    {
+                        resultLength = 1;
+                        resultStart = i - 1;
+                    }
                 }
             }
 
@@ -56,10 +60,14 @@
                     {
                         mem[start, end] = false;
                     }
-                    else if (resultLength < length)
+                    else
                     {
-                        resultLength = length;
-                        resultStart = start;
+                        mem[start, end] = true;
+                        if (resultLength < length)
+                        {
+                            resultLength = length;
+                            resultStart = start;
+                        }
                     }
                 }
             }
