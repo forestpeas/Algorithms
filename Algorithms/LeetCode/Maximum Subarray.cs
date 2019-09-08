@@ -1,8 +1,11 @@
-﻿namespace Algorithms.LeetCode
+﻿using System;
+
+namespace Algorithms.LeetCode
 {
     /* 53. Maximum Subarray
      * 
-     * Given an integer array nums, find the contiguous subarray (containing at least one number) which has the largest sum and return its sum.
+     * Given an integer array nums, find the contiguous subarray (containing at least one number)
+     * which has the largest sum and return its sum.
      * 
      * Example:
      * 
@@ -14,23 +17,18 @@
     {
         public int MaxSubArray(int[] nums)
         {
-            int max = nums[0]; // In case all numbers are negative.
-            int sum = 0;
-
-            for (int i = 0; i < nums.Length; i++)
+            // Dynamic programming.
+            // dp(i) = max(nums[i], nums[i] + dp(i - 1))
+            // dp(i) means the result when the right boundary of the subarray is fixed at index i.
+            // (But the left boundary can move within [0...i])
+            if (nums.Length == 0) return 0;
+            int max = nums[0];
+            int sum = nums[0];
+            for (int i = 1; i < nums.Length; i++)
             {
-                if (sum < 0)
-                {
-                    sum = nums[i]; // Reset sum.
-                }
-                else
-                {
-                    sum += nums[i];
-                }
-
-                if (sum > max) max = sum;
+                sum = Math.Max(nums[i], nums[i] + sum);
+                max = Math.Max(max, sum);
             }
-
             return max;
         }
     }
