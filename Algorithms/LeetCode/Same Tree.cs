@@ -39,7 +39,7 @@ namespace Algorithms.LeetCode
      */
     public class SameTree
     {
-        public bool IsSameTree(TreeNode p, TreeNode q)
+        public static bool IsSameTree(TreeNode p, TreeNode q)
         {
             if (p == null && q == null) return true;
             if (p == null || q == null) return false;
