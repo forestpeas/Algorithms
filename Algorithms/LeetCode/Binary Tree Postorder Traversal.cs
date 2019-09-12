@@ -25,44 +25,30 @@ namespace Algorithms.LeetCode
         public IList<int> PostorderTraversal(TreeNode root)
         {
             var result = new List<int>();
-            if (root == null) return result;
             var stack = new Stack<TreeNode>();
-            TreeNode node = root;
             while (true)
             {
-                // We must first visit right and left, so save node on stack.
-                if (node.left != null)
+                while (root != null)
                 {
-                    stack.Push(node);
-                    node = node.left;
+                    // Push twice so that the first time it is popped, we know its left has been traversed,
+                    // and the second time it is popped, we know its right has been traversed.
+                    stack.Push(root);
+                    stack.Push(root);
+                    root = root.left;
                 }
-                else if (node.right != null)
+                // Can't go any deeper, so go up a level to a root we once saved.
+                if (!stack.TryPop(out root)) return result;
+                if (stack.TryPeek(out var parent) && parent == root)
                 {
-                    stack.Push(node);
-                    node = node.right;
+                    // This is the case where root's left has been traversed, but right has not.
+                    // So traverse right.
+                    root = root.right;
                 }
                 else
                 {
-                    while (true)
-                    {
-                        // Three cases where node.val needs to be added to result: 
-                        // 1.node is a leaf; 
-                        // 2.node is popped out of the stack when its left has been traversed and node.right is null;
-                        // 3.node is popped out of the stack when its right has been traversed. 
-                        result.Add(node.val);
-                        if (!stack.TryPeek(out var parent)) return result;
-                        if (parent.left == node) // This is the case where parent's left has been traversed.
-                        {
-                            node = parent;
-                            if (node.right != null) break; // Traverse right.
-                            stack.Pop(); // right is null.
-                        }
-                        else // parent.right == root. This is the case where parent's right has been traversed.
-                        {
-                            node = stack.Pop(); // == parent
-                        }
-                    }
-                    node = node.right; // Traverse right.
+                    // This is the case where root's left and right has both been traversed.
+                    result.Add(root.val);
+                    root = null; // We are done with root, don't push it any more.
                 }
             }
         }

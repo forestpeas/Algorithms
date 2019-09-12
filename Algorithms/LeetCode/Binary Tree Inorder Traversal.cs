@@ -25,32 +25,21 @@ namespace Algorithms.LeetCode
         public IList<int> InorderTraversal(TreeNode root)
         {
             var result = new List<int>();
-            if (root == null) return result;
             var stack = new Stack<TreeNode>();
             while (true)
             {
                 // First we traverse the left. So save the root on a stack for
-                // future use (when we have traversed the left).
-                if (root.left != null)
+                // future visit (when we have traversed the left).
+                while (root != null)
                 {
                     stack.Push(root);
                     root = root.left;
                 }
-                else
-                {
-                    // No more left child.
-                    result.Add(root.val);
-
-                    while (root.right == null) // And no right child, too.
-                    {
-                        // The current level(also the left of the root up a level) has been traversed, 
-                        // so go up a level to a root we once saved on stack and now it's time to add
-                        // this root to result.
-                        if (!stack.TryPop(out root)) return result;
-                        result.Add(root.val);
-                    }
-                    root = root.right; // Traverse the right.
-                }
+                // No more left child. So go up a level to a root we once saved and
+                // now it's time to add this root to result.
+                if (!stack.TryPop(out root)) return result;
+                result.Add(root.val);
+                root = root.right; // Traverse the right.
             }
         }
 

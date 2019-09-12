@@ -26,24 +26,19 @@ namespace Algorithms.LeetCode
         {
             // Similar to "Problem 94. Binary Tree Inorder Traversal".
             var result = new List<int>();
-            if (root == null) return result;
             var stack = new Stack<TreeNode>();
             while (true)
             {
-                result.Add(root.val); // Visit root first.
-                if (root.left != null)
+                if (root != null)
                 {
-                    stack.Push(root); // Save root so that we can visit its right in the future.
+                    result.Add(root.val); // Visit root first.
+                    stack.Push(root.right); // Save right for future visit.
                     root = root.left; // Visit left.
                 }
                 else
                 {
-                    while (root.right == null)
-                    {
-                        // If there is no more right child, go up a level to a root we once saved.
-                        if (!stack.TryPop(out root)) return result;
-                    }
-                    root = root.right; // Visit right.
+                    // If we can't go any deeper, go up a level to a root we once saved.
+                    if (!stack.TryPop(out root)) return result;
                 }
             }
         }
