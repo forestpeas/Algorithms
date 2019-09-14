@@ -1,0 +1,66 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace Algorithms.LeetCode
+{
+    /* 300. Longest Increasing Subsequence
+     * 
+     * Given an unsorted array of integers, find the length of longest increasing subsequence.
+     * 
+     * Example:
+     * 
+     * Input: [10,9,2,5,3,7,101,18]
+     * Output: 4 
+     * Explanation: The longest increasing subsequence is [2,3,7,101], therefore the length is 4. 
+     * 
+     * Note:
+     * There may be more than one LIS combination, it is only necessary for you to return the length.
+     * Your algorithm should run in O(n^2) complexity.
+     * 
+     * Follow up: Could you improve it to O(n log n) time complexity?
+     */
+    public class LongestIncreasingSubsequence
+    {
+        public int LengthOfLIS(int[] nums)
+        {
+            // Patience sorting : https://www.cs.princeton.edu/courses/archive/spring13/cos423/lectures/LongestIncreasingSubsequence.pdf
+            var piles = new List<int>(nums.Length);
+            foreach (int num in nums)
+            {
+                int pile = piles.BinarySearch(num); // pile = (-(insertion point) - 1), insertion point = ~pile
+                if (pile < 0) pile = ~pile;
+                if (pile == piles.Count)
+                {
+                    piles.Add(num);
+                }
+                else
+                {
+                    piles[pile] = num;
+                }
+            }
+            return piles.Count;
+        }
+
+        public int LengthOfLIS_DP(int[] nums)
+        {
+            // O(n^2). dp[i] is the length of the LIS of [nums[0]...nums[i]], with the restriction of nums[i] being
+            // the tail of the LIS.
+            if (nums.Length == 0) return 0;
+            int[] dp = new int[nums.Length];
+            for (int i = 0; i < dp.Length; i++)
+            {
+                int maxLength = 1;
+                for (int j = 0; j < i; j++)
+                {
+                    if (nums[i] > nums[j])
+                    {
+                        maxLength = Math.Max(maxLength, dp[j] + 1);
+                    }
+                }
+                dp[i] = maxLength;
+            }
+            return dp.Max();
+        }
+    }
+}
