@@ -4,7 +4,7 @@ namespace Algorithms.Sorting
 {
     public class ShellSort
     {
-        // Time complexity : less than O(n^2).
+        // Time complexity : less than O(N^2).
         // Space complexity : O(1).
         // Not stable.
         // In place.

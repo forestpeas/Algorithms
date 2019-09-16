@@ -19,6 +19,7 @@ namespace Algorithms.Tests
             TestSort(BubbleSort.Sort, array);
             TestSort(InsertionSort.Sort, array);
             TestSort(ShellSort.Sort, array);
+            TestSort(MergeSort.Sort, array);
         }
 
         private void TestSort(Action<int[]> sort, int[] array)

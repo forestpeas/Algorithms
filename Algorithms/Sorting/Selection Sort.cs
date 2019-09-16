@@ -4,7 +4,7 @@ namespace Algorithms.Sorting
 {
     public class SelectionSort
     {
-        // Time complexity : O(n^2).
+        // Time complexity : O(N^2).
         // Space complexity : O(1).
         // Not stable.
         // In place.
