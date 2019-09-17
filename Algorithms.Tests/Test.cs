@@ -8,9 +8,10 @@ namespace Algorithms.Tests
     public class Test
     {
         [Theory]
-        [InlineData(new int[0])]
+        [InlineData(new int[] { })]
         [InlineData(new int[] { 1 })]
         [InlineData(new int[] { 1, 2 })]
+        [InlineData(new int[] { 1, 2, 2, 3, 3, 3, 4, 4, 4, 4 })]
         [InlineData(new int[] { 46, 15, 37, 11, 66, 67, 70, 96, 49, 64 })]
         [InlineData(new int[] { 25, 96, 76, 27, 65, 86, 83, 13, 61, 31, 29, 87, 37, 8, 58, 20, 77, 54, 58, 9 })]
         public void TestSortingAlgorithms(int[] array)
@@ -20,6 +21,8 @@ namespace Algorithms.Tests
             TestSort(InsertionSort.Sort, array);
             TestSort(ShellSort.Sort, array);
             TestSort(MergeSort.Sort, array);
+            TestSort(QuickSort.Sort, array);
+            TestSort(QuickSort.SortIterative, array);
         }
 
         private void TestSort(Action<int[]> sort, int[] array)
