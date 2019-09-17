@@ -23,6 +23,7 @@ namespace Algorithms.Tests
             TestSort(MergeSort.Sort, array);
             TestSort(QuickSort.Sort, array);
             TestSort(QuickSort.SortIterative, array);
+            TestSort(HeapSort.Sort, array);
         }
 
         private void TestSort(Action<int[]> sort, int[] array)
