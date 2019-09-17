@@ -5,7 +5,7 @@ using Xunit;
 
 namespace Algorithms.Tests
 {
-    public class Test
+    public class SortingTests
     {
         [Theory]
         [InlineData(new int[] { })]
