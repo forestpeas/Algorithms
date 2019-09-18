@@ -7,6 +7,9 @@ namespace Algorithms.DataStructures
         private readonly List<T> _heap = new List<T>() { default }; // _heap[0] is not used.
         private readonly IComparer<T> _comparer;
 
+        /// <summary>
+        /// Default is max priority queue.
+        /// </summary>
         public PriorityQueue()
         {
             _comparer = Comparer<T>.Default;
@@ -17,7 +20,9 @@ namespace Algorithms.DataStructures
             _comparer = comparer;
         }
 
-        public bool IsEmpty => _heap.Count == 1; // _heap[0] is not used.
+        public bool IsEmpty => _heap.Count == 1;
+
+        public int Count => _heap.Count - 1;
 
         public void Add(T item)
         {
@@ -25,13 +30,22 @@ namespace Algorithms.DataStructures
             Swim(_heap.Count - 1);
         }
 
-        public T DeleteMax()
+        /// <summary>
+        /// Delete max when this is a max priority queue, or
+        /// delete min when this is a min priority queue.
+        /// </summary>
+        public T DeleteTop()
         {
             T max = _heap[1];
             Swap(1, _heap.Count - 1);
             _heap.RemoveAt(_heap.Count - 1);
             Sink(1);
             return max;
+        }
+
+        public T PeekTop()
+        {
+            return _heap[1];
         }
 
         private void Swim(int k)

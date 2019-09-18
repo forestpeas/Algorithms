@@ -59,7 +59,7 @@ namespace Algorithms.LeetCode
             }
             if (pq.IsEmpty) return null;
 
-            ListNode mergedList = pq.DeleteMax();
+            ListNode mergedList = pq.DeleteTop();
             ListNode currentNode = mergedList;
             while (!pq.IsEmpty)
             {
@@ -67,7 +67,7 @@ namespace Algorithms.LeetCode
                 {
                     pq.Add(currentNode.next);
                 }
-                currentNode.next = pq.DeleteMax();
+                currentNode.next = pq.DeleteTop();
                 currentNode = currentNode.next;
             }
 
