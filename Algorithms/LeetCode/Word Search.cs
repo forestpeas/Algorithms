@@ -44,7 +44,9 @@ namespace Algorithms.LeetCode
             bool Exist(int i, int j, int k)
             {
                 if (i < 0 || j < 0 || i == m || j == n || board[i][j] != word[k]) return false;
-                if (!path.Add(i * n + j)) return false; // Add a unique number of the combination of "i" and "j".
+                // Add a unique number of the combination of "i" and "j".
+                // Another way that avoids HashSet: char c = board[i][j];board[i][j] = '#';...;board[i][j] = c;
+                if (!path.Add(i * n + j)) return false;
                 if (k + 1 == word.Length) return true;
                 if (Exist(i + 1, j, k + 1)) return true;
                 if (Exist(i, j + 1, k + 1)) return true;
