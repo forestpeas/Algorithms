@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 
 namespace Algorithms.LeetCode
 {
@@ -19,33 +18,35 @@ namespace Algorithms.LeetCode
      */
     public class PalindromePartitioning
     {
-        private readonly Dictionary<string, List<IList<string>>> _mem = new Dictionary<string, List<IList<string>>>();
-
         public IList<IList<string>> Partition(string s)
         {
             // Recursive solution with memoization.
-            if (_mem.TryGetValue(s, out var value)) return value;
+            return Partition(s, new Dictionary<string, List<IList<string>>>());
+        }
 
+        private IList<IList<string>> Partition(string s, Dictionary<string, List<IList<string>>> mem)
+        {
+            if (mem.TryGetValue(s, out var value)) return value;
             var result = new List<IList<string>>();
-            for (int i = s.Length - 1; i >= 0; i--)
+            if (IsPalindrome(s, 0, s.Length - 1)) result.Add(new List<string>() { s });
+
+            for (int i = 0; i < s.Length - 1; i++)
             {
-                if (IsPalindrome(s, i, s.Length - 1))
+                if (IsPalindrome(s, 0, i))
                 {
-                    if (i == 0)
+                    foreach (var item in Partition(s.Substring(i + 1), mem))
                     {
-                        result.Add(new List<string>() { s });
-                        break;
-                    }
-                    foreach (var item in Partition(s.Substring(0, i)))
-                    {
-                        var copy = item.ToList();
-                        copy.Add(s.Substring(i));
+                        // Copy the list because the list was added in the dictionary, we don't
+                        // want to mutate it because it might be used again.
+                        // Also note that the order of substrings in the list matters.
+                        var copy = new List<string>();
+                        copy.Add(s.Substring(0, i + 1));
+                        copy.AddRange(item);
                         result.Add(copy);
                     }
                 }
             }
-
-            _mem.Add(s, result);
+            mem.Add(s, result);
             return result;
         }
 
@@ -55,7 +56,6 @@ namespace Algorithms.LeetCode
             {
                 if (s[start++] != s[end--]) return false;
             }
-
             return true;
         }
     }
