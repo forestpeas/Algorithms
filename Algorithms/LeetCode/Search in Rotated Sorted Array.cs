@@ -27,29 +27,29 @@
             int hi = nums.Length - 1;
             while (lo < hi)
             {
-                int mid = (lo + hi) / 2;
+                int mid = lo + (hi - lo) / 2;
                 if (nums[mid] < nums[hi])
                 {
-                    hi = mid;
+                    hi = mid; // The right part is in order.
                 }
                 else
                 {
-                    lo = mid + 1;
+                    lo = mid + 1; // The left part is in order.
                 }
             }
-
+            // Now lo is the "rotated point".
             // Binary search with the appropriate offset.
             int offset = lo;
             lo = 0;
-            hi = nums.Length - 1;
-            while (lo <= hi)
+            hi = nums.Length;
+            while (lo < hi)
             {
-                int mid = (lo + hi) / 2;
+                int mid = lo + (hi - lo) / 2;
                 int mappedMid = (mid + offset) % nums.Length;
                 int midValue = nums[mappedMid];
                 if (midValue > target)
                 {
-                    hi = mid - 1;
+                    hi = mid;
                 }
                 else if (midValue < target)
                 {
