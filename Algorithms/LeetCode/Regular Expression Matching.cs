@@ -51,30 +51,26 @@
     {
         public bool IsMatch(string s, string p)
         {
-            int m = s.Length, n = p.Length;
             // Dynamic programming.
             // If s[0,..,i-1] matches p[0,...,j-1], then f[i,j] is true.
             // f[0,j] means the string is empty. f[i,0] means the pattern is empty.
-            // We can get f[i,j] from f[i-1,j-1] and f[i,j-2], refer to the details below.
-            bool[,] f = new bool[m + 1, n + 1];
+            bool[,] f = new bool[s.Length + 1, p.Length + 1];
 
             f[0, 0] = true;
-            // First we settle f[1~m, 0].
-            for (int i = 1; i <= m; i++)
+            for (int i = 1; i <= s.Length; i++)
             {
                 f[i, 0] = false;
             }
-            // Then we settle f[0, 1~n].
-            // p[0,..., j - 3, j - 2, j - 1] matches empty string if p[j - 1] is '*' and p[0,...,j - 3] matches empty
-            if (n > 0) f[0, 1] = false;
-            for (int j = 2; j <= n; j++)
+
+            if (p.Length > 0) f[0, 1] = false;
+            for (int j = 2; j <= p.Length; j++)
             {
-                f[0, j] = '*' == p[j - 1] && f[0, j - 2];
+                f[0, j] = p[j - 1] == '*' && f[0, j - 2]; // p[j - 1] is '*' and p[0,...,j - 3] matches empty
             }
 
-            for (int i = 1; i <= m; i++)
+            for (int i = 1; i <= s.Length; i++)
             {
-                for (int j = 1; j <= n; j++)
+                for (int j = 1; j <= p.Length; j++)
                 {
                     if (p[j - 1] != '*')
                     {
@@ -89,7 +85,7 @@
                 }
             }
 
-            return f[m, n];
+            return f[s.Length, p.Length];
         }
     }
 }

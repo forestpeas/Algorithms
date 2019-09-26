@@ -2,10 +2,10 @@
 {
     public class LSD
     {
-        // leastsignificant-digit first (LSD) string sort based on key-indexed counting.
+        // Least-significant-digit first (LSD) string sort based on key-indexed counting.
         public static void Sort(string[] array, int stringLength)
         {
-            int R = 256; // Assume only ASCII characters.
+            int R = 256; // R-character alphabet.
             string[] aux = new string[array.Length];
 
             for (int d = stringLength - 1; d >= 0; d--)
