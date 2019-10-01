@@ -37,7 +37,6 @@
 
         private Node Insert(Node node, string word, int i)
         {
-            // i points to the next character in word.
             if (node == null) node = new Node();
             if (i == word.Length)
             {
@@ -58,7 +57,6 @@
 
         private Node Search(Node node, string word, int i)
         {
-            // i points to the next character in word.
             if (node == null) return null;
             if (i == word.Length) return node;
             return Search(node.Next[word[i] - 'a'], word, i + 1);

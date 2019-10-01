@@ -5,6 +5,7 @@
         /* There are several typical templates for binary search.
          * We need to consider some corner cases: 
          * When array has only one element, make sure we can enter the loop.
+         * When lo + 1 = hi - 1, mid = lo + 1 = hi - 1.
          * When lo + 1 = hi, mid = lo.
          */
 
@@ -13,7 +14,7 @@
             // Search range is [lo, hi].
             int lo = 0;
             int hi = array.Length - 1;
-            while (lo <= hi)
+            while (lo <= hi) // Loop ends when lo - 1 == hi.
             {
                 int mid = lo + (hi - lo) / 2;
                 if (array[mid] > target)
@@ -38,7 +39,7 @@
             // Search range is [lo, hi).
             int lo = 0;
             int hi = array.Length;
-            while (lo < hi)
+            while (lo < hi) // Loop ends when lo == hi.
             {
                 int mid = lo + (hi - lo) / 2;
                 if (array[mid] > target)
