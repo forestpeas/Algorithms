@@ -23,47 +23,41 @@
     {
         public int[] SearchRange(int[] nums, int target)
         {
-            int result = BinarySearch(nums, 0, nums.Length - 1, target);
-            int start = result;
-            int end = result;
-            // Maybe this is O(log n) instead of nO(log n) because in every iteration "result" is "cut in half"
-            // instead of linear decrease.
-            while (result != -1)
+            int lo = 0;
+            int hi = nums.Length;
+            while (lo < hi)
             {
-                start = result;
-                result = BinarySearch(nums, 0, result - 1, target);
-            }
-
-            result = end;
-            while (result != -1)
-            {
-                end = result;
-                result = BinarySearch(nums, result + 1, nums.Length - 1, target);
-            }
-
-            return new int[] { start, end };
-        }
-
-        private int BinarySearch(int[] nums, int lo, int hi, int target)
-        {
-            while (lo <= hi)
-            {
-                int mid = (lo + hi) / 2;
-                int midValue = nums[mid];
-                if (midValue > target)
+                int mid = lo + (hi - lo) / 2;
+                if (nums[mid] >= target)
                 {
-                    hi = mid - 1;
-                }
-                else if (midValue < target)
-                {
-                    lo = mid + 1;
+                    hi = mid; // When nums[mid] == target.
                 }
                 else
                 {
-                    return mid;
+                    lo = mid + 1;
                 }
             }
-            return -1;
+
+            if (lo == nums.Length || nums[lo] != target) return new int[] { -1, -1 };
+            int start = lo;
+
+            lo = 0;
+            hi = nums.Length;
+            while (lo < hi)
+            {
+                int mid = lo + (hi - lo) / 2;
+                if (nums[mid] > target)
+                {
+                    hi = mid;
+                }
+                else
+                {
+                    lo = mid + 1; // When nums[mid] == target.
+                }
+            }
+
+            int end = lo - 1;
+            return new int[] { start, end };
         }
     }
 }

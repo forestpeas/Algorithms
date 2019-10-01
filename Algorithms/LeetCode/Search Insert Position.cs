@@ -31,15 +31,37 @@
     {
         public int SearchInsert(int[] nums, int target)
         {
-            // Just like binary search.
             int lo = 0;
             int hi = nums.Length - 1;
             while (lo <= hi)
             {
-                int mid = (lo + hi) / 2;
+                int mid = lo + (hi - lo) / 2;
                 if (nums[mid] > target)
                 {
                     hi = mid - 1;
+                }
+                else if (nums[mid] < target)
+                {
+                    lo = mid + 1;
+                }
+                else
+                {
+                    return mid;
+                }
+            }
+
+            return lo;
+        }
+        public int SearchInsert2(int[] nums, int target)
+        {
+            int lo = 0;
+            int hi = nums.Length;
+            while (lo < hi)
+            {
+                int mid = lo + (hi - lo) / 2;
+                if (nums[mid] > target)
+                {
+                    hi = mid;
                 }
                 else if (nums[mid] < target)
                 {
