@@ -1,4 +1,5 @@
 ﻿using Algorithms.DataStructures;
+using System.Collections.Generic;
 
 namespace Algorithms.LeetCode
 {
@@ -50,83 +51,27 @@ namespace Algorithms.LeetCode
             // The priority queue (implemented with heaps) costs O(k) space.
             // So Space complexity is O(k).
             if (lists == null || lists.Length == 0) return null;
-            var pq = new MinPriorityQueue(lists.Length);
+            // A "min priority queue".
+            var pq = new PriorityQueue<ListNode>(Comparer<ListNode>.Create((x, y) => y.val.CompareTo(x.val)));
             foreach (ListNode list in lists)
             {
-                if (list != null) pq.Insert(list);
+                if (list != null) pq.Add(list);
             }
             if (pq.IsEmpty) return null;
 
-            ListNode mergedList = pq.DelMin();
+            ListNode mergedList = pq.DeleteTop();
             ListNode currentNode = mergedList;
             while (!pq.IsEmpty)
             {
                 if (currentNode.next != null)
                 {
-                    pq.Insert(currentNode.next);
+                    pq.Add(currentNode.next);
                 }
-                currentNode.next = pq.DelMin();
+                currentNode.next = pq.DeleteTop();
                 currentNode = currentNode.next;
             }
 
             return mergedList;
-        }
-
-        private class MinPriorityQueue
-        {
-            // heap-ordered complete binary tree in _pq[1..N] with pq[0] unused
-            private readonly ListNode[] _pq;
-            private int N;
-
-            public MinPriorityQueue(int capacity)
-            {
-                _pq = new ListNode[capacity + 1];
-            }
-
-            public bool IsEmpty => N == 0;
-
-            private void Exch(int a, int b)
-            {
-                var tmp = _pq[a];
-                _pq[a] = _pq[b];
-                _pq[b] = tmp;
-            }
-
-            private void Swim(int k)
-            {
-                while (k > 1 && _pq[k / 2].val.CompareTo(_pq[k].val) > 0)
-                {
-                    Exch(k / 2, k);
-                    k = k / 2;
-                }
-            }
-
-            private void Sink(int k)
-            {
-                while (2 * k <= N)
-                {
-                    int j = 2 * k;
-                    if (j < N && _pq[j].val.CompareTo(_pq[j + 1].val) > 0) j++;
-                    if (_pq[k].val.CompareTo(_pq[j].val) < 0) break;
-                    Exch(k, j);
-                    k = j;
-                }
-            }
-
-            public void Insert(ListNode v)
-            {
-                _pq[++N] = v;
-                Swim(N);
-            }
-
-            public ListNode DelMin()
-            {
-                ListNode min = _pq[1]; // Retrieve min key from top.
-                Exch(1, N--); // Exchange with last item.
-                _pq[N + 1] = null; // Avoid loitering.
-                Sink(1); // Restore heap property.
-                return min;
-            }
         }
     }
 }

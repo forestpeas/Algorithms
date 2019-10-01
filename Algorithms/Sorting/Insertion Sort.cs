@@ -1,16 +1,19 @@
-﻿using System;
-using static Algorithms.Sorting.Utils;
+﻿using static Algorithms.Sorting.Utils;
 
 
 namespace Algorithms.Sorting
 {
     public class InsertionSort
     {
-        public static void Sort<T>(T[] array) where T : IComparable
+        // Time complexity : O(N^2).
+        // Space complexity : O(1).
+        // Stable.
+        // In place.
+        public static void Sort(int[] array)
         {
             for (int i = 1; i < array.Length; i++)
             {
-                for (int j = i; j > 0 && array[j].LessThan(array[j - 1]); j--)
+                for (int j = i; j > 0 && array[j] < array[j - 1]; j--)
                 {
                     Swap(array, j, j - 1);
                 }

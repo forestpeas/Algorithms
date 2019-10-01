@@ -28,20 +28,20 @@ namespace Algorithms.LeetCode
         public int LengthOfLongestSubstring(string s)
         {
             int n = s.Length, result = 0;
-            // Let i and j represent the boundaries of a "Sliding Window": [i,j].
-            // map contains the next index of each character in s. So if we find
-            // a duplicate character, we can directly update i to the correct index.
-            // If we know that the charset is rather small, we can replace map with
-            // an array, for example: int[128] for ASCII.
+            // Let i and j represent the boundaries of a sliding window [i,j] that only contains unique characters.
+            // map contains the next index of each character in s. So if we find a duplicate character,
+            // we can directly update i to the correct index(shrink the window). If we know that the charset
+            // is rather small, we can replace map with an array, for example: int[128] for ASCII.
             var map = new Dictionary<char, int>();
             for (int j = 0, i = 0; j < n; j++)
             {
-                if (map.ContainsKey(s[j]))
+                if (map.TryGetValue(s[j], out int next))
                 {
                     // For example: s = ..x..y..y...x
                     // "." are all different characters.
-                    // When we find x = x, i is pointing to the first y.
-                    i = Math.Max(map[s[j]], i);
+                    // When we find y = y, i is updated to "index of the first y" + 1.
+                    // When we find x = x, i is pointing "index of the first y" + 1 and stays the same.
+                    i = Math.Max(i, next);
                 }
                 result = Math.Max(result, j - i + 1);
                 map[s[j]] = j + 1;

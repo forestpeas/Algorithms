@@ -59,6 +59,7 @@ namespace Algorithms.LeetCode
                 }
             }
 
+            // Start from borders.
             for (int i = 0; i < m; i++)
             {
                 if (board[i][0] == 'O')
@@ -85,6 +86,7 @@ namespace Algorithms.LeetCode
                 }
             }
 
+            // Flip or recover 'O'.
             for (int i = 0; i < m; i++)
             {
                 for (int j = 0; j < n; j++)

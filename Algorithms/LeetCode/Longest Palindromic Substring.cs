@@ -21,58 +21,28 @@
         public string LongestPalindrome(string s)
         {
             // DP solution.
-            if (s == string.Empty) return string.Empty;
-
             int resultStart = 0;
             int resultLength = 0;
-
-            // mem[i,j] means whether s[i]~s[j] is a palindrome. 
-            bool[,] mem = new bool[s.Length, s.Length];
+            // dp[i,j] means whether s[i]~s[j] is a palindrome. 
+            bool[,] dp = new bool[s.Length, s.Length];
 
             for (int i = 0; i < s.Length; i++)
             {
-                mem[i, i] = true;
-            }
-
-            for (int i = 1; i < s.Length; i++)
-            {
-                if (s[i - 1] != s[i])
+                for (int j = 0; j <= i; j++)
                 {
-                    mem[i - 1, i] = false;
-                }
-                else
-                {
-                    mem[i - 1, i] = true;
-                    if (resultLength < 1)
+                    if (s[j] == s[i] && (j + 1 >= i - 1 || dp[j + 1, i - 1]))
                     {
-                        resultLength = 1;
-                        resultStart = i - 1;
-                    }
-                }
-            }
-
-            for (int length = 2; length < s.Length; length++)
-            {
-                for (int end = length; end < s.Length; end++)
-                {
-                    int start = end - length;
-                    if (s[start] != s[end] || !mem[start + 1, end - 1])
-                    {
-                        mem[start, end] = false;
-                    }
-                    else
-                    {
-                        mem[start, end] = true;
-                        if (resultLength < length)
+                        dp[j, i] = true;
+                        if (i - j + 1 > resultLength)
                         {
-                            resultLength = length;
-                            resultStart = start;
+                            resultLength = i - j + 1;
+                            resultStart = j;
                         }
                     }
                 }
             }
 
-            return s.Substring(resultStart, resultLength + 1);
+            return s.Substring(resultStart, resultLength);
         }
     }
 }

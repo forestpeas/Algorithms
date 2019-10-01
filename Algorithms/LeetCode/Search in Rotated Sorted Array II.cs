@@ -26,18 +26,30 @@
         {
             // Almost the same as "Problem 33. Search in Rotated Sorted Array".
             if (nums.Length < 1) return false;
-            // Find the "rotated point" - the index of the smallest value in nums.
+
             int lo = 0;
             int hi = nums.Length - 1;
-            // Eliminate the duplicates from the beginning. For example: nums = [2, 2, 2, 0, 2, 2] or nums = [1, 1, 1, 1, 3]
-            if (nums[lo] == nums[hi])
+
+            // We need to consider the case when duplicate numbers are scattered at the beginning and end of the array,
+            // for example: 
+            // nums = [1,1,1,1,2,1,1].
+            //                   ↑
+            //              rotated point
+            // If we use the same code from "Problem 33. Search in Rotated Sorted Array", we end up finding nums[0].
+            // In this example, the "rotated point" should be nums[4], how do we find it?
+            // We can see that it should be in the end of the array, so we eliminate the duplicates from the beginning.
+            // Another example:
+            // [2,2,1,2]
+            // If we use the same code from "Problem 33. Search in Rotated Sorted Array", we end up finding nums[0].
+            while (lo < nums.Length && nums[lo] == nums[hi])
             {
-                while (lo + 1 < nums.Length && nums[lo] == nums[lo + 1]) lo++;
+                lo++;
             }
+
             while (lo < hi)
             {
-                int mid = (lo + hi) / 2;
-                if (nums[mid] <= nums[hi])
+                int mid = lo + (hi - lo) / 2;
+                if (nums[mid] <= nums[hi]) // If nums[mid] == nums[hi], we need to find the leftmost one, e.g. nums = [0, 1, 1, 1, 1, 2].
                 {
                     hi = mid;
                 }
@@ -47,18 +59,19 @@
                 }
             }
 
+            // Now lo is the "rotated point".
             // Binary search with the appropriate offset
             int offset = lo;
             lo = 0;
-            hi = nums.Length - 1;
-            while (lo <= hi)
+            hi = nums.Length;
+            while (lo < hi)
             {
-                int mid = (lo + hi) / 2;
+                int mid = lo + (hi - lo) / 2;
                 int mappedMid = (mid + offset) % nums.Length;
                 int midValue = nums[mappedMid];
                 if (midValue > target)
                 {
-                    hi = mid - 1;
+                    hi = mid;
                 }
                 else if (midValue < target)
                 {

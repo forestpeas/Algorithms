@@ -56,6 +56,8 @@
         public bool IsMatch(string s, string p)
         {
             // Dynamic programming. Similar to "10. Regular Expression Matching".
+            // If s[0,..,i-1] matches p[0,...,j-1], mem[i,j] is true.
+            // mem[0,j] means the string is empty. mem[i,0] means the pattern is empty.
             bool[,] mem = new bool[s.Length + 1, p.Length + 1];
 
             mem[0, 0] = true;
@@ -78,8 +80,8 @@
                     }
                     else
                     {
-                        // '*' matches empty(for example: s = "ab", p = "ab*).
-                        // Or, '*' swallows a new character(that is s[i-1]).
+                        // '*' matches empty, for example: s = "ab", p = "ab*".
+                        // Or, '*' swallows a new character(that is s[i-1]), for example: s = "aab", p = "a*".
                         mem[i, j] = mem[i, j - 1] || mem[i - 1, j];
                     }
                 }
@@ -90,7 +92,8 @@
 
         public bool IsMatchWithConstantSpace(string s, string p)
         {
-            // i is a pointer for the string, and j is a pointer for thr pattern.
+            // Backtracking + greedy.
+            // i is a pointer for the string, and j is a pointer for the pattern.
             // When a '*' is found, ii records i and jj records j.
             int i = 0, j = 0, ii = 0, jj = -1;
             while (i < s.Length)
@@ -101,6 +104,8 @@
                     j++;
                 }
                 // When a '*' is found, first we assume the '*' matches empty.
+                // Note that we only care about the last '*' we met, but I don't exactly know why,
+                // maybe bacuse a second '*' can do all the work that a first '*' didn't do.
                 else if (j < p.Length && p[j] == '*')
                 {
                     jj = j;

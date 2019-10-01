@@ -26,7 +26,7 @@
         public string Multiply(string num1, string num2)
         {
             if (num1 == "0" || num2 == "0") return "0";
-            /* For example: num1 = "123", num2 + "456"
+            /* For example: num1 = "123", num2 = "456"
              *    123
              * ×  456
              * ------
@@ -43,9 +43,7 @@
             var result = string.Empty;
             int lastCarry = 0;
             // i is a pointer to chars in num1, j is a pointer to chars in num2.
-            int i = num1.Length - 1;
-            int j = num2.Length - 1;
-            for (; j > -num1.Length; j--)
+            for (int j = num2.Length - 1, i; j > -num1.Length; j--)
             {
                 int jj = j; // jj is the "real" pointer to chars in num2
                 if (j < 0)

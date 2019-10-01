@@ -1,10 +1,9 @@
-﻿using System.Collections.Generic;
-
-namespace Algorithms.LeetCode
+﻿namespace Algorithms.LeetCode
 {
     /* 76. Minimum Window Substring
      * 
-     * Given a string S and a string T, find the minimum window in S which will contain all the characters in T in complexity O(n).
+     * Given a string S and a string T, find the minimum window in S which will contain all the characters
+     * in T in complexity O(n).
      * 
      * Example 1:
      * 
@@ -24,75 +23,29 @@ namespace Algorithms.LeetCode
     {
         public string MinWindow(string s, string t)
         {
-            // Check each character in "s". If a character is in "t", put it in a queue.
-            // Repeat the process until we find enough characters. Now we have a potential answer.
-            // Continue the process until we find a character that is equal to the head of the queue.
-            // So we can surely remove the first character from the queue and maybe some more.
-            var charCounts = new Dictionary<char, int>();
-            var requiredCounts = new Dictionary<char, int>();
-            foreach (var character in t)
+            int[] counts = new int[128];
+            foreach (char c in t) counts[c]++;
+            int start = 0, length = int.MaxValue; // The final result.
+            int num = 0; // The number of characters that t contains, in the sliding window [l,r].      
+            for (int l = 0, r = 0; r < s.Length; r++)
             {
-                charCounts[character] = 0;
-                if (requiredCounts.TryGetValue(character, out int count))
+                // Notice that if a character appears 3 times in s, and 2 times in t, when it is visited the
+                // third time, its count will be negative and won't be taken into account in "num".
+                if (counts[s[r]]-- > 0) num++;
+                while (num == t.Length) // The current sliding window is a potential answer.
                 {
-                    requiredCounts[character] = count + 1;
-                }
-                else requiredCounts[character] = 1;
-            }
-
-            var queue = new Queue<int>();
-            int totalChars = charCounts.Count;
-            int charsSoFar = 0;
-            int i = 0;
-            for (; i < s.Length; i++)
-            {
-                if (charCounts.TryGetValue(s[i], out int count))
-                {
-                    charCounts[s[i]] = ++count;
-                    queue.Enqueue(i);
-                    if (count == requiredCounts[s[i]]) charsSoFar++;
-                    if (charsSoFar == totalChars) break;
-                }
-            }
-            if (charsSoFar != totalChars) return string.Empty;
-            if (queue.Count == 0) return string.Empty;
-            RemoveChars(queue, charCounts, requiredCounts, s);
-
-            i++;
-            int startIndex = queue.Peek();
-            int subStringLength = i - startIndex;
-            for (; i < s.Length; i++)
-            {
-                if (charCounts.TryGetValue(s[i], out int count))
-                {
-                    charCounts[s[i]] = count + 1;
-                    queue.Enqueue(i);
-                    if (s[queue.Peek()] == s[i])
+                    if (r - l + 1 < length)
                     {
-                        RemoveChars(queue, charCounts, requiredCounts, s);
-                        int newSubStringLength = i - queue.Peek() + 1;
-                        if (newSubStringLength < subStringLength)
-                        {
-                            subStringLength = newSubStringLength;
-                            startIndex = queue.Peek();
-                        }
+                        start = l;
+                        length = r - l + 1;
                     }
+                    // s[l] was decreased once before when it was visited by the right boundary,
+                    // so it is now either 0(exists in t), or negative(not exist in t).
+                    if (counts[s[l]]++ == 0) num--;
+                    l++;
                 }
             }
-            return s.Substring(startIndex, subStringLength);
-        }
-
-        private void RemoveChars(Queue<int> queue, Dictionary<char, int> charCounts, Dictionary<char, int> requiredCounts, string s)
-        {
-            char queueFirstChar = s[queue.Peek()];
-            int queueFirstCharCount = charCounts[queueFirstChar];
-            while (queueFirstCharCount > requiredCounts[queueFirstChar])
-            {
-                charCounts[queueFirstChar] = queueFirstCharCount - 1;
-                queue.Dequeue();
-                queueFirstChar = s[queue.Peek()];
-                queueFirstCharCount = charCounts[queueFirstChar];
-            }
+            return length == int.MaxValue ? string.Empty : s.Substring(start, length);
         }
     }
 }
