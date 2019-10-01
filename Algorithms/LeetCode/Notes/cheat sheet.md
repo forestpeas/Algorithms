@@ -14,6 +14,20 @@ Maintain a sliding window that contains only unique characters.
 
 DP: A `'*'`either matches empty or "swallows" one more character.
 
+**33\. Search in Rotated Sorted Array**
+
+Step 1\. Find the "rotated point" - the index of the smallest value in the array.
+
+Step 2\. Binary search with the appropriate offset.
+
+**34\. Find First and Last Position of Element in Sorted Array**
+
+Binary search with special handling when `nums[mid] == target`.
+
+**35\. Search Insert Position**
+
+Binary search.
+
 **43\. Multiply Strings**: Multiply two numbers represented as strings.
 
 ![43](D:\GitHub\CSharp\Algorithms\Algorithms\LeetCode\Notes\pics\43.png)
@@ -22,6 +36,10 @@ DP: A `'*'`either matches empty or "swallows" one more character.
 
 DP: A `'*'`either matches empty or "swallows" one more character.
 Backtracking + Greedy: Every time we go into a dead end, we come back to the last `'*'` to make it "swallow" one more character.
+
+**81\. Search in Rotated Sorted Array II**: A follow up to "33\. Search in Rotated Sorted Array", where the array may contain duplicates.
+
+First, eliminate duplicates from the beginning. The rest is the same as "33\. Search in Rotated Sorted Array".
 
 **128\. Longest Consecutive Sequence**: Find the length of the longest consecutive elements sequence of an array of integers.
 
@@ -91,11 +109,27 @@ Trie.
 
 Maximum of two sub-problems of "198. House Robber".
 
+**217\. Contains Duplicate**: Find if a given array contains any duplicates.
+
+Hash set.
+
+**219\. Contains Duplicate II**: Given `nums` and `k`, find `i` and `j` such that `nums[i] = nums[j]` and `j - i >= k`.
+
+Hash table.
+
+**220\. Contains Duplicate III**: Given `nums` and `k` and `t`, find `i` and `j` such that `nums[j]- nums[i] >= t` and `j - i >= k`.
+
+Sorted set(or ordered map, or balanced binary search tree).
+
 **221\. Maximal Square**: Given a 2-D matrix filled with only 0 and 1, find the largest square containing only 1.
 
 DP. `dp(i,j)` represents the side length of the maximum square whose **bottom right corner** is the cell with index `(i,j)` in the original matrix: 
 
 `dp(i, j) = min(dp(i − 1, j - 1), dp(i, j − 1), dp(i, j − 1)) + 1.`
+
+**222\. Count Complete Tree Nodes**: Given a complete binary tree, count the number of nodes.
+
+Recursively check whether the heights of left subtree and right subtree are equal.
 
 **229\. Majority Element II**: Find all elements in an array that appear more than `array.Length / 3` times.
 
@@ -105,19 +139,43 @@ A mathematical extension of the Boyer-Moore Voting Algorithm of "169. Majority E
 
 Use a deque to maintain the possible candidates.
 
+**263\. Ugly Number**: Ugly numbers are positive numbers whose prime factors only include 2, 3, 5. Check whether a given number is an ugly number.
+
+Math: Divide the given number by 2, 3, 5 until it becomes 1.
+
+**264\. Ugly Number II**: Find the n-th ugly number.
+
+The next ugly number is the minimum of a certain previous ugly number multiplied by 2 or 3 or 5.
+
 **300\. Longest Increasing Subsequence**
 
 Patience sorting, O(NlogN).
 
 DP, O(N^2): `dp[i]` with the restriction of `nums[i]` being the tail of the longest increasing subsequence.
 
+**313\. Super Ugly Number**: Find the nth super ugly number. Super ugly numbers are positive numbers whose all prime factors are in the given prime list.
+
+A generalization of "Problem 264. Ugly Number II", same idea.
+
+**315\. Count of Smaller Numbers After Self**: Given an integer array `nums`, return an array `counts` where `counts[i]` is the number of smaller elements to the right of `nums[i]`.
+
+Mergesort. Similar to "493\. Reverse Pairs".
+
+**378\. Kth Smallest Element in a Sorted Matrix**: Given a n x n matrix where each of the rows and columns are sorted in ascending order, find the kth smallest element in the matrix.
+
+Starting from `matrix[0][0]`, add `matrix[i + 1][j]` and `matrix[i][j + 1]` to a min priority queue because they are candidates for the next smallest element.
+
 **402\. Remove K Digits**: Remove k digits from a given number so that the new number is the smallest possible.
 
 We can find a pattern: from the most significant digit to the least significant digit, whenever we meet a digit that is less than the the previous digit, we should discard the previous digit.
 
+**454\. 4Sum II**: Given four lists A, B, C, D of integer values, compute how many tuples (i, j, k, l) there are such that `A[i] + B[j] + C[k] + D[l]` is zero.
 
+Store the sum of every combination of (A[i] + B[j]) in a hash table, then check every combination of (C[i] +D[j]).
 
+**493\. Reverse Pairs**: Given an array `nums`, find how many pair(i, j) there are such that `i < j` and `nums[i] > 2*nums[j]`.
 
+Mergesort.
 
 
 
