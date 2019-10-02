@@ -131,6 +131,10 @@ DP. `dp(i,j)` represents the side length of the maximum square whose **bottom ri
 
 Recursively check whether the heights of left subtree and right subtree are equal.
 
+**226\. Invert Binary Tree**
+
+DFS or BFS, swap the left and right child of every node.
+
 **229\. Majority Element II**: Find all elements in an array that appear more than `array.Length / 3` times.
 
 A mathematical extension of the Boyer-Moore Voting Algorithm of "169. Majority Element".
