@@ -33,7 +33,10 @@
         {
             // From "Approach 4: Integer Limitations" of https://leetcode.com/articles/power-of-three/.
             // 1162261467 is 3^19, the max power of three that an integer can represent.(3^20 > int.MaxValue)
-            // The powers of three are 3^1, 3^2, 3^3, 3^4,...,3^19.
+            // What are the numbers that are divisible by 3^19?
+            // 3 * 3 * 3 *...*3 / ?
+            // The denominator can only be 3, or 3 * 3, or 3 * 3 * 3,...
+            // which are 3^1, 3^2, 3^3, 3^4,...,3^19.
             return n > 0 && 1162261467 % n == 0;
         }
     }
