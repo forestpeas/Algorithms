@@ -26,8 +26,8 @@ namespace Algorithms.LeetCode
             // For example: n = 5. 
             // foreach(i in n)
             // let i be the root.
-            // its left node should be all possible results of GenerateTrees(0, i - 1).
-            // its right node should be all possible results of GenerateTrees(i + 1, n).
+            // Its left node should be all possible results of GenerateTrees(0, i - 1).
+            // Its right node should be all possible results of GenerateTrees(i + 1, n).
             if (n == 0) return new TreeNode[0];
             return GenerateTrees(1, n);
         }

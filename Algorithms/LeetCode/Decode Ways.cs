@@ -35,12 +35,12 @@
             int last = s[0] == '0' ? 0 : 1;
             for (int i = 1; i < s.Length; i++)
             {
-                // See if we can "take 2 steps once".
+                // See if we can "take 2 steps once" from s[i - 2].
                 int tmp = 0;
                 if (s[i - 1] == '0') tmp = 0;
                 else if ((s[i - 1] == '1') || (s[i - 1] == '2' && s[i] < '7')) tmp = lastLast;
 
-                int current = (s[i] == '0' ? 0 : last) + tmp;
+                int current = (s[i] == '0' ? 0 : last) + tmp; // "take 1 step from s[i-1]" + "take 2 steps from s[i-2]"
                 lastLast = last;
                 last = current;
             }

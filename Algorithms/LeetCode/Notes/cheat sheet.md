@@ -14,6 +14,10 @@ Maintain a sliding window that contains only unique characters.
 
 DP: A `'*'`either matches empty or "swallows" one more character.
 
+**26. Remove Duplicates from Sorted Array**
+
+Fast-slow pointers.
+
 **31\. Next Permutation**: Return the lexicographically next greater permutation of the given numbers.
 
 Write down the permutations of [1,2,3,4], then observe and find the pattern:
@@ -102,9 +106,145 @@ Similar to "54. Spiral Matrix".
 
 Write down the permutations when n = 4. Observe that there is a pattern for us to determine each digit from MSD to LSD.
 
+**61\. Rotate List**
+
+Count length first or use slow-fast pointers.
+
+**62\. Unique Paths**: Starting from the top-left, how many possible unique paths are there to reach the bottom-right?
+
+DP. `dp[i,j] = dp[i-1,j] + dp[i,j-1]`
+
+**63\. Unique Paths II**: Unique paths with obstacles.
+
+DP. Same as "62\. Unique Paths", except that when `obstacleGrid[i][j] == 1`, `dp[i,j] = 0`.
+
+**64. Minimum Path Sum**: Given a matrix, find a path from top left to bottom right which minimizes the sum of all numbers along its path.
+
+DP. `dp[i,j] = min(dp[i-1,j], dp[i,j-1]) + grid[i][j]`
+
+**69. Sqrt(x)**
+
+Binary search in `[1, Sqrt(int.MaxValue) + 1]`.
+
+**70. Climbing Stairs**: Each time you can either climb 1 or 2 steps. In how many distinct ways can you climb to the top that requires *n* steps?
+
+DP. `dp[i] = dp[i-1] + dp[i-2]`
+
+**71. Simplify Path**: Given an absolute path for a file (Unix-style), simplify it.
+
+The "enter a subdirectory" and "back to parent directory" operations can be represented by a stack.
+
+**72. Edit Distance**: Given two words *word1* and *word2*, find the minimum number of operations required to convert *word1* to *word2*.
+
+DP.  `dp[i,j]` is the answer to `word1[0...i - 1]` and `word2[0...j - 1]`. `dp[i, j]` is the minimum of these three cases:
+
+* Delete a character: `dp[i - 1, j] + 1`
+* Insert a character: `dp[i, j - 1] + 1`
+* Replace a character: `dp[i - 1, j - 1] + (word1[i - 1] == word2[j - 1] ? 0 : 1)`
+
+**73. Set Matrix Zeroes**: Given a *m* x *n* matrix, if an element is 0, set its entire row and column to 0. Do it in-place with constant space.
+
+If `matrix[i][j] == 0`, set `matrix[0][j]` and `matrix[i][0]` to zero as a mark to indicate that "row i" and "column j" should be zero. Be careful that `matrix[0][0]` is shared by "row 0" and "column 0".
+
+**74. Search a 2D Matrix**: Integers in each row are sorted from left to right. The first integer of each row is greater than the last integer of the previous row.
+
+Map the matrix to a one-dimensional sorted array and do binary search.
+
+**75. Sort Colors**: Sort an array containing only 0, 1, 2 with a one-pass algorithm using only constant space.
+
+The idea is that we throw "0"s to the start and throw "2"s to the end. When "0" is met, we swap it with the leftmost "1".
+
+**76. Minimum Window Substring**: Given a string S and a string T, find the minimum window in S which will contain all the characters in T in complexity O(n).
+
+Sliding window. The trick is we can count characters. For a certain character, if it appears in T, increment its count, if it appears in S, decrement its count.
+
+**77. Combinations**: Given two integers *n* and *k*, return all possible combinations of *k* numbers out of 1 ... *n*.
+
+Backtracking.  Write down an example, and keep every row and every column in ascending order and you will find the pattern.
+
+**78. Subsets**: Given a set of distinct integers, return all possible subsets (the power set).
+
+Iterative approach: For each number, add it to each subset in the last step.
+
+Bit manipulation: To get a subset, for each number we choose whether to put it in the subset. Let 1 represent being chosen, and 0 represent not being chosen, we can use an integer to represent a subset.
+
+**79. Word Search**: Given a 2D board and a word, find if the word exists in the grid.
+
+Backtracking.
+
 **81\. Search in Rotated Sorted Array II**: A follow up to "33\. Search in Rotated Sorted Array", where the array may contain duplicates.
 
 First, eliminate duplicates from the beginning. The rest is the same as "33\. Search in Rotated Sorted Array".
+
+**83\. Remove Duplicates from Sorted List**
+
+Fast-slow pointers, similar to "26. Remove Duplicates from Sorted Array".
+
+**84. Largest Rectangle in Histogram**
+
+Use a stack to store ascending heights.
+
+**85. Maximal Rectangle**: Given a 2D binary matrix filled with 0's and 1's, find the largest rectangle containing only 1's and return its area.
+
+Transform the matrix into many sub-problems of "Problem 84. Largest Rectangle in Histogram".
+
+**86. Partition List**: Given a linked list and a value *x*, partition it such that all nodes less than *x* come before nodes greater than or equal to *x*.
+
+Use two pointers to construct the left and right linked lists, and merge them in the end.
+
+**87. Scramble String**: Given two strings *s1* and *s2* of the same length, determine if *s2* is a *scrambled string* of *s1*.
+
+Recursion(divide and conquer). Split s1 and s2 in two by the same length, check if the left parts are equal or contain exactly the same characters, and the right parts too.
+
+**88. Merge Sorted Array**: Given two sorted integer arrays `nums1` and `nums2`, merge `nums2` into `nums1` as one sorted array.
+
+Starting from the end, use the two-pointers technique.
+
+**89. Gray Code**
+
+Find the pattern of how to get `GrayCode(n)` from `GrayCode(n-1)`.
+
+**90. Subsets II**: Given a collection of integers that might contain duplicates, return all possible subsets (the power set).
+
+Similar to the Iterative approach of "78. Subsets", we should sort the `nums` first to avoid duplicate subsets.
+
+**91. Decode Ways**: Given a non-empty string containing only digits, determine the total number of ways to decode it. 'A' maps to 1, 'B' maps to 2,...
+
+The idea is similar to "Problem 70. Climbing Stairs". Let `dp[i]` be the result of `s[0,i]`, `dp[i]` can be derived from `dp[i-1]` and `dp[i-2]`.
+
+**92. Reverse Linked List II**: Reverse a linked list from position *m* to *n*. Do it in one-pass.
+
+Linked list manipulation.
+
+**93. Restore IP Addresses**: Given a string containing only digits, restore it by returning all possible valid IP address combinations.
+
+The idea is similar to "Problem 91. Decode Ways". Let `dp[i]` be the result of `s[0,i]`, `dp[i]` can be derived from `dp[i-1]` and `dp[i-2]` and `dp[i-3]`.
+
+**95. Unique Binary Search Trees II**: Given an integer `n`, generate all structurally unique BST's (binary search trees) that store values 1 ... `n`.
+
+Catalan number problem. For each `i` in `n`, let `i` be the root.
+Its left node should be all possible results of  generating trees from `[0, i - 1]`.
+Its right node should be all possible results of generating trees from `[i + 1, n]`.
+
+**96. Unique Binary Search Trees**: Given n, how many structurally unique BST's (binary search trees) that store values 1 ... n?
+
+Basically the idea is the same as "Problem 95. Unique Binary Search Trees II".
+
+**97. Interleaving String**: Given `s1`, `s2`, `s3`, find whether `s3` is formed by the interleaving of `s1` and `s2`.
+
+DP. Let `dp[i,j]` be whether `s1[0...i-1]` and `s2[0...j-1]` can form the interleaving string of `s3[0...i+j-1]`.
+
+**98. Validate Binary Search Tree**
+
+The inorder traversal of a BST is in ascending order.
+
+**99. Recover Binary Search Tree**: Two elements of a binary search tree (BST) are swapped by mistake. Recover the tree without changing its structure.
+
+The problem can be simplified to "Find two swapped number in a sorted array".
+
+**100. Same Tree**: Given two binary trees, write a function to check if they are the same or not.
+
+Recursion.
 
 **128\. Longest Consecutive Sequence**: Find the length of the longest consecutive elements sequence of an array of integers.
 

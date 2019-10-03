@@ -23,71 +23,25 @@ namespace Algorithms.LeetCode
     {
         public int[][] Insert(int[][] intervals, int[] newInterval)
         {
-            // Had to deal with some special corner cases that are not covered in the solution afterwards.
-            if (intervals.Length < 1) return new int[][] { newInterval };
-            if (intervals[0][0] > newInterval[0])
-            {
-                if (intervals[0][0] > newInterval[1])
-                {
-                    var ret = new List<int[]> { newInterval };
-                    ret.AddRange(intervals);
-                    return ret.ToArray();
-                }
-                intervals[0][0] = newInterval[0];
-            }
-
-            // "BinarySearch" returns an index in "intervals" such that: 
-            // intervals[index][0] >= target, and intervals[index + 1][0] < target
-            // So "intervals[start]" is the first "candidate" for merging. 
-            int start = BinarySearch(intervals, 0, newInterval[0]);
-            int end = BinarySearch(intervals, start, newInterval[1]);
-
-            List<int[]> result = new List<int[]>();
-            for (int i = 0; i < start; i++)
+            var result = new List<int[]>();
+            int i = 0;
+            while (i < intervals.Length && intervals[i][1] < newInterval[0])
             {
                 result.Add(intervals[i]);
+                i++;
             }
 
-            if (newInterval[0] <= intervals[start][1])
+            while (i < intervals.Length && intervals[i][0] <= newInterval[1])
             {
-                result.Add(new int[] { intervals[start][0], Math.Max(intervals[end][1], newInterval[1]) });
-            }
-            else
-            {
-                result.Add(intervals[start]);
-                result.Add(new int[] { newInterval[0], Math.Max(intervals[end][1], newInterval[1]) });
+                // Merge newInterval with intervals[i].
+                newInterval[0] = Math.Min(newInterval[0], intervals[i][0]);
+                newInterval[1] = Math.Max(newInterval[1], intervals[i][1]);
+                i++;
             }
 
-            for (int i = end + 1; i < intervals.Length; i++)
-            {
-                result.Add(intervals[i]);
-            }
+            result.Add(newInterval);
+            while (i < intervals.Length) result.Add(intervals[i++]);
             return result.ToArray();
-        }
-
-        private int BinarySearch(int[][] intervals, int startFrom, int target)
-        {
-            int lo = startFrom;
-            int hi = intervals.Length - 1;
-            while (lo < hi)
-            {
-                int mid = (lo + hi) / 2;
-                if (intervals[mid][0] > target)
-                {
-                    hi = mid - 1;
-                }
-                else if (intervals[mid][0] < target)
-                {
-                    lo = mid + 1;
-                }
-                else
-                {
-                    lo = mid;
-                    break;
-                }
-            }
-            if (intervals[lo][0] > target) lo--;
-            return lo;
         }
     }
 }

@@ -23,9 +23,11 @@ namespace Algorithms.LeetCode
      */
     public class JumpGame
     {
-        public bool CanJumpWithGreedySolution(int[] nums)
+        public bool CanJump(int[] nums)
         {
-            int max = 0;
+            // Greedy. For each element nums[i], the farthest position it can reach is i + nums[i].
+            // So we can maintain the farthest position we can reach so far and see if we reach the end.
+            int max = 0; // The farthest position we can reach.
             for (int i = 0; i <= max; i++)
             {
                 max = Math.Max(max, i + nums[i]);
@@ -34,16 +36,16 @@ namespace Algorithms.LeetCode
             return false;
         }
 
-        // I figured this one out myself and it's a little bit complicated. Just see the Greedy solution above.
-        public bool CanJump(int[] nums)
+        public bool CanJump2(int[] nums)
         {
+            // My first attempt on this problem.
             return CanJumpCore(0, 0) >= nums.Length - 1;
 
             // Returns the farthest index that "start" can reach.
             // "end" is the farthest index we have reached.
             // For example: nums = [5, 4, 5, 2, 1, 0, 0, 0, 0]
-            // When we reach nums[2] = 5, we will check nums[2 + 5], nums[2 + 4], 
-            // and when we get to nums[2 + 3], we can stop, because nums[2 + 3] ~ nums[2 + 1] was already checked by nums[0 + 5], nums[0 + 4]...
+            // When we reach nums[2] = 5, we will check nums[2 + 5], nums[2 + 4], nums[2 + 3]...
+            // When we get to nums[2 + 3], we can stop, because nums[2 + 3] ~ nums[2 + 1] was already checked by nums[0 + 5], nums[0 + 4]...
             int CanJumpCore(int start, int end)
             {
                 if (start >= nums.Length - 1)

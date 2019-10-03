@@ -6,7 +6,8 @@
      * Rotate the image by 90 degrees (clockwise).
      * 
      * Note:
-     * You have to rotate the image in-place, which means you have to modify the input 2D matrix directly. DO NOT allocate another 2D matrix and do the rotation.
+     * You have to rotate the image in-place, which means you have to modify the input 2D matrix directly.
+     * DO NOT allocate another 2D matrix and do the rotation.
      * 
      * Example 1:
      * 
@@ -54,7 +55,7 @@
             //   [13, 3, 6, 7],
             //   [15,14,12,16]
             // ]
-            // First we settle the outmost "circle":5,1,9,11,10,7,16,12,14,15,13,2
+            // First we settle the outermost "circle":5,1,9,11,10,7,16,12,14,15,13,2
             // "i" means the circle number.
             // And we replace every element with its corresponding element.
             // For example: 5 with 15, 15 with 16, ...

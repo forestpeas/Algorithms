@@ -36,6 +36,14 @@ namespace Algorithms.LeetCode
             // The first box ranges from 1 to 2.
             // The second box ranges from 2 to 3.
             // The third box ranges from 3 to 4.
+            // Note that every combination above is in ascending order.
+            // We first choose 1 for the first position, then choose 2 for the second position, 
+            // then 3 for the third position, then backtrack to delete 3 and replace it with 4,
+            // then we back track to delete 2 and replace it with 3...
+            // So the last row must be: n - k + 1,...,n
+            // And the first row must be:       1,...,k
+            // So the range of the first box is [1, n - k].
+            // Every other box's range span is also n - k.
             // "i" is the box number, "start" is the range's start point.
             void Combine(int[] result, int i, int start)
             {

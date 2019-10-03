@@ -70,27 +70,13 @@ namespace Algorithms.LeetCode
             var CharCounts2FromEnd = new Dictionary<char, int>();
             for (int i = 0, fromStart = 0, fromEnd = s2.Length - 1; i < s1.Length - 1; i++)
             {
-                if (CharCounts1.TryGetValue(s1[i], out int count1))
-                {
-                    CharCounts1[s1[i]] = count1 + 1;
-                }
-                else
-                {
-                    CharCounts1.Add(s1[i], 1);
-                }
+                CharCounts1[s1[i]] = CharCounts1.GetValueOrDefault(s1[i]) + 1;
 
                 for (; fromStart <= i; fromStart++)
                 {
-                    if (CharCounts1.TryGetValue(s2[fromStart], out count1))
+                    if (CharCounts1.TryGetValue(s2[fromStart], out int count1))
                     {
-                        if (CharCounts2FromStart.TryGetValue(s2[fromStart], out int count2))
-                        {
-                            count2++;
-                        }
-                        else
-                        {
-                            count2 = 1;
-                        }
+                        int count2 = CharCounts2FromStart.GetValueOrDefault(s2[fromStart]) + 1;
                         if (count2 > count1) break; // "count2 < count1" is OK because there may be more of this character next.
                         CharCounts2FromStart[s2[fromStart]] = count2;
                     }
@@ -102,16 +88,9 @@ namespace Algorithms.LeetCode
 
                 for (; fromEnd >= s2.Length - i - 1; fromEnd--)
                 {
-                    if (CharCounts1.TryGetValue(s2[fromEnd], out count1))
+                    if (CharCounts1.TryGetValue(s2[fromEnd], out int count1))
                     {
-                        if (CharCounts2FromEnd.TryGetValue(s2[fromEnd], out int count2))
-                        {
-                            count2++;
-                        }
-                        else
-                        {
-                            count2 = 1;
-                        }
+                        int count2 = CharCounts2FromEnd.GetValueOrDefault(s2[fromEnd]) + 1;
                         if (count2 > count1) break;
                         CharCounts2FromEnd[s2[fromEnd]] = count2;
                     }

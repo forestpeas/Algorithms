@@ -60,12 +60,12 @@ namespace Algorithms.LeetCode
             // 4231
             // 4312
             // 4321
-            // We can notice that the first column has a pattern. Each number in [1,2,3,4] repeats 6 times:
+            // We can notice that the numbers in the first column has a pattern. Each number in [1,2,3,4] repeats 6 times:
             // 111111, 222222, 333333, 444444
             // If k = 16, we can be sure that the first number in the result should be 16/6 + 1 = 3
-            // And the second column with the first column being 3 are:
+            // And the second number of the rows with the first column being 3 are:
             // 11, 22, 44
-            // This time, k = 16 % 6 = 4, which means we should return the 4th row in the columns above.
+            // This time, k = 16 % 6 = 4, which means we should return the 4th row in the rows with the first column being 3.
             var numsLeft = new List<int>() { -1 };
             int length = 1;
             for (int i = 1; i <= n; i++)

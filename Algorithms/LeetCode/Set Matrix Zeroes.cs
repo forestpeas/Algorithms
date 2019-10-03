@@ -45,7 +45,7 @@
         {
             if (matrix.Length < 1 || matrix[0].Length < 1) return;
 
-            // If matrix[i][j] == 0, set matrix[0][j] and matrix[i][0] to zero as a mark
+            // If matrix[i][j] == 0, set matrix[0][j] and matrix[i][0] to zero as a mark to indicate
             // that "row i" and "column j" should be zero.
             // But matrix[0][0] is shared by "row 0" and "column 0", so we need some extra space.
             bool firstColumnZero = false;

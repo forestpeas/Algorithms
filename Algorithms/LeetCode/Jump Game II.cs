@@ -20,10 +20,22 @@ namespace Algorithms.LeetCode
      */
     public class JumpGameII
     {
-        // A second solution. Refer to https://leetcode.com/problems/jump-game-ii/discuss/18014/Concise-O(n)-one-loop-JAVA-solution-based-on-Greedy
         public int Jump2(int[] nums)
         {
-            // BFS
+            // Greedy solution Inpired by https://leetcode.com/problems/jump-game-ii/discuss/18014/Concise-O(n)-one-loop-JAVA-solution-based-on-Greedy
+            // We can think it this way, for example, nums = [2,3,1,1,4].
+            // Starting from nums[0], what are the elements that only need 1 jump from nums[0]?
+            // Apparently they are nums[1] and nums[2]. We can draw these two elements on the second level:
+            // 2
+            // 3 1
+            // Then, we can draw the elements that only need 1 jump from the elements on the second level:
+            // 2
+            // 3 1
+            // 1 4
+            // Now it is clear that we need 2 jumps from nums[0] to reach the end.
+            // curEnd is the index of the last element on the current level.
+            // curFarthest is the index of the last element on the next level.
+            // So this is implicit BFS.
             int jumps = 0, curEnd = 0, curFarthest = 0;
             for (int i = 0; i < nums.Length - 1; i++)
             {
@@ -35,33 +47,6 @@ namespace Algorithms.LeetCode
                 }
             }
             return jumps;
-        }
-
-        public int Jump(int[] nums)
-        {
-            if (nums.Length < 1) return 0;
-
-            // "mem[i]" is the pointer to the next node in the shortest "path".
-            int[] mem = new int[nums.Length];
-            mem[nums.Length - 1] = nums.Length;
-            for (int i = nums.Length - 2; i >= 0; i--)
-            {
-                int j = i + 1;
-                // Skip the path that "i" can directly jump through.
-                while (j < nums.Length && (mem[j] - i) <= nums[i])
-                {
-                    j = mem[j];
-                }
-                if (j == nums.Length) j = nums.Length - 1;
-                mem[i] = j;
-            }
-            int result = 0;
-            for (int i = 0; mem[i] < nums.Length;)
-            {
-                result++;
-                i = mem[i];
-            }
-            return result;
         }
     }
 }

@@ -21,8 +21,12 @@ namespace Algorithms.LeetCode
             // s = "10001", output = ["10.0.0.1"]
             // So we know a string starts with '0' is invalid, such as "01".
             // The idea is similar to "Problem 91. Decode Ways".
+            // For each i, what are the possible combinations of substring s[0, i]?
+            // 1. s[i - 2, i] forms an ip block, plus all the combinations of s[0, i - 3].
+            // 2. s[i - 1, i] forms an ip block, plus all the combinations of s[0, i - 2].
+            // 3. s[i, i] forms an ip block, plus all the combinations of s[0, i - 1].
             if (s.Length < 4) return new string[0];
-            var first = new List<List<string>>()
+            var first = new List<List<string>>() // A list of ips, each ip is represented as a list of ip blocks.
             {
                 new List<string>()
             };

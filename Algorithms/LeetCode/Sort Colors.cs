@@ -23,11 +23,11 @@
         public void SortColors(int[] nums)
         {
             // The idea is that we throw "0"s to the start and throw "2"s to the end.
-            // When "0" is met, we swap it with the first "1". For example:
+            // When "0" is met, we swap it with the leftmost "1". For example:
             // [0,1,1,1,1,0] becomes:
             // [0,0,1,1,1,1]
             int end = nums.Length - 1; // points to a candidate to swap with a "2"
-            int start = -1; // points to the first "1"
+            int start = -1; // points to the leftmost "1"
             for (int i = 0; i <= end;)
             {
                 if (nums[i] == 0)

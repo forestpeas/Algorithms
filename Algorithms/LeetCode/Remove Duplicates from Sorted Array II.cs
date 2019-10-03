@@ -26,18 +26,18 @@
             // Similar to "Problem 26. Remove Duplicates from Sorted Array".
             if (nums.Length < 2) return nums.Length;
             int i = 0;
-            bool iFixed = false;
+            bool twice = false; // Indicates nums[i] == nums[i - 1]
             for (int j = 1; j < nums.Length; j++)
             {
                 if (nums[j] != nums[i])
                 {
                     nums[++i] = nums[j];
-                    iFixed = false;
+                    twice = false;
                 }
-                else if (!iFixed)
+                else if (!twice)
                 {
                     nums[++i] = nums[j];
-                    iFixed = true;
+                    twice = true;
                 }
             }
             return i + 1;

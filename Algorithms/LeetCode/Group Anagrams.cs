@@ -38,7 +38,7 @@ namespace Algorithms.LeetCode
                 {
                     anagramLetters[letter - 'a']++;
                 }
-                string key = string.Join(',', anagramLetters);
+                string key = string.Join(',', anagramLetters); // Anagrams of the same group will result in the same key.
                 if (map.TryGetValue(key, out var list))
                 {
                     list.Add(str);

@@ -18,8 +18,8 @@ namespace Algorithms.LeetCode
         {
             ListNode dummyHead = new ListNode(0) { next = head };
             ListNode firstGreaterNode = null;
-            // "i" is the slow runner that points to the rightmost node of the left smaller part of the list.
-            // "j" is the fast runner that points to the rightmost node of the right greater part of the list.
+            // "i" is used to construct the left smaller part of the list.
+            // "j" is used to construct the right greater part of the list.
             ListNode i = dummyHead;
             ListNode j = null;
             ListNode node = head;

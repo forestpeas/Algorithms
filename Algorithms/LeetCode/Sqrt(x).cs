@@ -21,7 +21,6 @@
     {
         public int MySqrt(int x)
         {
-            //return (int)System.Math.Sqrt(x);
             int lo = 1;
             int hi = 46341; // Sqrt(int.MaxValue) + 1
             while (lo < hi)

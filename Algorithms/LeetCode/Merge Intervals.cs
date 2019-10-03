@@ -22,18 +22,10 @@ namespace Algorithms.LeetCode
      */
     public class MergeIntervals
     {
-        private class Comparer : IComparer<int[]>
-        {
-            public int Compare(int[] x, int[] y)
-            {
-                return x[0].CompareTo(y[0]);
-            }
-        }
-
         public int[][] Merge(int[][] intervals)
         {
-            Array.Sort(intervals, new Comparer());
-            // "i" is the fast runner, and "j" is the slow runner.
+            Array.Sort(intervals, Comparer<int[]>.Create((x, y) => x[0].CompareTo(y[0])));
+            // In place, "i" is the fast runner, and "j" is the slow runner.
             int j = 0;
             for (int i = 1; i < intervals.Length; i++)
             {

@@ -32,7 +32,7 @@
     {
         public bool SearchMatrix(int[][] matrix, int target)
         {
-            // Just like binary search from an one-dimensional sorted array.
+            // Just like binary search from a one-dimensional sorted array.
             // We only need to map the index of the one-dimensional array to the two-dimensional array.
             // Somewhat similar to "Problem 33. Search in Rotated Sorted Array".
             if (matrix.Length < 1) return false;
