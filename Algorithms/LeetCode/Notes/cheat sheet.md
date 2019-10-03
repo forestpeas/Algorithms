@@ -14,6 +14,15 @@ Maintain a sliding window that contains only unique characters.
 
 DP: A `'*'`either matches empty or "swallows" one more character.
 
+**31\. Next Permutation**: Return the lexicographically next greater permutation of the given numbers.
+
+Write down the permutations of [1,2,3,4], then observe and find the pattern:
+
+1. Find the first ascending pair `nums[i]` and `nums[i+1]` from right to left.
+2. Find the next larger element to `nums[i]`.
+3. Starting from the end, find the next larger element to `nums[i]` and swap with `nums[i]`.
+4. Reverse from `nums[i + 1]` to the end.
+
 **33\. Search in Rotated Sorted Array**
 
 Step 1\. Find the "rotated point" - the index of the smallest value in the array.
@@ -36,6 +45,62 @@ Binary search.
 
 DP: A `'*'`either matches empty or "swallows" one more character.
 Backtracking + Greedy: Every time we go into a dead end, we come back to the last `'*'` to make it "swallow" one more character.
+
+**45\. Jump Game II**: Given an array of integers, `nums[i]` is the maximum jump length at `i`. Return the minimum number of jumps from start to end.
+
+Greedy, also implicit BFS. The first level only contains `nums[0]`. For each element `nums[i]` in the current level, add `nums[i + nums[i]]` to the next level.
+
+**46\. Permutations**: Given a collection of distinct integers, return all possible permutations.
+
+Backtracking. Each time we choose an unchosen number. When all numbers have been chosen, backtrack to the last step and choose the next number.
+
+**47\. Permutations II**: Given a collection of numbers that might contain duplicates, return all possible unique permutations.
+
+The only difference with "46\. Permutations" is that we should skip the duplicates.
+
+**48\. Rotate Image**: Rotate an *n* x *n* matrix by 90 degrees (clockwise).
+
+Array manipulation. "circle" by "circle" from the outermost "circle".
+
+**49\. Group Anagrams**
+
+Hash table. Somehow guarantee that anagrams of the same group result in the same key.
+
+**50. Pow(x, n)**
+
+Math.
+
+**51. N-Queens**
+
+Backtracking and DFS. Just try every possible result.
+
+**53\. Maximum Subarray**: Given an integer array, find the contiguous subarray which has the largest sum.
+
+DP. Let `dp(i)` be the result when the right boundary of the subarray is fixed at index i.
+
+**54. Spiral Matrix**: Given a matrix, return all elements of the matrix in spiral order.
+
+Array manipulation. Similar to "problem 48 Rotate Image".
+
+**55\. Jump Game**: Given an array of integers, `nums[i]` is the maximum jump length at `i`. Starting from the start, determine if you can reach the end.
+
+Greedy. For each element `nums[i]`, the farthest position it can reach is `i + nums[i]`.
+
+**56\. Merge Intervals**
+
+First, sort the Intervals by their left boundaries. Then, use the fast-slow-runners technique to merge the "fast interval" with the "slow interval"(In place).
+
+**57\. Insert Interval**: Given a set of *non-overlapping* intervals, insert a new interval into the intervals (merge if necessary).
+
+Just do what the description asked.
+
+**59. Spiral Matrix II**: Given a positive integer *n*, generate a square matrix filled with elements from 1 to *n*^2 in spiral order.
+
+Similar to "54. Spiral Matrix".
+
+**60\. Permutation Sequence**: Given n and k, the set [1,2,3,...,n] contains a total of n! unique permutations. Return the k-th permutation sequence.
+
+Write down the permutations when n = 4. Observe that there is a pattern for us to determine each digit from MSD to LSD.
 
 **81\. Search in Rotated Sorted Array II**: A follow up to "33\. Search in Rotated Sorted Array", where the array may contain duplicates.
 
@@ -143,6 +208,10 @@ A mathematical extension of the Boyer-Moore Voting Algorithm of "169. Majority E
 
 Use a deque to maintain the possible candidates.
 
+**241\. Different Ways to Add Parentheses**: Given a string of numbers and operators, return all possible results from computing all the different possible ways to group numbers and operators using parentheses.
+
+Recursion(divide and conquer).
+
 **263\. Ugly Number**: Ugly numbers are positive numbers whose prime factors only include 2, 3, 5. Check whether a given number is an ugly number.
 
 Math: Divide the given number by 2, 3, 5 until it becomes 1.
@@ -164,6 +233,10 @@ A generalization of "Problem 264. Ugly Number II", same idea.
 **315\. Count of Smaller Numbers After Self**: Given an integer array `nums`, return an array `counts` where `counts[i]` is the number of smaller elements to the right of `nums[i]`.
 
 Mergesort. Similar to "493\. Reverse Pairs".
+
+**326\. Power of Three**: Given an integer, determine if it is a power of three.
+
+Math: A number is a power of three if and only if it is divisible by 3^19 (3^20 > `int.MaxValue`).
 
 **378\. Kth Smallest Element in a Sorted Matrix**: Given a n x n matrix where each of the rows and columns are sorted in ascending order, find the kth smallest element in the matrix.
 
