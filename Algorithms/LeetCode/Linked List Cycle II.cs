@@ -23,7 +23,7 @@ namespace Algorithms.LeetCode
             // So fast moves n*c more than slow.
             // x = 2x - nc
             // x = nc
-            // Which means when n = 1 the distance slow moved is equal to the cirumference of the cycle.
+            // Which means when n = 1 the distance slow moved is equal to the circumference of the cycle.
             // So if slow started at the start of the cycle and move x, it will move exactly one time around the 
             // cycle and be back to the start of the cycle.
             // So letting slow start at the head means slow can't finish the "one-time-round-trip". The distance

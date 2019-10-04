@@ -20,7 +20,8 @@ namespace Algorithms.LeetCode
         {
             // Let n be the number of non-leaf nodes.
             // Every non-leaf node has 2 children, plus the root node. 
-            // So 2n+1=N, and n=(N-1)/2.
+            // So 2n+1=N, and n=(N-1)/2. So N should be an odd number.
+            // For each node in the non-leaf nodes, let node be root.
             // The solution is almost the same as "Problem 95. Unique Binary Search Trees II"
             // because they are all Catalan number problems.
             if (N == 1) return new TreeNode[] { new TreeNode(0) };

@@ -30,7 +30,7 @@ namespace Algorithms.LeetCode
         // Iterative Solution
         public bool IsSymmetric(TreeNode root)
         {
-            // Enqueue the nodes in a specific order：
+            // Enqueue the nodes in a specific order:
             // queue.Enqueue(t1.left);
             // queue.Enqueue(t2.right);
             // queue.Enqueue(t1.right);

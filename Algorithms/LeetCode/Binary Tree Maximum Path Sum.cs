@@ -35,35 +35,33 @@ namespace Algorithms.LeetCode
      */
     public class BinaryTreeMaximumPathSum
     {
-        private int _result = int.MinValue;
-
         public int MaxPathSum(TreeNode root)
         {
-            if (root == null) return int.MinValue;
+            int result = int.MinValue;
             MaxPathSumCore(root);
-            return _result;
-        }
+            return result;
 
-        // Returns the maximum path sum of paths that must end or start with "root", within a tree with "root" as root.
-        public int MaxPathSumCore(TreeNode root)
-        {
-            // Search all possible paths except those that can be excluded.
-            int leftMax = 0;
-            int rightMax = 0;
-            if (root.left != null)
+            // Returns the maximum path sum of paths that must end or start with "node".
+            int MaxPathSumCore(TreeNode node)
             {
-                leftMax = MaxPathSumCore(root.left);
-                _result = Math.Max(_result, leftMax + root.val);
-            }
-            if (root.right != null)
-            {
-                rightMax = MaxPathSumCore(root.right);
-                _result = Math.Max(_result, rightMax + root.val);
-            }
+                // Search all possible paths except those that can be excluded.
+                int leftMax = 0;
+                int rightMax = 0;
+                if (node.left != null)
+                {
+                    leftMax = MaxPathSumCore(node.left);
+                    result = Math.Max(result, leftMax + node.val);
+                }
+                if (node.right != null)
+                {
+                    rightMax = MaxPathSumCore(node.right);
+                    result = Math.Max(result, rightMax + node.val);
+                }
 
-            _result = Math.Max(_result, root.val);
-            _result = Math.Max(_result, leftMax + root.val + rightMax);
-            return Math.Max(root.val, Math.Max(leftMax + root.val, rightMax + root.val));
+                result = Math.Max(result, node.val);
+                result = Math.Max(result, leftMax + node.val + rightMax);
+                return Math.Max(node.val, Math.Max(leftMax + node.val, rightMax + node.val));
+            }
         }
     }
 }

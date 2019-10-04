@@ -28,30 +28,29 @@ namespace Algorithms.LeetCode
      */
     public class PathSumII
     {
-        private readonly List<IList<int>> _result = new List<IList<int>>();
-
         public IList<IList<int>> PathSum(TreeNode root, int sum)
         {
             // Backtracking and DFS.
-            if (root == null) return _result;
+            var result = new List<IList<int>>();
+            if (root == null) return result;
             PathSum(root, sum, new List<int>());
-            return _result;
-        }
+            return result;
 
-        private void PathSum(TreeNode root, int sum, List<int> path)
-        {
-            path.Add(root.val);
-            sum = sum - root.val;
-            if (root.left == null && root.right == null)
+            void PathSum(TreeNode node, int sumCurr, List<int> path)
             {
-                if (sum == 0) _result.Add(path.ToArray());
+                path.Add(node.val);
+                sumCurr = sumCurr - node.val;
+                if (node.left == null && node.right == null)
+                {
+                    if (sumCurr == 0) result.Add(path.ToArray());
+                }
+                else
+                {
+                    if (node.left != null) PathSum(node.left, sumCurr, path);
+                    if (node.right != null) PathSum(node.right, sumCurr, path);
+                }
+                path.RemoveAt(path.Count - 1); // Remove root.val
             }
-            else
-            {
-                if (root.left != null) PathSum(root.left, sum, path);
-                if (root.right != null) PathSum(root.right, sum, path);
-            }
-            path.RemoveAt(path.Count - 1); // Remove root.val
         }
     }
 }

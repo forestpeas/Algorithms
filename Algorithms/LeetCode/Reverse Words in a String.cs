@@ -52,7 +52,8 @@ namespace Algorithms.LeetCode
                     i = j + 1;
                 }
             }
-            Reverse(str, i, str.Length - 1);
+
+            Reverse(str, i, str.Length - 1); // Reverse the last word
             return new string(str);
         }
 

@@ -46,8 +46,8 @@ namespace Algorithms.LeetCode
             /** Returns a random shuffling of the array. */
             public int[] Shuffle()
             {
-                // Fisher-Yates algorithm. Randomly choose a number from the array and put it
-                // at the end of a queue of chosen numbers.
+                // Fisher-Yates algorithm. Randomly choose a number from [i, length) and put it
+                // at the front of the array as the chosen numbers.
                 for (int i = 0; i < _nums.Length; i++)
                 {
                     Swap(i, _random.Next(i, _nums.Length));

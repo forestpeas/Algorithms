@@ -10,6 +10,7 @@ namespace Algorithms.LeetCode
     public class IntersectionOfTwoLinkedLists
     {
         // Inspired by https://leetcode.com/problems/intersection-of-two-linked-lists/discuss/49785/Java-solution-without-knowing-the-difference-in-len!/165648.
+        // The key is that, for example, when the pointer of A reaches the end, then redirect it to the head of B, util pA meets pB.
         public ListNode GetIntersectionNodeTwoPointers(ListNode headA, ListNode headB)
         {
             if (headA == null || headB == null) return null;

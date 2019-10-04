@@ -30,7 +30,7 @@ namespace Algorithms.LeetCode
                 frequencyMap[num] = frequencyMap.GetValueOrDefault(num, 0) + 1;
             }
 
-            // bucket's index is frequency. bucket[3] is the number that appears 3 times.
+            // bucket's index is frequency, e.g. bucket[3] contains the numbers that appear 3 times.
             var bucket = new List<int>[nums.Length + 1];
             foreach (var item in frequencyMap)
             {

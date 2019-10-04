@@ -20,7 +20,7 @@ namespace Algorithms.LeetCode
             Array.Sort(nums);
             int difference = int.MaxValue;
             int closest = 0;
-            // Similar to Problem 15 ThreeSum
+            // Similar to "Problem 15. 3Sum"
             for (int i = 0; i < nums.Length - 2; i++)
             {
                 // Find "2Sum" in nums[i+1,...,nums.Length -1], target is target-nums[i]

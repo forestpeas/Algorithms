@@ -37,7 +37,7 @@ namespace Algorithms.LeetCode
             long dividendL = Math.Abs((long)dividend);
             long divisorL = Math.Abs((long)divisor);
             int quotient = 0;
-            // Plus by divisor is too slow. We can multiply by divisor.
+            // Adding one divisor each time is too slow. We can multiply divisor.
             // Like divisor * 2, divisor * 4, divisor * 8, ...
             // But once we get greater than dividend, we stop right before the greater result.
             // And let dividend = divident - "the result we get".

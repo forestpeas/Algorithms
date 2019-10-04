@@ -35,20 +35,13 @@ namespace Algorithms.LeetCode
             var wordCounts = new Dictionary<string, int>();
             foreach (var word in words)
             {
-                if (wordCounts.TryGetValue(word, out int value))
-                {
-                    wordCounts[word] = ++value;
-                }
-                else
-                {
-                    wordCounts[word] = 1;
-                }
+                wordCounts[word] = wordCounts.GetValueOrDefault(word) + 1;
             }
 
             int wordLength = words[0].Length; // Words are all of the same length.
             for (int i = 0; i < s.Length - wordLength * words.Length + 1; i++)
             {
-                var knownWords = new Dictionary<string, int>(0);
+                var knownWords = new Dictionary<string, int>();
                 for (int j = 0; ; j++)
                 {
                     if (j == words.Length)
@@ -60,18 +53,8 @@ namespace Algorithms.LeetCode
                     string currentWord = s.Substring(i + j * wordLength, wordLength);
                     if (wordCounts.TryGetValue(currentWord, out int count))
                     {
-                        if (knownWords.TryGetValue(currentWord, out int currentCount))
-                        {
-                            if (++currentCount > count)
-                            {
-                                break;
-                            }
-                            knownWords[currentWord] = currentCount;
-                        }
-                        else
-                        {
-                            knownWords[currentWord] = 1;
-                        }
+                        knownWords[currentWord] = knownWords.GetValueOrDefault(currentWord) + 1;
+                        if (knownWords[currentWord] > count) break;
                     }
                     else
                     {

@@ -45,8 +45,7 @@ namespace Algorithms.LeetCode
             foreach (char digit in digits)
             {
                 var mappings = map[digit];
-                // Cartesian product. Submission performance is better if the List is replaced with an array,
-                // but we trade performance for cleaner code.
+                // Cartesian product.
                 var newCombinations = new List<string>(combinations.Count * mappings.Length);
                 foreach (string letter in mappings)
                 {

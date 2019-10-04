@@ -29,8 +29,8 @@ namespace Algorithms.LeetCode
             // dp(i + 1) can be calculated from nums[i] and dp(i) as the following.
             if (nums.Length == 0) return 0;
             int max = nums[0];
-            int maxCurr = nums[0];
-            int minCurr = nums[0];
+            int maxCurr = nums[0]; // The maximum product so far
+            int minCurr = nums[0]; // The minimum product so far
             for (int i = 1; i < nums.Length; i++)
             {
                 if (nums[i] < 0)

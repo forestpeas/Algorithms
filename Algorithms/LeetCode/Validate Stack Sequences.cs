@@ -32,14 +32,13 @@ namespace Algorithms.LeetCode
     {
         public bool ValidateStackSequences(int[] pushed, int[] popped)
         {
-            int i = 0; // Points to pushed
-            int j = 0; // Points to popped
+            // If we can pop, we should do it prior to push because values are distinct and a push will make
+            // the previous top value impossible to be popped again.
+            int i = 0; // Pointer of "pushed"
+            int j = 0; // Pointer of "popped"
             var stack = new Stack<int>();
             stack.Push(-1);
-            // There are only 2 ways to find popped[j]:
-            // 1. stack.Peek() == popped[j]
-            // 2. pushed[i] == popped[j]
-            // Else return false.
+
             while (j < popped.Length)
             {
                 if (stack.Peek() == popped[j])
@@ -59,6 +58,7 @@ namespace Algorithms.LeetCode
                 }
                 else return false;
             }
+
             return true;
         }
     }

@@ -59,8 +59,8 @@ namespace Algorithms.LeetCode
                 return false;
             }
 
-            // Only revert half of the int number. The reverse of the last half of the palindrome should be the same as
-            // the first half of the number, if the number is a palindrome. When the original number is less than the
+            // Only revert half of the int number. if the number is a palindrome, the right half of the palindrome
+            // should be the same as the left half of the number. When the original number is less than the
             // reversed number, it means we've processed half of the number digits.
             int revertedNumber = 0;
             while (x > revertedNumber)

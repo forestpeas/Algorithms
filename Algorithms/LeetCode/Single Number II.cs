@@ -23,7 +23,10 @@
     {
         public int SingleNumber(int[] nums)
         {
-            /* Truth table:
+            /* Just like how we use XOR in "136. Single Number", we need to somehow cancel out
+             * all the numbers that appear three times.
+             * 
+             * Truth table:
              * 
              * +============+=====+============+
              * |       input      |   output   |
@@ -43,11 +46,15 @@
              * ||  1  |  0  |  1  |  0  |  0  ||
              * ++===========+=====+===========++
              * 
+             * Initially a and b are 0.
              * When num = 0, a and b remain unchanged.
              * When num = 1, a and b's state transition is: 00->01->10->00->...
-             * Initially a and b are 0.
-             * In the end, ab will be in state: 01 (or 00 when num = 0),
-             * and b = num = 1, so b records the number that appears only once.
+             * So, for a certain digit, consider the numbers that appears three times,
+             * there will either be 3 1's or 3 0's, a and b will eventually return to
+             * their initial state 00.
+             * Now consider the number that appears exactly once. If it is 1 on this
+             * digit, ab = 01. If it is 0 on this digit, ab = 00. In either way, b
+             * equals the number we are looking for.
              * I guess how we can get the formula:
              * b = (b ^ num) & ~a;
              * a = (a ^ num) & ~b;

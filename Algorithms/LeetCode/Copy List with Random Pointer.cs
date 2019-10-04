@@ -10,7 +10,7 @@
         public Node CopyRandomList(Node head)
         {
             // The given linked list has no cycle.
-            // Inorder to save the mapping of old node to new, set node.next to its copy, like this:
+            // In order to save the mapping of old node to new, set node.next to its copy, like this:
             // A    B    C
             // ↓ ↗ ↓ ↗ ↓
             // A'   B'   C'

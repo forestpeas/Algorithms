@@ -26,6 +26,34 @@ namespace Algorithms.LeetCode
     {
         public int MaxDepth(TreeNode root)
         {
+            // DFS
+            if (root == null) return 0;
+            return 1 + Math.Max(MaxDepth(root.left), MaxDepth(root.right));
+        }
+
+        public int MaxDepth2(TreeNode root)
+        {
+            // BFS.
+            if (root == null) return 0;
+            int result = 0;
+            var queue = new Queue<TreeNode>();
+            queue.Enqueue(root);
+            while (queue.Count != 0)
+            {
+                result++;
+                int length = queue.Count;
+                while (length-- > 0)
+                {
+                    var node = queue.Dequeue();
+                    if (node.left != null) queue.Enqueue(node.left);
+                    if (node.right != null) queue.Enqueue(node.right);
+                }
+            }
+            return result;
+        }
+
+        public int MaxDepth3(TreeNode root)
+        {
             // Almost the same as "Problem 102. Binary Tree Level Order Traversal".
             if (root == null) return 0;
             int result = 0;
@@ -44,34 +72,5 @@ namespace Algorithms.LeetCode
             return result;
         }
 
-        public int MaxDepthWithQueue(TreeNode root)
-        {
-            if (root == null) return 0;
-            int result = 0;
-            var queue = new Queue<TreeNode>();
-            queue.Enqueue(root);
-            while (queue.Count != 0)
-            {
-                result++;
-                int length = queue.Count;
-                while (length-- > 0)
-                {
-                    var node = queue.Dequeue();
-                    if (node.left != null) queue.Enqueue(node.left);
-                    if (node.right != null) queue.Enqueue(node.right);
-                }
-            }
-            return result;
-        }
-    }
-
-    public class MaximumDepthOfBinaryTreeRecursive
-    {
-        // Recursive solution.
-        public int MaxDepth(TreeNode root)
-        {
-            if (root == null) return 0;
-            return 1 + Math.Max(MaxDepth(root.left), MaxDepth(root.right));
-        }
     }
 }

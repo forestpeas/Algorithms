@@ -21,7 +21,8 @@ namespace Algorithms.LeetCode
         public TreeNode LowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q)
         {
             // Short clean code inspired by https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/discuss/65225/4-lines-C%2B%2BJavaPythonRuby
-            // If we find p or q, just stop going deeper and return. If another p or q is in the deeper unsearched area, we won't find anything in other area.
+            // If we find p or q, just stop going deeper and return. If another p or q is
+            // in the deeper unsearched area, we won't find anything in the other area.
             if (root == null || root == p || root == q) return root;
             TreeNode left = LowestCommonAncestor(root.left, p, q);
             TreeNode right = LowestCommonAncestor(root.right, p, q);

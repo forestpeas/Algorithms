@@ -27,7 +27,7 @@ namespace Algorithms.LeetCode
     {
         public int CoinChange(int[] coins, int amount)
         {
-            // S is the amount, dp(S) is the problem answer to S.
+            // S is an amount, dp(S) is the problem answer to this amount.
             // dp(S) = min(dp(S - coins[i]) + 1, 0 <= i < coins.Length, S - coins[i] >= 0
             // coins[i] is the last coin's denomination to make up S.
             // For example, coins = [1, 2, 5], amount = 11

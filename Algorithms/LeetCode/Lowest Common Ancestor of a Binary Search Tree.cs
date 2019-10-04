@@ -15,8 +15,8 @@ namespace Algorithms.LeetCode
     {
         public TreeNode LowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q)
         {
-            // Let p and q traval from root, when they are about to separate, they are at
-            // their lowest common ancestor.
+            // Starting from root, let p and q compare with each node to decide which branch they should take next.
+            // When they are about to separate, they are at their lowest common ancestor.
             TreeNode node = root;
             while (node != null)
             {

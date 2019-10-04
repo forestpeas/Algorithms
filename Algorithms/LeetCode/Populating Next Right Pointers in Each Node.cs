@@ -50,7 +50,7 @@
         public Node ConnectIterative(Node root)
         {
             // Iterative solution, similar to the solution above.
-            // Bottom down, with constant space.
+            // Top down, with constant space.
             Node node = root;
             Node leftMost = node; // Leftmost node in current level.
             while (node != null)

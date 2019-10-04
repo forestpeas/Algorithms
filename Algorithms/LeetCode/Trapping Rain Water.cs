@@ -64,27 +64,27 @@ namespace Algorithms.LeetCode
             return result;
         }
 
-        // Inspired by : https://leetcode.com/problems/trapping-rain-water/discuss/17357/Sharing-my-simple-c++-code:-O(n)-time-O(1)-space
+        // Inspired by https://leetcode.com/problems/trapping-rain-water/discuss/17357/Sharing-my-simple-c++-code:-O(n)-time-O(1)-space
         public int TwoPointers(int[] height)
         {
-            // For example, when height[left] < height[right], we can always be sure that (maxleft - height[left])
+            // For example, when height[left] < height[right], we can always be sure that (maxLeft - height[left])
             // can be added to the result, no matter what values the un-visited heights are. Because height[right]
-            // will always be able to hold the water of (maxleft - height[left]).
+            // will always be able to hold the water of (maxLeft - height[left]).
             int left = 0; int right = height.Length - 1;
             int result = 0;
-            int maxleft = 0, maxright = 0;
+            int maxLeft = 0, maxRight = 0; // The max height from left or right.
             while (left <= right)
             {
                 if (height[left] <= height[right])
                 {
-                    if (height[left] >= maxleft) maxleft = height[left];
-                    else result += maxleft - height[left];
+                    if (height[left] >= maxLeft) maxLeft = height[left];
+                    else result += maxLeft - height[left];
                     left++;
                 }
                 else
                 {
-                    if (height[right] >= maxright) maxright = height[right];
-                    else result += maxright - height[right];
+                    if (height[right] >= maxRight) maxRight = height[right];
+                    else result += maxRight - height[right];
                     right--;
                 }
             }
