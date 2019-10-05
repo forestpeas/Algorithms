@@ -29,6 +29,32 @@
     {
         public void Rotate(int[] nums, int k)
         {
+            // Similar to the solution of "151. Reverse Words in a String".
+            // Reverse the whole "string" and then reverse each "word" (as for this problem, there are 2 words).
+            // For example: 
+            // Input: [1,2,3,4,5,6,7] and k = 3
+            //         ------- -----
+            //          word1  word2
+            k = k % nums.Length;
+            Reverse(nums, 0, nums.Length - 1);
+            Reverse(nums, 0, k - 1);
+            Reverse(nums, k, nums.Length - 1);
+        }
+
+        private void Reverse(int[] nums, int start, int end)
+        {
+            while (start < end)
+            {
+                int temp = nums[start];
+                nums[start] = nums[end];
+                nums[end] = temp;
+                start++;
+                end--;
+            }
+        }
+
+        public void Rotate2(int[] nums, int k)
+        {
             // To ensure O(1) space, store the original value of nums[i] before assigning
             // the corresponding nums[i'] to nums[i], and the stored value should be put
             // into its corresponding correct position next.
