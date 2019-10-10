@@ -45,7 +45,7 @@ namespace Algorithms.LeetCode
             long n = Math.Abs((long)numerator);
             long d = Math.Abs((long)denominator);
 
-            // Deal with cases like 7 / 2, or 6 / 3
+            // Deal with cases where numerator > denominator.
             result.Append(n / d);
             n = n % d;
             if (n == 0) return result.ToString();

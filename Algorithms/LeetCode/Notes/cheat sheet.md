@@ -42,7 +42,7 @@ DP: A `'*'`either matches empty or "swallows" one more character.
 
 **11. Container With Most Water**
 
-"low-high" pointers. Each time we move the shorter line inwards, looking for a probably longer line instead
+"low-high" pointers. Each time we move the shorter line inwards, looking for a probably longer line instead.
 
 **14. Longest Common Prefix**
 
@@ -427,6 +427,10 @@ We can only allocate a single array of length k and reuse it, for example, when 
 [0,1,3,3,1]
 [1,4,6,4,1]
 
+**120. Triangle**: Given a triangle, find the minimum path sum from top to bottom. Each step you may move to adjacent numbers on the row below.
+
+DP.
+
 **122. Best Time to Buy and Sell Stock II**: Find the maximum profit. You may complete as many transactions as  you like.
 
 There is a accumulative approach that accumulates each difference of an ascending pair to get the final result.
@@ -451,6 +455,10 @@ Think of *beginWord* as the root of a tree, and all the words that differ only o
 
 Use a hash set to count from the start of a sequence. A bit tricky.
 
+**129. Sum Root to Leaf Numbers**: Given a binary tree containing digits from 0-9 only, each root-to-leaf path could represent a number. Find the total sum of all root-to-leaf numbers.
+
+DFS.
+
 **130. Surrounded Regions**: Given a 2D board containing 'X' and 'O' (the letter O), flip all 'O's into 'X's in all regions of 'O's surrounded by 'X'. Surrounded regions shouldn’t be on the border.
 
 BFS starting from borders. Mark the 'O's with a marker such as '#'.
@@ -463,9 +471,18 @@ Recursion  with memoization. Check every possible partitioning.
 
 DP. Similar to the DP solution of "Problem 5. Longest Palindromic Substring". Let `isPalindrome[j, i]` be whether s[j...i] is a palindrome, and `cut[i]` be the minimum cuts for s[0...i].
 
+**133. Clone Graph**: Given a reference of a node in a connected undirected graph, return a deep copy (clone) of the graph. Each node in the graph contains a val (int) and a list (List[Node]) of its neighbors.
+
+BFS. Use a dictionary to map old node to new node.
+
 **134. Gas Station**: The problem is equivalent to: Find a position in a given array such that the accumulative sum in the clockwise direction is always non-negative.
 
 If the accumulative sum becomes negative, we reset it to 0. If it becomes non-negative, we record the current index.
+
+**135. Candy**: There are N children standing in a line. Each child is assigned a rating value. You are giving candies to these children subjected to the following requirements: 1\. Each child must have at least one candy. 2\. Children with a higher rating get more candies than their neighbors. What is the minimum candies you must give?
+
+1\. From left to right, make sure each element is bigger than its previous element.
+2\. From right tot left, make sure each element is bigger than its next element.
 
 **136. Single Number**: Given a non-empty array of integers, every element appears twice except for one. Find that single one.
 
@@ -551,9 +568,13 @@ Radix Sort(LSD String Sort) or Bucket Sort(somehow ensures that the two elements
 
 Split the version number by dot.
 
+**166. Fraction to Recurring Decimal**: Given two integers representing the numerator and denominator of a fraction, return the fraction in string format. If the fractional part is repeating, enclose the repeating part in parentheses. Example: Input: numerator = 2, denominator = 3, Output: "0.(6)"
+
+Math. Just like doing division in elementary school.
+
 **167\. Two Sum II - Input array is sorted**: Find two numbers in a given sorted array that add up to a target.
 
-In each iteration, binary search in [lo + 1, hi], then narrow down the range of [lo, hi].
+High-low pointers, similar to "11. Container With Most Water".
 
 **169. Majority Element**: Given an array of size n, find the majority element. The majority element is the element that appears more than ⌊n/2⌋ times.
 
@@ -577,8 +598,16 @@ A simple way is to convert the number to string then compare their string concat
 
 Find all possible sequences and use a hash table to store the seen sequences.
 
+**188. Best Time to Buy and Sell Stock IV**: Say you have an array for which the i-th element is the price of a given stock on day i. Design an algorithm to find the maximum profit. You may complete at most k transactions.
+
+DP. `dp[i, j]` = the maximum profit from at most `i` transactions using `prices[0..j]`. Either do nothing(not buy) or sell on day j (so we need to know which day we bought last time such that we can gain the maximum profit) .
+`dp[i, j] = max(dp[i, j - 1], prices[j] + max(-prices[t] + dp[i - 1, t - 1])), 0 <= t < j`
+
 **189. Rotate Array**: Given an array, rotate the array to the right by k steps, where k is non-negative.
 
+Approach 1: Similar to the solution of "151. Reverse Words in a String". Reverse the whole "string" and then reverse each "word" (as for this problem, there are 2 words).
+
+Approach 2:
 For example: [1,2,3,4,5,6], k=2
 Rotated:         [5,6,1,2,3,4]
 ![](D:\GitHub\CSharp\Algorithms\Algorithms\LeetCode\Notes\pics\189.png)
@@ -628,7 +657,7 @@ We need these variables: `prev`, `curr`.
 
 Typical sliding window problem.
 
-**211\. Add and Search Word - Data structure design**
+**211\. Add and Search Word - Data structure design**: `Search(word)` can search a literal word or a regular expression string containing only letters a-z or `'.'`. A `'.'` means it can represent any one letter.
 
 Trie.
 
@@ -694,6 +723,10 @@ The inorder traversal of a BST is an increasing array.
 
 Use two stacks.
 
+**233. Number of Digit One**: Given an integer n, count the total number of digit 1 appearing in all non-negative integers less than or equal to n.
+
+Consider how many 1's there are in each position (one's position, then ten's position, then hundred's position).
+
 **234. Palindrome Linked List**: Given a singly linked list, determine if it is a palindrome.
 
 1\. Find the middle node. 2\. Reverse the right half. 3\. Compare the left and right halves.
@@ -741,6 +774,10 @@ The next ugly number is the minimum of a certain previous ugly number multiplied
 **268. Missing Number**: Given an array containing n distinct numbers taken from 0, 1, 2, ..., n, find the one that is missing from the array.
 
 Calculate sum=0+1+2+3+...+n, and the sum of the array, then return their difference.
+
+**279. Perfect Squares**: Given a positive integer n, find the least number of perfect square numbers (for example, 1, 4, 9, 16, ...) which sum to n.
+
+Recursion + Memoization. Choose larger square numbers prior to smaller ones.
 
 **283. Move Zeroes**: Given an array `nums`, write a function to move all 0's to the end of it while maintaining the relative order of the non-zero elements.
 
@@ -800,6 +837,19 @@ Divide `nums` into smaller and larger halves using quick select from "215. Kth L
 
 Math: A number is a power of three if and only if it is divisible by 3^19 (3^20 > `int.MaxValue`).
 
+**329. Longest Increasing Path in a Matrix**: Given an integer matrix, find the length of the longest increasing path.
+
+Approach 1: DFS from each element, optimized with memoization.
+Approach 2: Treat the matrix as a directed graph, with edges pointing from smaller value to larger value. Use BFS topological sort based on in-degree counting. Count the number of levels.
+
+**334. Increasing Triplet Subsequence**: Find if there exists *i, j, k* such that *arr[i]* < *arr[j]* < *arr[k]* given 0 ≤ *i* < *j* < *k* ≤ *n*-1.
+
+Scan the array and update candidates for *arr[i]*, *arr[j]* and *arr[k]*.
+
+**341. Flatten Nested List Iterator**: Given a nested list of integers, implement an iterator to flatten it.
+
+Stack.
+
 **347. Top K Frequent Elements**: Given a non-empty array of integers, return the `k` most frequent elements. Your algorithm's time complexity must be better than O(n log n), where n is the array's size.
 
 Buckets! `buckets`'s index is frequency, e.g. `buckets[3]` contains the numbers that appear 3 times.
@@ -827,6 +877,10 @@ Store value-to-index mapping and index-to-value mapping. When removing, we can "
 **384. Shuffle an Array**
 
 Fisher-Yates algorithm. Randomly choose a number from [i, length) and put it at the front of the array as the chosen numbers.
+
+**395. Longest Substring with At Least K Repeating Characters**: Find the length of the longest substring T of a given string (consists of lowercase letters only) such that every character in T appears no less than k times.
+
+Sliding window.  Count the number of unique characters and the number of characters that appears no less than k times in the sliding window.
 
 **402\. Remove K Digits**: Remove k digits from a given number so that the new number is the smallest possible.
 
