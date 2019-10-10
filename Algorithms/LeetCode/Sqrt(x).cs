@@ -25,7 +25,7 @@
             int hi = 46341; // Sqrt(int.MaxValue) + 1
             while (lo < hi)
             {
-                int mid = (lo + hi) / 2;
+                int mid = lo + (hi - lo) / 2;
                 int square = mid * mid;
                 if (square > x)
                 {
