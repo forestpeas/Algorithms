@@ -32,7 +32,7 @@ namespace Algorithms.LeetCode
             // There is another solution based on bottoms and peaks:
             // we can draw the rating points on a graph, all the bottom points should be given 1 candy,
             // and from bottom to peak is an increasing range starting from 1.
-            // Refer to this pictur: https://leetcode.com/articles/Figures/135_Candy_Constant_Space.PNG
+            // Refer to this picture: https://leetcode.com/articles/Figures/135_Candy_Constant_Space.PNG
 
             int[] candies = new int[ratings.Length]; // Represents the distributed candies.
             System.Array.Fill(candies, 1);
