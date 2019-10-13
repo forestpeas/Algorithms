@@ -560,6 +560,10 @@ Use another stack to store the minimum elements.
 
 The key is that, for example, when the pointer of A reaches the end, then redirect it to the head of B, until "pA" meets "pB".
 
+**162. Find Peak Element**: A peak element is an element that is greater than its neighbors. Given an input array nums, where nums[i] ≠ nums[i+1], find a peak element and return its index.
+
+Binary search. Gradually narrow down the range according to `mid`'s "derivative".
+
 **164\. Maximum Gap**: Given an unsorted array, find the maximum difference between the successive elements in its **sorted form**. Assume all elements in the array are non-negative integers. Try to solve it in linear time/space.
 
 Radix Sort(LSD String Sort) or Bucket Sort(somehow ensures that the two elements that forms the  maximum gap are in different buckets).
@@ -846,6 +850,10 @@ Approach 2: Treat the matrix as a directed graph, with edges pointing from small
 
 Scan the array and update candidates for *arr[i]*, *arr[j]* and *arr[k]*.
 
+**337. House Robber III**
+
+DFS a tree. The idea is similar to DP. If we rob at `root`, we can't rob `root.left` and `root.right`.
+
 **341. Flatten Nested List Iterator**: Given a nested list of integers, implement an iterator to flatten it.
 
 Stack.
@@ -878,13 +886,42 @@ Store value-to-index mapping and index-to-value mapping. When removing, we can "
 
 Fisher-Yates algorithm. Randomly choose a number from [i, length) and put it at the front of the array as the chosen numbers.
 
+**394. Decode String**: Examples: s = "3[a]2[bc]", return "aaabcbc". s = "3[a2[c]]", return "accaccacc".
+
+stack.
+
 **395. Longest Substring with At Least K Repeating Characters**: Find the length of the longest substring T of a given string (consists of lowercase letters only) such that every character in T appears no less than k times.
 
 Sliding window.  Count the number of unique characters and the number of characters that appears no less than k times in the sliding window.
 
+**399. Evaluate Division**
+
+Find a path between two nodes in a graph.
+
 **402\. Remove K Digits**: Remove k digits from a given number so that the new number is the smallest possible.
 
 We can find a pattern: from the most significant digit to the least significant digit, whenever we meet a digit that is less than the the previous digit, we should discard the previous digit.
+
+**406. Queue Reconstruction by Height**
+
+First consider the tallest man, then the second tallest man...
+
+**416. Partition Equal Subset Sum**: Given a non-empty array containing only positive integers, find if the array can be partitioned into two subsets such that the sum of elements in both subsets is equal.
+
+The problem is equal to finding if there is a subset such that the sum of elements in it is "sum of array" / 2. Then we can use DP to solve it. Let `dp[i, j]` mean whether there can be a sum `j` from a certain subset in `nums[0...i]`. For each `nums[i]`, we check whether we need to include it to achieve `j`.
+`dp[i, j] = dp[i - 1, j] || dp[i - 1, j - nums[i]]`
+
+**437. Path Sum III**: You are given a binary tree in which each node contains an integer value. Find the number of paths that sum to a given value. The path does not need to start or end at the root or a leaf, but it must go downwards.
+
+Save the "prefix sum" of the path from root to each node.
+
+**438. Find All Anagrams in a String**: Given a string s and a non-empty string p, find all the start indices of p's anagrams in s.
+
+Sliding window. Count the number of each character in p.
+
+**448. Find All Numbers Disappeared in an Array**: Given an array of integers where 1 ≤ a[i] ≤ n (n = size of array). Find all the elements of [1, n] inclusive that do not appear in this array.
+
+Put `num[i]` in `nums[num[i] - 1]`. Similar to "41. First Missing Positive".
 
 **454\. 4Sum II**: Given four lists A, B, C, D of integer values, compute how many tuples (i, j, k, l) there are such that `A[i] + B[j] + C[k] + D[l]` is zero.
 
@@ -893,6 +930,19 @@ Store the sum of every combination of (A[i] + B[j]) in a hash table, then check 
 **493\. Reverse Pairs**: Given an array `nums`, find how many pair(i, j) there are such that `i < j` and `nums[i] > 2*nums[j]`.
 
 Mergesort.
+
+**494. Target Sum**
+
+DP. Similar to "416. Partition Equal Subset Sum". `dp[i, j]` means the ways to achieve a sum`j` using only `nums[0...i]`. `dp[i, j] = dp[i - 1, j - nums[i]] + dp[i - 1, j + nums[i]]`
+
+**518. Coin Change 2**: You are given coins of different denominations and a total amount of money. Write a function to compute the number of combinations that make up that amount. You may assume that you have infinite number of each kind of coin.
+
+DP. `dp[i, j]` means how many combinations there are, if amount = j and we can only use coins[0...i]. Can be compared with "416. Partition Equal Subset Sum" because they can all be categorized to the Knapsack problem.
+`dp[i, j] = dp[i - 1, j] + dp[i, j - coins[i]]`
+
+**543. Diameter of Binary Tree**: Given a binary tree, you need to compute the length of the diameter of the tree. The diameter of a binary tree is the length of the **longest** path between any two nodes in a tree. This path may or may not pass through the root.
+
+DFS the tree and check every node's left subtree's depth + its right subtree's depth.
 
 **572. Subtree of Another Tree**: Given two non-empty binary trees s and t, check whether tree t has exactly the same structure and node values with a subtree of s.
 
