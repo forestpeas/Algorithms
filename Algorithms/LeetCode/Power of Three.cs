@@ -37,6 +37,8 @@
             // 3 * 3 * 3 *...*3 / ?
             // The denominator can only be 3, or 3 * 3, or 3 * 3 * 3,...
             // which are 3^1, 3^2, 3^3, 3^4,...,3^19.
+            // Another approach: Convert to base 3 string representation and check whether it matches "10*".
+            // (Think about "Power of 10" in decimal.)
             return n > 0 && 1162261467 % n == 0;
         }
     }

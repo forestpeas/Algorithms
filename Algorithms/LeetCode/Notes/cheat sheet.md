@@ -681,6 +681,10 @@ Quick select. Repeat the partition(same as the partition in quick sort) until th
 
 Hash set.
 
+**218. The Skyline Problem**: Output the skyline formed by the buildings given.
+
+Use a priority queue to maintain the highest building so far.
+
 **219\. Contains Duplicate II**: Given `nums` and `k`, find `i` and `j` such that `nums[i] = nums[j]` and `j - i >= k`.
 
 Hash table.
