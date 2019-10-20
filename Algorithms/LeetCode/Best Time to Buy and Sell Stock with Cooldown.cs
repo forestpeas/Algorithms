@@ -41,24 +41,5 @@ namespace Algorithms.LeetCode
             }
             return sell[sell.Length - 1];
         }
-
-        public int MaxProfit2(int[] prices)
-        {
-            // My DP solution, easier to understand but has O(n^2) time complexity.
-            // dp[i] means the max profit of [i to the end].
-            int[] dp = new int[prices.Length + 2];
-            for (int i = prices.Length - 2; i >= 0; i--)
-            {
-                int currentProfit = dp[i + 1]; // We can do nothing at i.
-                for (int j = i + 1; j < prices.Length; j++)
-                {
-                    // Buy at i and sell at j.
-                    int profit = prices[j] - prices[i];
-                    currentProfit = Math.Max(currentProfit, profit + dp[j + 2]);
-                }
-                dp[i] = currentProfit;
-            }
-            return dp[0];
-        }
     }
 }

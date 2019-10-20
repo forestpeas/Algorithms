@@ -11,13 +11,16 @@
      * and have no effect on the behavior of this function.
      * 
      * If the first sequence of non-whitespace characters in str is not a valid integral number, or if no such
-     * sequence exists because either str is empty or it contains only whitespace characters, no conversion is performed.
+     * sequence exists because either str is empty or it contains only whitespace characters, no conversion is
+     * performed.
      * 
      * If no valid conversion could be performed, a zero value is returned.
      * 
      * Note:
      *     Only the space character ' ' is considered as whitespace character.
-     *     Assume we are dealing with an environment which could only store integers within the 32-bit signed integer range: [−231,  231 − 1]. If the numerical value is out of the range of representable values, INT_MAX (231 − 1) or INT_MIN (−231) is returned.
+     *     Assume we are dealing with an environment which could only store integers within the 32-bit signed
+     *     integer range: [−231,  231 − 1]. If the numerical value is out of the range of representable values,
+     *     INT_MAX (231 − 1) or INT_MIN (−231) is returned.
      * 
      * Example 1:
      * 
@@ -48,7 +51,8 @@
      * 
      * Input: "-91283472332"
      * Output: -2147483648
-     * Explanation: The number "-91283472332" is out of the range of a 32-bit signed integer.Thefore INT_MIN (−231) is returned.
+     * Explanation: The number "-91283472332" is out of the range of a 32-bit signed integer.
+     * Thefore INT_MIN (−231) is returned.
      */
     public class StringToInteger
     {
@@ -78,34 +82,33 @@
                 i++;
             }
 
-            int ret = 0;
+            int result = 0;
             for (; i < str.Length; i++)
             {
-                char character = str[i];
-                if (!char.IsDigit(character)) break;
-                int digit = character - '0';
+                if (!char.IsDigit(str[i])) break;
+                int digit = str[i] - '0';
                 if (positive)
                 {
                     // 7 is because int.MaxValue(2147483647)'s least significant digit
                     // is 7, and result * 10 is at most 2147483640. Similar logic can
                     // be applied when result is negative.
-                    if (ret > int.MaxValue / 10 || (ret == int.MaxValue / 10 && digit > 7))
+                    if (result > int.MaxValue / 10 || (result == int.MaxValue / 10 && digit > 7))
                     {
                         return int.MaxValue;
                     }
-                    ret = ret * 10 + digit;
+                    result = result * 10 + digit;
                 }
                 else
                 {
-                    if (ret < int.MinValue / 10 || (ret == int.MinValue / 10 && digit > 8))
+                    if (result < int.MinValue / 10 || (result == int.MinValue / 10 && digit > 8))
                     {
                         return int.MinValue;
                     }
-                    ret = ret * 10 - digit;
+                    result = result * 10 - digit;
                 }
             }
 
-            return ret;
+            return result;
         }
     }
 }

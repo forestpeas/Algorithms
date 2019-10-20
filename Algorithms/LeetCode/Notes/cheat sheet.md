@@ -98,7 +98,7 @@ Fast-slow pointers. Or "high-low" pointers (if the order of elements does not ma
 
 **29. Divide Two Integers**: Given two integers `dividend` and `divisor`, divide two integers without using multiplication, division and mod operator.
 
-Check whether `divisor` * 2, `divisor` * 4, `divisor` * 8, ... is greater than `dividend`. Do the same to the remainder.
+Check whether `divisor` * 2, `divisor` * 4, `divisor` * 8, ... (shift operations) is greater than `dividend`. Do the same to the remainder.
 
 **30. Substring with Concatenation of All Words**: Example: s = "barfoothefoobarman", words = ["foo","bar"],  Output: [0,9]. Substrings starting at index 0 and 9 are "barfoor" and "foobar" respectively.
 
@@ -115,7 +115,8 @@ Write down the permutations of [1,2,3,4], then observe and find the pattern:
 
 **32. Longest Valid Parentheses**
 
-A very smart solution: From left to right, count the number of ')' and '(', only when the number of '(' is greater than ')'. When they are equal, update the final result. Repeat the similar process from right to left.
+Approach 1: Stack.
+Approach 2: A very smart solution: From left to right, count the number of ')' and '(', only when the number of '(' is greater than ')'. When they are equal, update the final result. Repeat the similar process from right to left.
 
 **33\. Search in Rotated Sorted Array**
 
@@ -305,7 +306,7 @@ Use two pointers to construct the left and right linked lists, and merge them in
 
 **87. Scramble String**: Given two strings *s1* and *s2* of the same length, determine if *s2* is a *scrambled string* of *s1*.
 
-Recursion(divide and conquer). Split s1 and s2 in two by the same length, check if the left parts are equal or contain exactly the same characters, and the right parts too.
+Recursion (divide and conquer). Split s1 and s2 in two by the same length, check if the left parts are equal or contain exactly the same characters, and the right parts too.
 
 **88. Merge Sorted Array**: Given two sorted integer arrays `nums1` and `nums2`, merge `nums2` into `nums1` as one sorted array.
 
@@ -562,7 +563,7 @@ The key is that, for example, when the pointer of A reaches the end, then redire
 
 **162. Find Peak Element**: A peak element is an element that is greater than its neighbors. Given an input array nums, where nums[i] ≠ nums[i+1], find a peak element and return its index.
 
-Binary search. Gradually narrow down the range according to `mid`'s "derivative".
+Binary search. Gradually narrow down the range according to `mid`'s "derivative", "hi" and "lo" will eventually converge to a peak element.
 
 **164\. Maximum Gap**: Given an unsorted array, find the maximum difference between the successive elements in its **sorted form**. Assume all elements in the array are non-negative integers. Try to solve it in linear time/space.
 
@@ -609,7 +610,7 @@ DP. `dp[i, j]` = the maximum profit from at most `i` transactions using `prices[
 
 **189. Rotate Array**: Given an array, rotate the array to the right by k steps, where k is non-negative.
 
-Approach 1: Similar to the solution of "151. Reverse Words in a String". Reverse the whole "string" and then reverse each "word" (as for this problem, there are 2 words).
+Approach 1: Similar to the solution of "151. Reverse Words in a String". Reverse the whole "string" and then reverse each "word" (as for this problem, there are 2 words: left and right parts).
 
 Approach 2:
 For example: [1,2,3,4,5,6], k=2
@@ -687,7 +688,7 @@ Use a priority queue to maintain the highest building so far.
 
 **219\. Contains Duplicate II**: Given `nums` and `k`, find `i` and `j` such that `nums[i] = nums[j]` and `j - i >= k`.
 
-Hash table.
+Hash table. Map value to index.
 
 **220\. Contains Duplicate III**: Given `nums` and `k` and `t`, find `i` and `j` such that `nums[j]- nums[i] >= t` and `j - i >= k`.
 
@@ -749,7 +750,7 @@ Depth first search the tree, If we find `p` or `q`, just stop going deeper and r
 
 **238. Product of Array Except Self**: Given an array `nums` of n integers where n > 1,  return an array `output` such that `output[i]` is equal to the product of all the elements of `nums` except `nums[i]`. Could you solve it with constant space complexity?
 
-From left to right and right to left, calculate each num[i]'s "prefix sum".
+From left to right and right to left, calculate each num[i]'s "prefix product".
 
 **239\. Sliding Window Maximum**: Find the max number in a sliding window of an array.
 
@@ -815,13 +816,13 @@ Recursion. Find every possible substring and check whether it's a valid string. 
 
 **309. Best Time to Buy and Sell Stock with Cooldown**: Cooldown 1 day.
 
-DP. Let `buy[i]` be the max profit that ends with buying on a day from range [0-i]. Let `sell[i]` means the max profit that ends with selling on a day from range [0-i].
+DP. Let `buy[i]` be the max profit that ends with buying on a day from range [0...i]. Let `sell[i]` means the max profit that ends with selling on a day from range [0...i].
 
 **312. Burst Balloons**: Given `n` balloons, indexed from `0` to `n-1`. Each balloon is painted with a number on it represented by array `nums`. You are asked to burst all the balloons. If the you burst balloon `i` you will get `nums[left] * nums[i] * nums[right]` coins. Here `left` and `right` are adjacent indices of `i`. After the burst, the `left` and `right` then becomes adjacent. Find the maximum coins you can collect by bursting the balloons wisely.
 
 DP. `dp[l, r]` is the answer of bursting all the balloons in (l, r). If the balloon at index i is the **last** balloon to burst(l < i < r), we get `nums[l] * nums[i] * nums[r]` coins.
 
-`dp(i, j) = max(nums[l] * nums[i] * nums[r] + dp[l, i] + dp[i, r]), l < i < r`
+`dp(l, r) = max(nums[l] * nums[i] * nums[r] + dp[l, i] + dp[i, r]), l < i < r`
 
 **313\. Super Ugly Number**: Find the nth super ugly number. Super ugly numbers are positive numbers whose all prime factors are in the given prime list.
 
@@ -874,9 +875,17 @@ Hash set.
 
 Use a hash map to count frequency.
 
+**368. Largest Divisible Subset**: Given a set of distinct positive integers, find the largest subset such that every pair (Si, Sj) of elements in this subset satisfies: Si % Sj = 0 or Sj % Si = 0.
+
+Sort the array first and find the pattern.
+
 **371. Sum of Two Integers**: Calculate the sum of two integers a and b, but you are not allowed to use the operator + and -.
 
 Bit manipulation. Simulate addition with XOR, save the carry digits using bitwise AND.
+
+**373. Find K Pairs with Smallest Sums**: You are given two integer arrays `nums1` and `nums2` sorted in ascending order and an integer k. Define a pair (u,v) which consists of one element from the first array and one element from the second array. Find the k pairs (u1,v1),(u2,v2) ...(uk,vk) with the smallest sums.
+
+Essentially the same as "378. Kth Smallest Element in a Sorted Matrix".
 
 **378\. Kth Smallest Element in a Sorted Matrix**: Given a n x n matrix where each of the rows and columns are sorted in ascending order, find the kth smallest element in the matrix.
 
@@ -948,9 +957,17 @@ DP. `dp[i, j]` means how many combinations there are, if amount = j and we can o
 
 DFS the tree and check every node's left subtree's depth + its right subtree's depth.
 
+**560. Subarray Sum Equals K**: Given an array of integers and an integer k, you need to find the total number of continuous subarrays whose sum equals to k.
+
+Store the frequencies of "prefix sums" in a hash map. For each sum, check whether (sum - k) exists in the map.
+
 **572. Subtree of Another Tree**: Given two non-empty binary trees s and t, check whether tree t has exactly the same structure and node values with a subtree of s.
 
 Simple recursive solution based on "Problem 100. Same Tree".
+
+**581. Shortest Unsorted Continuous Subarray**
+
+Let [l, r] represent the expected shortest subarray so far. Traverse the array and expand [l, r] if necessary.
 
 **621. Task Scheduler**: Given a char array representing tasks CPU need to do. It contains capital letters A to Z where different letters represent different tasks. Each task could be done in one interval. For each interval, CPU could finish one task or just be idle. However, there is a non-negative cooling interval n that means between two same tasks, there must be at least n intervals that CPU are doing different tasks or just be idle. You need to return the least number of intervals the CPU will take to finish all the given tasks.
 Example: Input: tasks = ["A","A","A","B","B","B"], n = 2. Output: 8
@@ -958,6 +975,10 @@ Explanation: A -> B -> idle -> A -> B -> idle -> A -> B.
 
 The idea is that we can get the task that appears the maximum number of times and consider how to schedule them. For example, there are 3 'A's and n = 2: A -> idle -> idle -> A -> idle -> idle -> A
 We also need to take care of some special cases.
+
+**739. Daily Temperatures**
+
+Somehow avoid unnecessary compares.
 
 **894. All Possible Full Binary Trees**:  A full binary tree is a binary tree where each node has exactly 0 or 2 children. Return a list of all possible full binary trees with N nodes.
 
