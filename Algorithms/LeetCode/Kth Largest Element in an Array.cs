@@ -23,24 +23,34 @@
         public int FindKthLargest(int[] nums, int k)
         {
             // Quick select.
-            int l = 0;
-            int r = nums.Length - 1;
-            while (l <= r)
+            int lo = 0;
+            int hi = nums.Length - 1;
+            while (lo <= hi)
             {
-                int lo = l + 1;
-                int hi = r;
-                while (true)
+                int v = nums[lo]; // partitioning item
+                int i = lo + 1, j = hi;
+                while (i <= j)
                 {
-                    while (lo <= hi && nums[lo] >= nums[l]) lo++;
-                    while (lo <= hi && nums[hi] <= nums[l]) hi--;
-                    if (lo > hi) break;
-                    Swap(nums, lo++, hi--);
+                    // descending order
+                    if (nums[i] < v && nums[j] > v)
+                    {
+                        Swap(nums, i++, j--);
+                    }
+                    else if (nums[i] >= v)
+                    {
+                        i++;
+                    }
+                    else if (nums[j] <= v)
+                    {
+                        j--;
+                    }
                 }
-                Swap(nums, l, hi);
 
-                if (hi + 1 < k) l = hi + 1; // hi + 1 indicates the rank of nums[hi].
-                else if (hi + 1 > k) r = hi - 1;
-                else return nums[hi];
+                Swap(nums, lo, j);
+
+                if (j + 1 < k) lo = j + 1; // j + 1 indicates the rank of nums[j].
+                else if (j + 1 > k) hi = j - 1;
+                else return nums[j];
             }
 
             return -1; // k is invalid.

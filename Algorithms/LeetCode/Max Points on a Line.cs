@@ -80,7 +80,7 @@ namespace Algorithms.LeetCode
             return result;
         }
 
-        private class Slope
+        internal class Slope
         {
             public int Dx { get; }
             public int Dy { get; }
