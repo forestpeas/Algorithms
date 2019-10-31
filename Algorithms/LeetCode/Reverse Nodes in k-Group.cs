@@ -17,7 +17,6 @@ namespace Algorithms.LeetCode
      * For k = 3, you should return: 3->2->1->4->5
      * 
      * Note:
-     * 
      * Only constant extra memory is allowed.
      * You may not alter the values in the list's nodes, only nodes itself may be changed.
      */
@@ -25,6 +24,38 @@ namespace Algorithms.LeetCode
     {
         public ListNode ReverseKGroup(ListNode head, int k)
         {
+            // Inspired by https://leetcode.com/problems/reverse-nodes-in-k-group/discuss/11423/Short-but-recursive-Java-code-with-comments/12145
+            int n = 0;
+            for (ListNode node = head; node != null; node = node.next) n++;
+
+            ListNode dummy = new ListNode(0) { next = head };
+            for (ListNode prev = dummy, tail = head; n >= k; n -= k)
+            {
+                // prev is the node right before the current k-group.
+                // tail is always the last node during the reversing stage for the current k-group.
+                // In each iteration, our goal is to move "tail.next" to "head", that is, right after prev.
+                // Example: k = 3
+                // 1->2->3->4->5
+                // 2->1->3->4->5
+                // 3->2->1->4->5
+                for (int i = 1; i < k; i++)
+                {
+                    ListNode next = tail.next.next;
+                    tail.next.next = prev.next;
+                    prev.next = tail.next;
+                    tail.next = next;
+                }
+
+                prev = tail;
+                tail = prev.next;
+            }
+
+            return dummy.next;
+        }
+
+        public ListNode ReverseKGroup2(ListNode head, int k)
+        {
+            // My first attempt.
             // Similar to "24. Swap Nodes in Pairs" but a bit more complex and needs more careful considerations.
             if (k < 2) return head;
 
