@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Algorithms.LeetCode
 {
@@ -34,34 +35,40 @@ namespace Algorithms.LeetCode
      */
     public class LRUCache
     {
-        // We can maintain a list. Every time an element is accessed, put it to the head
-        // of the list. When the cache reaches its capacity, delete the element from the
+        // We can maintain a list. Every time an element is accessed, move it to the head
+        // of the list. When the cache reaches its capacity, remove the element from the
         // tail of the list. We can use a linked list because deleting and inserting are
         // all O(1) operations.
+        // Initialize _head and _tail to two dummy nodes. Always add a new node right after
+        // _head, and remove the node right before _tail. In this way, we don't have to deal
+        // with special cases such as removing the head or tail.
         private class ListNode
         {
             public int Key { get; }
             public int Value { get; set; }
             public ListNode Next { get; set; }
-            public ListNode Previous { get; set; }
+            public ListNode Prev { get; set; }
 
-            public ListNode(int key, int value, ListNode next, ListNode previous)
+            public ListNode(int key, int value)
             {
                 Key = key;
                 Value = value;
-                Next = next;
-                Previous = previous;
             }
         }
 
         private readonly Dictionary<int, ListNode> _dictionary = new Dictionary<int, ListNode>();
-        private ListNode _head = null;
-        private ListNode _tail = null;
+        private ListNode _head;
+        private ListNode _tail;
         private readonly int _capacity;
 
         public LRUCache(int capacity)
         {
+            if (capacity < 1) throw new ArgumentOutOfRangeException();
             _capacity = capacity;
+            _head = new ListNode(0, 0);
+            _tail = new ListNode(0, 0);
+            _head.Next = _tail;
+            _tail.Prev = _head;
         }
 
         public int Get(int key)
@@ -83,36 +90,36 @@ namespace Algorithms.LeetCode
             }
             else
             {
-                node = new ListNode(key, value, _head, null);
-                if (_head != null) _head.Previous = node;
-                if (_tail == null) _tail = node;
-                _head = node;
+                node = new ListNode(key, value);
                 _dictionary.Add(key, node);
+                AddNode(node);
+
                 if (_dictionary.Count > _capacity)
                 {
-                    _dictionary.Remove(_tail.Key);
-                    _tail = _tail.Previous;
-                    _tail.Next = null;
+                    _dictionary.Remove(_tail.Prev.Key);
+                    RemoveNode(_tail.Prev);
                 }
             }
         }
 
+        private void AddNode(ListNode node)
+        {
+            node.Prev = _head;
+            node.Next = _head.Next;
+            _head.Next.Prev = node;
+            _head.Next = node;
+        }
+
+        private void RemoveNode(ListNode node)
+        {
+            node.Prev.Next = node.Next;
+            node.Next.Prev = node.Prev;
+        }
+
         private void MoveToHead(ListNode node)
         {
-            if (node == _tail && _head != _tail)
-            {
-                _tail = node.Previous;
-            }
-
-            if (node != _head)
-            {
-                node.Previous.Next = node.Next;
-                if (node.Next != null) node.Next.Previous = node.Previous;
-                node.Next = _head;
-                node.Previous = null;
-                _head.Previous = node;
-                _head = node;
-            }
+            RemoveNode(node);
+            AddNode(node);
         }
     }
 }
