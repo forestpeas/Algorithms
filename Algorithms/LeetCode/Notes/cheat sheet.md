@@ -931,6 +931,10 @@ Bit manipulation. Simulate addition with XOR, save the carry digits using bitwis
 
 Essentially the same as "378. Kth Smallest Element in a Sorted Matrix".
 
+**377. Combination Sum IV**: Permutation version of "518. Coin Change 2".
+
+Recursion with memoization is more intuitive. DP: Similar to the recursive solution and "518. Coin Change 2". let `dp[j]` be the answer when target sum is j, calculate `dp[1], dp[2], dp[3],...`, in each iteration we check all the numbers in `nums`.
+
 **378\. Kth Smallest Element in a Sorted Matrix**: Given a n x n matrix where each of the rows and columns are sorted in ascending order, find the kth smallest element in the matrix.
 
 Starting from `matrix[0][0]`, add `matrix[i + 1][j]` and `matrix[i][j + 1]` to a min priority queue because they are candidates for the next smallest element.

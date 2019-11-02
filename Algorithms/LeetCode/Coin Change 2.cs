@@ -68,6 +68,9 @@
 
             foreach (int coin in coins)
             {
+                // When 1 <= j < coin, dp[j] stays the same.
+                // Or from another perspective, dp[j] is the answer for amount j, dp[j] += dp[j - coin]
+                // Choose one coine of "coin" value and this add "dp[j - coin]" more combinations to dp[amount].
                 for (int j = coin; j <= amount; j++)
                 {
                     dp[j] = dp[j] + dp[j - coin];
