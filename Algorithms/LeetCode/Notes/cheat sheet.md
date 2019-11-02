@@ -587,7 +587,7 @@ Boyer-Moore Voting Algorithm. For each element, vote for the same element.
 
 **171. Excel Sheet Column Number**
 
-Convert a number from base-26 to base-10.
+Convert a number from base-26 to base-10 and vice versa (168. Excel Sheet Column Title). Notice that in each iteration, we need to add or minus 1 to the number because there is no letter corresponding to 0.
 
 **172. Factorial Trailing Zeroes**: Given an integer n, return the number of trailing zeroes in n!.
 
@@ -673,6 +673,10 @@ First we build a trie from the given words. Then everything goes the same as "79
 **213\. House Robber II**: Same as "198. House Robber", except that the first and last number cannot be chosen both.
 
 Maximum of two sub-problems of "198. House Robber".
+
+**214. Shortest Palindrome**:  Given a string `s`, you are allowed to convert it to a palindrome by adding characters in front of it. Find and return the shortest palindrome you can find by performing this transformation. 
+
+Find the longest palindrome starting from the beginning. For each substring, check whether it's a  palindrome.
 
 **215. Kth Largest Element in an Array**
 
@@ -768,6 +772,10 @@ Recursion(divide and conquer).
 
 Use a hash table to count characters. We can allocate a single hash table and let characters from `s` increment the count while characters from `t` decrement the count. If `t` is an anagram of `s`, all counts should be 0.
 
+**258. Add Digits**
+
+ [Digit root](https://en.wikipedia.org/wiki/Digital_root#Congruence_formula). The function is periodic.
+
 **260. Single Number III**: Given an array of numbers, in which exactly two elements appear only once and all the other elements appear exactly twice. Find the two elements `a` and `b` that appear only once.
 
 Tricky solution: If we can divide the numbers into two groups and make sure  `a` and `b` are in different groups, we can get the answer using the XOR technique. We can group the numbers from a "1" digit of `a^b`.
@@ -783,6 +791,14 @@ The next ugly number is the minimum of a certain previous ugly number multiplied
 **268. Missing Number**: Given an array containing n distinct numbers taken from 0, 1, 2, ..., n, find the one that is missing from the array.
 
 Calculate sum=0+1+2+3+...+n, and the sum of the array, then return their difference.
+
+**274. H-Index**: Given an integer array `nums`, find a `nums[i]` such that `nums[0..i - 1] <= h` and `nums[i..n] >= h`, where h is the number of `nums[i..n]`, which is n - i.  If there are several possible  results, find the leftmost one.
+
+Sort the input array first. Or "counting sort".
+
+**275. H-Index II**: Same as 274. H-Index, except that `nums` is sorted in ascending order.
+
+Binary search. Compare each `nums[i]` with `n - i`.
 
 **279. Perfect Squares**: Given a positive integer n, find the least number of perfect square numbers (for example, 1, 4, 9, 16, ...) which sum to n.
 
@@ -814,9 +830,17 @@ DP, O(N^2): `dp[i]` with the restriction of `nums[i]` being the tail of the long
 
 Recursion. Find every possible substring and check whether it's a valid string. If we have found a valid substring, no need to further split it and go deeper.
 
+**303. Range Sum Query - Immutable**:  Given an integer array *nums*, find the sum of the elements between indices *i* and *j* (*i* ≤ *j*), inclusive. 
+
+"Prefix sum".
+
 **309. Best Time to Buy and Sell Stock with Cooldown**: Cooldown 1 day.
 
 DP. Let `buy[i]` be the max profit that ends with buying on a day from range [0...i]. Let `sell[i]` means the max profit that ends with selling on a day from range [0...i].
+
+**310. Minimum Height Trees**:  For an undirected graph with tree characteristics, we can choose any node as the root. The result graph is then a rooted tree. Among all possible rooted trees, those with minimum height are called minimum height trees (MHTs). Given such a graph, write a function to find all the MHTs and return a list of their root labels. 
+
+A minimum height tree's root must be the longest path's middle node. In every round, we remove the leaves (vertices with only 1 neighbor), until there are only 1 or 2 vertices.
 
 **312. Burst Balloons**: Given `n` balloons, indexed from `0` to `n-1`. Each balloon is painted with a number on it represented by array `nums`. You are asked to burst all the balloons. If the you burst balloon `i` you will get `nums[left] * nums[i] * nums[right]` coins. Here `left` and `right` are adjacent indices of `i`. After the burst, the `left` and `right` then becomes adjacent. Find the maximum coins you can collect by bursting the balloons wisely.
 
@@ -832,6 +856,10 @@ A generalization of "Problem 264. Ugly Number II", same idea.
 
 Mergesort. Similar to "493\. Reverse Pairs".
 
+**318. Maximum Product of Word Lengths**:  Given a string array `words`, find the maximum value of `length(word[i]) * length(word[j])` where the two words do not share common letters. You may assume that each word will contain only lower case letters. If no such two words exist, return 0. 
+
+Every word can be represented as a integer, with every letter corresponding to a bit.
+
 **322. Coin Change**: You are given coins of different denominations and a total amount of money *amount*. Write a function to compute the fewest number of coins that you need to make up that amount.
 
 DP. `dp(S)` is the problem answer to an amount of S. 
@@ -846,14 +874,26 @@ Divide `nums` into smaller and larger halves using quick select from "215. Kth L
 
 Math: A number is a power of three if and only if it is divisible by 3^19 (3^20 > `int.MaxValue`).
 
+**328. Odd Even Linked List**:  Given a singly linked list, group all odd nodes together followed by the even nodes. 
+
+Construct the "odd list" and "even list" and then merge them.
+
 **329. Longest Increasing Path in a Matrix**: Given an integer matrix, find the length of the longest increasing path.
 
 Approach 1: DFS from each element, optimized with memoization.
 Approach 2: Treat the matrix as a directed graph, with edges pointing from smaller value to larger value. Use BFS topological sort based on in-degree counting. Count the number of levels.
 
+**332. Reconstruct Itinerary**
+
+Eulerian path. Choose a path (edge) and delete this path so that we won't go through the same path again. We can use a priority queue to hold the neighbors of each vertex. DFS until we meet a dead end and the path must be the "last part" of the final result.
+
 **334. Increasing Triplet Subsequence**: Find if there exists *i, j, k* such that *arr[i]* < *arr[j]* < *arr[k]* given 0 ≤ *i* < *j* < *k* ≤ *n*-1.
 
 Scan the array and update candidates for *arr[i]*, *arr[j]* and *arr[k]*.
+
+**336. Palindrome Pairs**:  Given a list of unique words, find all pairs of distinct indices `(i, j)` in the given list, so that the concatenation of the two words, i.e. `words[i] + words[j]` is a palindrome.
+
+Basically the same as "214. Shortest Palindrome". Use a hash table to store and retrieve all the unique words.
 
 **337. House Robber III**
 
@@ -874,6 +914,10 @@ Hash set.
 **350. Intersection of Two Arrays II**: Each element in the result should appear as many times as it shows in both arrays. For example,  nums1 = [1,2,2,1], nums2 = [2,2], Output: [2,2].
 
 Use a hash map to count frequency.
+
+**354. Russian Doll Envelopes**:  You have a number of envelopes with widths and heights given as a pair of integers `(w, h)`. One envelope can fit into another if and only if both the width and height of one envelope is greater than the width and height of the other envelope.   What is the maximum number of envelopes can you Russian doll? (put one inside other) 
+
+Sort by width, then find the longest increasing subsequence (Problem 300) of height.
 
 **368. Largest Divisible Subset**: Given a set of distinct positive integers, find the largest subset such that every pair (Si, Sj) of elements in this subset satisfies: Si % Sj = 0 or Sj % Si = 0.
 
@@ -907,6 +951,10 @@ stack.
 
 Sliding window.  Count the number of unique characters and the number of characters that appears no less than k times in the sliding window.
 
+**396. Rotate Function**
+
+Math. Try to get F(n) from F(n - 1).
+
 **399. Evaluate Division**
 
 Find a path between two nodes in a graph.
@@ -921,7 +969,7 @@ First consider the tallest man, then the second tallest man...
 
 **416. Partition Equal Subset Sum**: Given a non-empty array containing only positive integers, find if the array can be partitioned into two subsets such that the sum of elements in both subsets is equal.
 
-The problem is equal to finding if there is a subset such that the sum of elements in it is "sum of array" / 2. Then we can use DP to solve it. Let `dp[i, j]` mean whether there can be a sum `j` from a certain subset in `nums[0...i]`. For each `nums[i]`, we check whether we need to include it to achieve `j`.
+The problem is equal to finding if there is a subset such that the sum of elements in it is "sum of array" / 2. Then we can use DP to solve it. Let `dp[i, j]` mean whether there can be a sum `j` from a certain subset in `nums[0...i]`. For each `nums[i]`, we check whether we need to include it to achieve `j`. Somewhat like the knapsack problem.
 `dp[i, j] = dp[i - 1, j] || dp[i - 1, j - nums[i]]`
 
 **437. Path Sum III**: You are given a binary tree in which each node contains an integer value. Find the number of paths that sum to a given value. The path does not need to start or end at the root or a leaf, but it must go downwards.
@@ -948,9 +996,13 @@ Mergesort.
 
 DP. Similar to "416. Partition Equal Subset Sum". `dp[i, j]` means the ways to achieve a sum`j` using only `nums[0...i]`. `dp[i, j] = dp[i - 1, j - nums[i]] + dp[i - 1, j + nums[i]]`
 
+**516. Longest Palindromic Subsequence**:  Given a string s, find the longest palindromic subsequence's length in s. 
+
+DP. Similar to the DP solution of "5. Longest Palindromic Substring".
+
 **518. Coin Change 2**: You are given coins of different denominations and a total amount of money. Write a function to compute the number of combinations that make up that amount. You may assume that you have infinite number of each kind of coin.
 
-DP. `dp[i, j]` means how many combinations there are, if amount = j and we can only use coins[0...i]. Can be compared with "416. Partition Equal Subset Sum" because they can all be categorized to the Knapsack problem.
+DP. `dp[i, j]` means how many combinations there are, when amount = j and we can only use coins[0...i]. Can be compared with "416. Partition Equal Subset Sum" because they can all be categorized to the Knapsack problem.
 `dp[i, j] = dp[i - 1, j] + dp[i, j - coins[i]]`
 
 **543. Diameter of Binary Tree**: Given a binary tree, you need to compute the length of the diameter of the tree. The diameter of a binary tree is the length of the **longest** path between any two nodes in a tree. This path may or may not pass through the root.
@@ -980,6 +1032,10 @@ We also need to take care of some special cases.
 
 Somehow avoid unnecessary compares.
 
+**887. Super Egg Drop**
+
+DP. Given k eggs and m moves, dp(m,k) is the maximum floor that we can know with certainty what F (the "critical" floor) is.
+
 **894. All Possible Full Binary Trees**:  A full binary tree is a binary tree where each node has exactly 0 or 2 children. Return a list of all possible full binary trees with N nodes.
 
 Catalan number problem. For each node in the non-leaf nodes, let node be the root.
@@ -992,3 +1048,10 @@ Catalan number problem. For each node in the non-leaf nodes, let node be the roo
 
 Use a stack to simulate the push and pop operations from `pushed` and `popped`. If we can pop, we should do it prior to push because values are distinct and a push will make the previous top value impossible to be popped again.
 
+**1031. Maximum Sum of Two Non-Overlapping Subarrays**:  Given an array `A` of non-negative integers, return the maximum sum of elements in two non-overlapping (contiguous) subarrays, which have lengths `L` and `M`. 
+
+Traverse `A`, for each i, maintain the maximum "array L" before i, and add it with "array M" starting from i, then we get a potential answer.
+
+**1125. Smallest Sufficient Team**
+
+An NP Complete problem: https://en.wikipedia.org/wiki/Set_cover_problem. Every skill can be represented as an integer. Every skill combination can also be represented as an integer. Then brute-force.
