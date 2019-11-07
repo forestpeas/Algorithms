@@ -42,6 +42,8 @@ namespace Algorithms.LeetCode
         // Initialize _head and _tail to two dummy nodes. Always add a new node right after
         // _head, and remove the node right before _tail. In this way, we don't have to deal
         // with special cases such as removing the head or tail.
+        // Another alternative: use LinkedHashMap (only available in Java but we can simply
+        // write one). The idea is the same.
         private class ListNode
         {
             public int Key { get; }
@@ -56,7 +58,7 @@ namespace Algorithms.LeetCode
             }
         }
 
-        private readonly Dictionary<int, ListNode> _dictionary = new Dictionary<int, ListNode>();
+        private readonly Dictionary<int, ListNode> _cache = new Dictionary<int, ListNode>();
         private ListNode _head;
         private ListNode _tail;
         private readonly int _capacity;
@@ -73,7 +75,7 @@ namespace Algorithms.LeetCode
 
         public int Get(int key)
         {
-            if (_dictionary.TryGetValue(key, out ListNode node))
+            if (_cache.TryGetValue(key, out ListNode node))
             {
                 MoveToHead(node);
                 return node.Value;
@@ -83,22 +85,22 @@ namespace Algorithms.LeetCode
 
         public void Put(int key, int value)
         {
-            if (_dictionary.TryGetValue(key, out ListNode node))
+            if (_cache.TryGetValue(key, out ListNode node))
             {
                 node.Value = value;
                 MoveToHead(node);
             }
             else
             {
-                node = new ListNode(key, value);
-                _dictionary.Add(key, node);
-                AddNode(node);
-
-                if (_dictionary.Count > _capacity)
+                if (_cache.Count >= _capacity)
                 {
-                    _dictionary.Remove(_tail.Prev.Key);
+                    _cache.Remove(_tail.Prev.Key);
                     RemoveNode(_tail.Prev);
                 }
+
+                node = new ListNode(key, value);
+                _cache.Add(key, node);
+                AddNode(node);
             }
         }
 
