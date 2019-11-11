@@ -27,6 +27,7 @@ namespace Algorithms.LeetCode
             string r = new string(s.Reverse().ToArray());
             for (int i = 0; i < s.Length; i++)
             {
+                // Or: if (IsPalindrome(s.Substring(0, s.Length - i))) return r.Substring(0, i) + s;
                 if (s.StartsWith(r.Substring(i)))
                 {
                     return r.Substring(0, i) + s;
