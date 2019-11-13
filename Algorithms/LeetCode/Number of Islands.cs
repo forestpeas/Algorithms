@@ -34,9 +34,24 @@ namespace Algorithms.LeetCode
         public int NumIslands(char[][] grid)
         {
             // BFS, similar to "Problem 130. Surrounded Regions".
+            // DFS version is in "1254. Number of Closed Islands".
             if (grid.Length < 1 || grid[0].Length < 1) return 0;
             int m = grid.Length;
             int n = grid[0].Length;
+            int count = 0;
+            for (int i = 0; i < m; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    if (grid[i][j] == '1')
+                    {
+                        count++;
+                        Bfs(i, j);
+                    }
+                }
+            }
+
+            return count;
 
             void Bfs(int i, int j)
             {
@@ -57,21 +72,6 @@ namespace Algorithms.LeetCode
                     }
                 }
             }
-
-            int count = 0;
-            for (int i = 0; i < m; i++)
-            {
-                for (int j = 0; j < n; j++)
-                {
-                    if (grid[i][j] == '1')
-                    {
-                        count++;
-                        Bfs(i, j);
-                    }
-                }
-            }
-
-            return count;
         }
     }
 }
