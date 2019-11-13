@@ -25,7 +25,7 @@
      */
     public class NumberOf1Bits
     {
-        public int HammingWeight(uint n)
+        public static int HammingWeight(uint n)
         {
             // A trick: n &(n - 1) is equal to changing the rightmost 1 in n to 0.
             int sum = 0;
