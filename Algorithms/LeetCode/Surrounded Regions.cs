@@ -39,26 +39,6 @@ namespace Algorithms.LeetCode
             int m = board.Length;
             int n = board[0].Length;
 
-            void Bfs(int i, int j)
-            {
-                var queue = new Queue<Tuple<int, int>>();
-                queue.Enqueue(new Tuple<int, int>(i, j));
-                while (queue.Count != 0)
-                {
-                    var grid = queue.Dequeue();
-                    i = grid.Item1;
-                    j = grid.Item2;
-                    if (i >= 0 && i < m && j >= 0 && j < n && board[i][j] == 'O')
-                    {
-                        board[i][j] = '#';
-                        queue.Enqueue(new Tuple<int, int>(i - 1, j));
-                        queue.Enqueue(new Tuple<int, int>(i + 1, j));
-                        queue.Enqueue(new Tuple<int, int>(i, j - 1));
-                        queue.Enqueue(new Tuple<int, int>(i, j + 1));
-                    }
-                }
-            }
-
             // Start from borders.
             for (int i = 0; i < m; i++)
             {
@@ -98,6 +78,26 @@ namespace Algorithms.LeetCode
                     else if (board[i][j] == '#')
                     {
                         board[i][j] = 'O';
+                    }
+                }
+            }
+
+            void Bfs(int i, int j)
+            {
+                var queue = new Queue<Tuple<int, int>>();
+                queue.Enqueue(new Tuple<int, int>(i, j));
+                while (queue.Count != 0)
+                {
+                    var grid = queue.Dequeue();
+                    i = grid.Item1;
+                    j = grid.Item2;
+                    if (i >= 0 && i < m && j >= 0 && j < n && board[i][j] == 'O')
+                    {
+                        board[i][j] = '#';
+                        queue.Enqueue(new Tuple<int, int>(i - 1, j));
+                        queue.Enqueue(new Tuple<int, int>(i + 1, j));
+                        queue.Enqueue(new Tuple<int, int>(i, j - 1));
+                        queue.Enqueue(new Tuple<int, int>(i, j + 1));
                     }
                 }
             }
