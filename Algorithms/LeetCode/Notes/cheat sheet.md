@@ -593,6 +593,10 @@ Convert a number from base-26 to base-10 and vice versa (168. Excel Sheet Column
 
 Every pair of 2 and 5 results in a trailing zero. 2 is much more than 5, so the problem becomes how many 5 are there?
 
+**174. Dungeon Game**
+
+DP. Similar to "62. Unique Paths" (`dp[i,j] = F(dp[i-1,j], dp[i,j-1])`) but requires a very smart thinking to start from bottom-right (`dp[i,j] = F(dp[i+1,j], dp[i,j+1])`).
+
 **179. Largest Number**: Given a list of non negative integers, arrange them such that they form the largest number.
 
 Consider how to achieve this: 9 is "bigger" than 34, 3 is "bigger" than 30...
@@ -828,11 +832,19 @@ DP, O(N^2): `dp[i]` with the restriction of `nums[i]` being the tail of the long
 
 **301. Remove Invalid Parentheses**: Remove the minimum number of invalid parentheses in order to make the input string valid. Return all possible results.
 
-Recursion. Find every possible substring and check whether it's a valid string. If we have found a valid substring, no need to further split it and go deeper.
+To check whether a string is valid, count the number of left and right parentheses from left to right and from right to left, or use a stack. Backtrack to find all possible results. The tricky part is how to avoid duplicates.
 
 **303. Range Sum Query - Immutable**:  Given an integer array *nums*, find the sum of the elements between indices *i* and *j* (*i* ≤ *j*), inclusive. 
 
 "Prefix sum".
+
+**304. Range Sum Query 2D - Immutable**
+
+Sum(ABCD)=Sum(OD)−Sum(OB)−Sum(OC)+Sum(OA), O is at matrix[0,0].
+
+**307. Range Sum Query - Mutable**
+
+Segment Tree.
 
 **309. Best Time to Buy and Sell Stock with Cooldown**: Cooldown 1 day.
 
@@ -883,6 +895,11 @@ Construct the "odd list" and "even list" and then merge them.
 Approach 1: DFS from each element, optimized with memoization.
 Approach 2: Treat the matrix as a directed graph, with edges pointing from smaller value to larger value. Use BFS topological sort based on in-degree counting. Count the number of levels.
 
+**331. Verify Preorder Serialization of a Binary Tree**
+
+Approach 1: Similar to the deserialization part of "297. Serialize and Deserialize Binary Tree".
+Approach 2: Count outdegrees and indegrees.
+
 **332. Reconstruct Itinerary**
 
 Eulerian path. Choose a path (edge) and delete this path so that we won't go through the same path again. We can use a priority queue to hold the neighbors of each vertex. DFS until we meet a dead end and the path must be the "last part" of the final result.
@@ -903,6 +920,10 @@ DFS a tree. The idea is similar to DP. If we rob at `root`, we can't rob `root.l
 
 Stack.
 
+**343. Integer Break**:  Given a positive integer *n*, break it into the sum of at least two positive integers and maximize the product of those integers. Return the maximum product you can get. 
+
+DP or Math.
+
 **347. Top K Frequent Elements**: Given a non-empty array of integers, return the `k` most frequent elements. Your algorithm's time complexity must be better than O(n log n), where n is the array's size.
 
 Buckets! `buckets`'s index is frequency, e.g. `buckets[3]` contains the numbers that appear 3 times.
@@ -919,6 +940,11 @@ Use a hash map to count frequency.
 
 Sort by width, then find the longest increasing subsequence (Problem 300) of height.
 
+**363. Max Sum of Rectangle No Larger Than K**
+
+1\. Let an array of sums represent the sum of subarrays of rows, so the question is simplified to 1-dimension.
+2\. Use the "prefix sum" technique. For each current sum so far, find a previous sum that satisfies the requirement.
+
 **368. Largest Divisible Subset**: Given a set of distinct positive integers, find the largest subset such that every pair (Si, Sj) of elements in this subset satisfies: Si % Sj = 0 or Sj % Si = 0.
 
 Sort the array first and find the pattern.
@@ -930,6 +956,10 @@ Bit manipulation. Simulate addition with XOR, save the carry digits using bitwis
 **373. Find K Pairs with Smallest Sums**: You are given two integer arrays `nums1` and `nums2` sorted in ascending order and an integer k. Define a pair (u,v) which consists of one element from the first array and one element from the second array. Find the k pairs (u1,v1),(u2,v2) ...(uk,vk) with the smallest sums.
 
 Essentially the same as "378. Kth Smallest Element in a Sorted Matrix".
+
+**376. Wiggle Subsequence**:  Given an array `nums`, return the length of the longest subsequence that is a wiggle sequence. 
+
+Count the number of peaks and valleys.
 
 **377. Combination Sum IV**: Permutation version of "518. Coin Change 2".
 
@@ -947,6 +977,18 @@ Store value-to-index mapping and index-to-value mapping. When removing, we can "
 
 Fisher-Yates algorithm. Randomly choose a number from [i, length) and put it at the front of the array as the chosen numbers.
 
+**386. Lexicographical Numbers**: Given an integer n, return 1 - n in lexicographical order.
+
+Write down an example and observe its pattern.
+
+**390. Elimination Game**: There is a list of sorted integers from 1 to n. Starting from left to right, remove the first number and every other number afterward until you reach the end of the list. Then from right to left. Return the last number that remains.
+
+The sequence of every step is a  arithmetic progression, so it can be represented by its first number and difference.
+
+**392. Is Subsequence**: Given a string `s` and a string `t`, check if `s` is subsequence of `t`.
+
+Follow up: If `t` is fixed, we can pre-process `t` to character-to-indexes mappings.
+
 **394. Decode String**: Examples: s = "3[a]2[bc]", return "aaabcbc". s = "3[a2[c]]", return "accaccacc".
 
 stack.
@@ -959,22 +1001,54 @@ Sliding window.  Count the number of unique characters and the number of charact
 
 Math. Try to get F(n) from F(n - 1).
 
+**397. Integer Replacement**: Given a positive integer n and you can do operations as follow: If n is even, replace n with n/2. If n is odd, you can replace n with either n + 1 or n - 1. What is the minimum number of replacements needed for n to become 1?
+
+Recursion+Memoization+Greedy.
+
 **399. Evaluate Division**
 
 Find a path between two nodes in a graph.
+
+**400. Nth Digit**: Find the n-th digit of the infinite integer sequence 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, ...
+
+Math.
 
 **402\. Remove K Digits**: Remove k digits from a given number so that the new number is the smallest possible.
 
 We can find a pattern: from the most significant digit to the least significant digit, whenever we meet a digit that is less than the the previous digit, we should discard the previous digit.
 
+**403. Frog Jump**: Given an array of positions, each time we can jump k - 1, k, or k + 1, here k is the last jump.  Determine whether we can reach the end.
+
+Recursion + Memoization.
+
 **406. Queue Reconstruction by Height**
 
 First consider the tallest man, then the second tallest man...
+
+**413. Arithmetic Slices**
+
+Sliding window. Essentially the problem asks us to find the number of all possible subarrays that are arithmetic progressions and contain at least 3 elements.
 
 **416. Partition Equal Subset Sum**: Given a non-empty array containing only positive integers, find if the array can be partitioned into two subsets such that the sum of elements in both subsets is equal.
 
 The problem is equal to finding if there is a subset such that the sum of elements in it is "sum of array" / 2. Then we can use DP to solve it. Let `dp[i, j]` mean whether there can be a sum `j` from a certain subset in `nums[0...i]`. For each `nums[i]`, we check whether we need to include it to achieve `j`. Somewhat like the knapsack problem.
 `dp[i, j] = dp[i - 1, j] || dp[i - 1, j - nums[i]]`
+
+**417. Pacific Atlantic Water Flow**
+
+Similar to "130. Surrounded Regions". We need to search from borders, and we need to "go against the current" (逆流而上).
+
+**419. Battleships in a Board**
+
+Check each 'X' grid's left and top grid.
+
+**421. Maximum XOR of Two Numbers in an Array**
+
+First we check whether the MSB can be 1, then the second MSB...Each time we only consider a prefix of the numbers.
+
+**424. Longest Repeating Character Replacement**:  Given a string `s` that consists of only uppercase English letters, you can perform at most `k` operations on that string.  In one operation, you can choose any character of the string and change it to any other uppercase English character.  Find the length of the longest sub-string containing all repeating letters you can get after performing the above operations.
+
+Sliding window.
 
 **437. Path Sum III**: You are given a binary tree in which each node contains an integer value. Find the number of paths that sum to a given value. The path does not need to start or end at the root or a leaf, but it must go downwards.
 
@@ -1032,9 +1106,17 @@ Explanation: A -> B -> idle -> A -> B -> idle -> A -> B.
 The idea is that we can get the task that appears the maximum number of times and consider how to schedule them. For example, there are 3 'A's and n = 2: A -> idle -> idle -> A -> idle -> idle -> A
 We also need to take care of some special cases.
 
+**670. Maximum Swap**: Given a non-negative integer, you could swap two digits at most once to get the maximum valued number. Return the maximum valued number you could get.
+
+From right to left, save the maximum digit and a smaller digit in the left of it.
+
 **739. Daily Temperatures**
 
 Somehow avoid unnecessary compares.
+
+**875. Koko Eating Bananas**
+
+Binary search. When k (the speed) increases, h (time spent) decreases, and vice versa.
 
 **887. Super Egg Drop**
 
@@ -1052,6 +1134,10 @@ Catalan number problem. For each node in the non-leaf nodes, let node be the roo
 
 Use a stack to simulate the push and pop operations from `pushed` and `popped`. If we can pop, we should do it prior to push because values are distinct and a push will make the previous top value impossible to be popped again.
 
+**992. Subarrays with K Different Integers**:  Given an array `A` of positive integers, call a (contiguous, not necessarily distinct) subarray of `A` *good* if the number of different integers in that subarray is exactly `K`.  Return the number of good subarrays of `A`. 
+
+Sliding window. The left bound can "slide" within a range [l1,l2], we need to know the value of  l2 - l1.
+
 **1031. Maximum Sum of Two Non-Overlapping Subarrays**:  Given an array `A` of non-negative integers, return the maximum sum of elements in two non-overlapping (contiguous) subarrays, which have lengths `L` and `M`. 
 
 Traverse `A`, for each i, maintain the maximum "array L" before i, and add it with "array M" starting from i, then we get a potential answer.
@@ -1059,3 +1145,37 @@ Traverse `A`, for each i, maintain the maximum "array L" before i, and add it wi
 **1125. Smallest Sufficient Team**
 
 An NP Complete problem: https://en.wikipedia.org/wiki/Set_cover_problem. Every skill can be represented as an integer. Every skill combination can also be represented as an integer. Then brute-force.
+
+**1235. Maximum Profit in Job Scheduling**
+
+1\. Sort by startTime.
+2\. dp[i] is the max profit starting from jobs[i] to the end.
+3\. From right to left, binary search job[i].endTime in the sorted startTime array in order to find the first non-overlapping job[j] with job[i].
+
+**1245. Tree Diameter**: Given an undirected tree, return its diameter: the number of edges in a longest path in that tree.
+
+Similar to "310. Minimum Height Trees". DFS: Start at any node A and traverse the tree to find the furthest node from it, let's call it B. Having found the furthest node B, traverse the tree from B to find the furthest node from it, let's call it C. The distance between B and C is the tree diameter.
+
+**1247. Minimum Swaps to Make Strings Equal**
+
+Try to pair ("xx", "yy") as much as possible, because it only needs 1 swap.
+
+**1246. Palindrome Removal**: Given an integer array, in one move you can select a palindromic subarray. Return the minimum number of moves needed to remove all numbers from the array.
+
+DP. Let `dp[j, i]` be the answer to arr[j...i] and consider all possible cases. Time complexity is O(n^3).
+
+**1248. Count Number of Nice Subarrays**: Given an array of integers nums and an integer k. A subarray is called nice if there are k odd numbers on it.
+
+Sliding window. Similar to "992. Subarrays with K Different Integers".
+
+**1250. Check If It Is a Good Array**
+
+Bézout's identity: If gcd(a,b)=d, then there exist integers x and y such that ax+by=d.
+
+**1255. Maximum Score Words Formed by Letters**: Given a list of words, list of  single letters (might be repeating) and score of every character. Return the maximum score of any valid set of words formed by using the given letters.
+
+Try all possible sets of words. For each word[i], we can pick this word or not.
+
+**1262. Greatest Sum Divisible by Three**:  Given an array `nums` of integers, we need to find the maximum possible sum of elements of the array such that it is divisible by three. 
+
+DP. `dp[i]` is the maximum possible sum so far such that `dp[i] % 3 == i`.
