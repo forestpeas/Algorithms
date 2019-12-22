@@ -53,7 +53,7 @@ namespace Algorithms.LeetCode
                     int tmp = 1 << (c - 'a');
                     if ((mask & tmp) == tmp)
                     {
-                        dup = true;
+                        dup = true; // duplicate character
                         break;
                     }
                     mask |= tmp;

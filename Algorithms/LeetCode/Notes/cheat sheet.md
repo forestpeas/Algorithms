@@ -1048,7 +1048,7 @@ First we check whether the MSB can be 1, then the second MSB...Each time we only
 
 **424. Longest Repeating Character Replacement**:  Given a string `s` that consists of only uppercase English letters, you can perform at most `k` operations on that string.  In one operation, you can choose any character of the string and change it to any other uppercase English character.  Find the length of the longest sub-string containing all repeating letters you can get after performing the above operations.
 
-Sliding window.
+Sliding window. Maintain a sliding window such that the character that appears the maximum number of times in it is greater than its length minus k.
 
 **437. Path Sum III**: You are given a binary tree in which each node contains an integer value. Find the number of paths that sum to a given value. The path does not need to start or end at the root or a leaf, but it must go downwards.
 
@@ -1172,10 +1172,49 @@ Sliding window. Similar to "992. Subarrays with K Different Integers".
 
 Bézout's identity: If gcd(a,b)=d, then there exist integers x and y such that ax+by=d.
 
+**1252. Cells with Odd Values in a Matrix**
+
+The state of each row and column can be represented by a single variable, so we only need `bool[] rows = new bool[n]` and `bool[] columns = new bool[m]`.
+
 **1255. Maximum Score Words Formed by Letters**: Given a list of words, list of  single letters (might be repeating) and score of every character. Return the maximum score of any valid set of words formed by using the given letters.
 
 Try all possible sets of words. For each word[i], we can pick this word or not.
 
+**1259. Handshakes That Don't Cross**
+
+DP. `dp[n] = dp[0] * dp[n-2] + dp[2] * dp[n-4] + dp[4] * dp[n-6] + ... + dp[n-2] * dp[0]`
+
+**1261. Find Elements in a Contaminated Binary Tree**
+
+Recursion.
+
 **1262. Greatest Sum Divisible by Three**:  Given an array `nums` of integers, we need to find the maximum possible sum of elements of the array such that it is divisible by three. 
 
 DP. `dp[i]` is the maximum possible sum so far such that `dp[i] % 3 == i`.
+
+**1263. Minimum Moves to Move a Box to Their Target Location**
+
+Represent the search state as (player_row, player_col, box_row, box_col), and maintain the minimum number of pushes needed so far to reach every seen state.
+
+**1267. Count Servers that Communicate**
+
+Mark each server to corresponding row and column. Similar to "1252. Cells with Odd Values in a Matrix".
+
+**1268. Search Suggestions System**:  Design a system that suggests at most three product names from products after each character of searchWord is typed.
+Example 1: Input: products = ["mobile","mouse","moneypot","monitor","mousepad"], searchWord = "mouse"
+Output: 
+["mobile","moneypot","monitor"],
+["mobile","moneypot","monitor"],
+["mouse","mousepad"],
+["mouse","mousepad"],
+["mouse","mousepad"]
+
+Sort and binary search. Alternative approach: Trie.
+
+**1269. Number of Ways to Stay in the Same Place After Some Steps**: You have a pointer at index 0 in an array of size arrLen. At each step, you can move 1 position to the left, 1 position to the right in the array or stay in the same place. Given two integers `steps` and `arrLen`, return the number of ways such that your pointer still at index 0 after exactly `steps` steps.
+
+DP. `dp[i,j]` is the number of ways to reach `arr[j]` after i steps.
+
+**1273. Delete Tree Nodes**: Given a tree, Remove every subtree whose sum of values of nodes is zero. After doing so, return the number of nodes remaining in the tree.
+
+From leaves to the root, check each subtree's sum.
