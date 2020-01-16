@@ -206,6 +206,8 @@ Greedy. For each element `nums[i]`, the farthest position it can reach is `i + n
 
 First, sort the Intervals by their left boundaries. Then, use the fast-slow-runners technique to merge the "fast interval" with the "slow interval"(In place).
 
+Similar problems: **1288. Remove Covered Intervals**: sort first.
+
 **57\. Insert Interval**: Given a set of *non-overlapping* intervals, insert a new interval into the intervals (merge if necessary).
 
 Just do what the description asked.
@@ -273,6 +275,7 @@ Sliding window. The trick is we can count characters. For a certain character, i
 **77. Combinations**: Given two integers *n* and *k*, return all possible combinations of *k* numbers out of 1 ... *n*.
 
 Backtracking.  Write down an example, and keep every row and every column in ascending order and you will find the pattern.
+Similar problems: **1286. Iterator for Combination**.
 
 **78. Subsets**: Given a set of distinct integers, return all possible subsets (the power set).
 
@@ -409,7 +412,7 @@ DP. Let `dp[i,j]` be the answer of T[0...i] and S[0...j].
 **116. Populating Next Right Pointers in Each Node**:  You are given a perfect binary tree where all leaves are on the same level.
 
 For each node, for example, root, set `next` like this:
-![43](D:\GitHub\CSharp\Algorithms\Algorithms\LeetCode\Notes\pics\116.jpg)
+![43](.\pics\116.jpg)
 
 **117. Populating Next Right Pointers in Each Node II**: You are given a binary tree.
 
@@ -455,6 +458,7 @@ Think of *beginWord* as the root of a tree, and all the words that differ only o
 **128\. Longest Consecutive Sequence**: Find the length of the longest consecutive elements sequence of an array of integers.
 
 Use a hash set to count from the start of a sequence. A bit tricky.
+Similar questions: **1296. Divide Array in Sets of K Consecutive Numbers**
 
 **129. Sum Root to Leaf Numbers**: Given a binary tree containing digits from 0-9 only, each root-to-leaf path could represent a number. Find the total sum of all root-to-leaf numbers.
 
@@ -1195,6 +1199,7 @@ DP. `dp[i]` is the maximum possible sum so far such that `dp[i] % 3 == i`.
 **1263. Minimum Moves to Move a Box to Their Target Location**
 
 Represent the search state as (player_row, player_col, box_row, box_col), and maintain the minimum number of pushes needed so far to reach every seen state.
+Similar problems: **1293. Shortest Path in a Grid with Obstacles Elimination**
 
 **1267. Count Servers that Communicate**
 
@@ -1218,3 +1223,15 @@ DP. `dp[i,j]` is the number of ways to reach `arr[j]` after i steps.
 **1273. Delete Tree Nodes**: Given a tree, Remove every subtree whose sum of values of nodes is zero. After doing so, return the number of nodes remaining in the tree.
 
 From leaves to the root, check each subtree's sum.
+
+**1277. Count Square Submatrices with All Ones**: Given a m * n matrix of ones and zeros, return how many square submatrices have all ones.
+
+DP. `dp[i,j]` is the side length of the maximum square whose bottom right corner is `matrix[i,j]`. Similar to "221. Maximal Square".
+
+**1287. Element Appearing More Than 25% In Sorted Array**: Given an integer array **sorted** in non-decreasing order, there is exactly one integer in the array that occurs more than 25% of the time.
+
+Binary search the "upper bound" and "lower bound" of "critical points": `arr[n*25%]`, `arr[n*50%]`, `arr[n*75%]`.
+
+**1289. Minimum Falling Path Sum II**: Given a square grid of integers arr, a falling path with non-zero shifts is a choice of exactly one element from each row of arr, such that no two elements chosen in adjacent rows are in the same column. Return the minimum sum of a falling path with non-zero shifts.
+
+DP. `dp[j]` is the minimum sum of a falling path with `arr[i][j]` being the chosen element from row `i`.
