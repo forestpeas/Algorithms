@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Algorithms.LeetCode
+﻿namespace Algorithms.LeetCode
 {
     /* 79. Word Search
      * 
@@ -26,35 +24,35 @@ namespace Algorithms.LeetCode
     {
         public bool Exist(char[][] board, string word)
         {
-            // Backtracking
+            // DFS + Backtracking.
+            // Search all possible paths (brute-force).
             if (board.Length < 1 || word.Length < 1) return false;
             int m = board.Length;
             int n = board[0].Length;
-            var path = new HashSet<int>();
-            for (int ii = 0; ii < m; ii++)
+            var visited = new bool[m, n];
+            for (int i = 0; i < m; i++)
             {
-                for (int jj = 0; jj < n; jj++)
+                for (int j = 0; j < n; j++)
                 {
-                    if (Exist(ii, jj, 0)) return true;
-                    path.Clear();
+                    if (Dfs(i, j, 0)) return true;
                 }
             }
             return false;
 
-            bool Exist(int i, int j, int k)
+            bool Dfs(int i, int j, int k)
             {
-                if (i < 0 || j < 0 || i == m || j == n || board[i][j] != word[k]) return false;
-                // Add a unique number of the combination of "i" and "j".
-                // Another way that avoids HashSet: char c = board[i][j];board[i][j] = '#';...;board[i][j] = c;
-                if (!path.Add(i * n + j)) return false;
-                if (k + 1 == word.Length) return true;
-                if (Exist(i + 1, j, k + 1)) return true;
-                if (Exist(i, j + 1, k + 1)) return true;
-                if (Exist(i - 1, j, k + 1)) return true;
-                if (Exist(i, j - 1, k + 1)) return true;
-                path.Remove(i * n + j);
+                if (i < 0 || j < 0 || i == m || j == n || visited[i, j] || board[i][j] != word[k]) return false;
+                if (k == word.Length - 1) return true;
+                visited[i, j] = true;
+                foreach (int[] d in dirs)
+                {
+                    if (Dfs(i + d[0], j + d[1], k + 1)) return true;
+                }
+                visited[i, j] = false;
                 return false;
             }
         }
+
+        private readonly int[][] dirs = new int[][] { new int[] { 0, 1 }, new int[] { 0, -1 }, new int[] { 1, 0 }, new int[] { -1, 0 } };
     }
 }
