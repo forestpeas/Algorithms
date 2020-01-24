@@ -25,6 +25,12 @@
     {
         public bool IsPowerOfTwo(int n)
         {
+            // Power of 2 only have one '1' bit in their binary representation.
+            return n > 0 && ((n & (n - 1)) == 0);
+        }
+
+        public bool IsPowerOfTwo2(int n)
+        {
             // Same as "Problem 326. Power of Three".
             // 1073741824 is 2^30, the max power of two that an integer can represent.(2^31 > int.MaxValue)
             return n > 0 && 1073741824 % n == 0;
