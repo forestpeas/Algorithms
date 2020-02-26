@@ -36,6 +36,9 @@ namespace Algorithms.LeetCode
             //    p3 p2
             //
             // min = 2 * 3 = 3 * 2, so we need to forward both p2 and p3.
+            // After finishing "1201. Ugly Number III", I think the correctness of this algorithm
+            // needs strict proof, because the same approach won't work for the general cases,
+            // like a = 2, b = 11, c = 13, and you will miss 6...
             int[] mem = new int[n];
             mem[0] = 1;
             int p2 = 0, p3 = 0, p5 = 0;
