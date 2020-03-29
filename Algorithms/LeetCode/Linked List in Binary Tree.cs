@@ -33,6 +33,7 @@ namespace Algorithms.LeetCode
     {
         public bool IsSubPath(ListNode head, TreeNode root)
         {
+            // Brute-force DFS.
             return Dfs(root, head);
 
             bool Dfs(TreeNode treeNode, ListNode listNode)
