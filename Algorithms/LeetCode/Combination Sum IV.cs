@@ -61,7 +61,7 @@ namespace Algorithms.LeetCode
             // "518. Coin Change 2" is combination and this problem is permutation.
             // The difference is that in "518. Coin Change 2", we choose a certain coin
             // and try to make up the sum with this coin, then we won't choose this coin
-            // again, for example, dp[3] first comes from [1,1,1], then from "2 + [1,1]",
+            // again, for example, dp[4] first comes from "1 + [1,1,1]", then from "2 + [1,1]",
             // (only choosing 1 and only choosing 2), so the traversal of coins is the outer loop.
             // But in this problem, we choose a number and check all the previous possibilities,
             // for example, when we want to calculate dp[3], dp[2] already contains [1,1] and [2].

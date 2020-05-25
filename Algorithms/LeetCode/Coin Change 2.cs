@@ -42,7 +42,7 @@
             // 1. Not using coins[i], we have dp[i - 1, j] combinations.
             // 2. Use one coins[i] first, we have dp[i, j - coins[i]] combinations.
             // These two events do not overlap with each other, so we can just add them.
-            // All possibilities are inluded in these two events.
+            // All possibilities are included in these two events.
             int[,] dp = new int[coins.Length + 1, amount + 1];
 
             for (int i = 0; i <= coins.Length; i++) dp[i, 0] = 1;
@@ -70,7 +70,7 @@
             {
                 // When 1 <= j < coin, dp[j] stays the same.
                 // Or from another perspective, dp[j] is the answer for amount j, dp[j] += dp[j - coin]
-                // Choose one coine of "coin" value and this add "dp[j - coin]" more combinations to dp[amount].
+                // Choose one coin of "coin" value and this add "dp[j - coin]" more combinations to dp[amount].
                 for (int j = coin; j <= amount; j++)
                 {
                     dp[j] = dp[j] + dp[j - coin];
