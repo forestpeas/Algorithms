@@ -88,9 +88,13 @@ Store the sum of every combination of (A[i] + B[j]) in a hash table, then check 
 
 Store the frequencies of "prefix sums" in a hash map. For each sum, check whether (sum - k) exists in the map.
 
+**1189. Maximum Number of Balloons**: Count frequencies of characters.
+
 **1224. Maximum Equal Frequency**: Use 2 maps to store the frequencies of each number, and the "frequencies of frequencies".
 
 **1282. Group the People Given the Group Size They Belong To**
+
+**1396. Design Underground System**: Use a map to store the total travel time and the number of travelers that traveled through this route (route is the key). 
 
 # Stack
 
@@ -127,6 +131,10 @@ Stack.
 **155. Min Stack**: Design a stack that supports push, pop, top, and retrieving the minimum element in constant time.
 
 Use another stack to store the minimum elements.
+
+Similar Problem: **1381. Design a Stack With Increment Operation**: Increment operation increments the bottom `k` elements of the stack by `val`.
+
+`_inc[i]` means "stack[0...i]" should be incremented by `_inc[i]`. We only make sure that `_inc[stack_top]` is accurate by updating `_inc` each time an element is popped.
 
 **225. Implement Stack using Queues**
 
@@ -237,12 +245,16 @@ Sliding window. Count the number of each character in p.
 
 The right bound of the sliding window is always the current number, but the left bound can "slide" within a range `[l1,l2]`, we need to know the value of  `l2 - l1`.
 Similar problems:
-**1234. Replace the Substring for Balanced String**
 **1248. Count Number of Nice Subarrays**: Given an array of integers nums and an integer k. A subarray is called nice if there are k odd numbers on it.
+**1358. Number of Substrings Containing All Three Characters**: Given a string `s` consisting only of characters a, b and c. Return the number of substrings containing at least one occurrence of all these characters a, b and c.
 
 **1208. Get Equal Substrings Within Budget**: Find the max length of a sub-array such that the sum of its elements is no greater than `maxCost`.
 
 The sliding window never needs to shrink.
+
+**1234. Replace the Substring for Balanced String**:  You are given a string containing only 4 kinds of characters 'Q', 'W', 'E' and 'R'. A string is said to be balanced if each of its characters appears n/4 times where n is the length of the string. Return the minimum length of the substring that can be replaced with any other string of the same length to make the original string s balanced.
+
+Count the number of characters that appear more than n/4 times, and maintain certain amounts of these characters in the sliding window.
 
 # Binary Search
 
@@ -325,6 +337,10 @@ Merge sort.
 Merge sort. Similar to "493\. Reverse Pairs".
 
 **1274. Number of Ships in a Rectangle**
+
+**1382. Balance a Binary Search Tree**: Given a binary search tree, return a balanced binary search tree with the same node values.
+
+Convert the BST to an ascending array first and then construct the balanced tree recursively.
 
 # Backtracking and/or DFS (Recursion)
 
@@ -467,6 +483,11 @@ DP. `dp[j]` is the minimum sum of a falling path with `arr[i][j]` being the chos
 
 `maxSums[i,j]` is the maximum score so far, `pathNums[i,j]` is the number of paths with the maximum score.
 
+**1395. Count Number of Teams**
+
+`dp_smaller[i]` is the number of numbers smaller than `rating[i]` on the right of `i`.
+`dp_larger[i]` is the number of numbers larger than `rating[i]` on the right of `i`.
+
 ## Combination and Permutation
 
 **17. Letter Combinations of a Phone Number**
@@ -511,6 +532,10 @@ DP. `dp[n] = dp[0] * dp[n-2] + dp[2] * dp[n-4] + dp[4] * dp[n-6] + ... + dp[n-2]
 **1269. Number of Ways to Stay in the Same Place After Some Steps**: You have a pointer at index 0 in an array of size arrLen. At each step, you can move 1 position to the left, 1 position to the right in the array or stay in the same place. Given two integers `steps` and `arrLen`, return the number of ways such that your pointer still at index 0 after exactly `steps` steps.
 
 DP. `dp[i,j]` is the number of ways to reach `arr[j]` after i steps.
+
+**1359. Count All Valid Pickup and Delivery Options**: Given `n` pair of `(P,D)`, `Pn` must be on the left of `Dn`. Count all valid possible sequences. Example: n = 2, answer is 6. `(P1,P2,D1,D2), (P1,P2,D2,D1), (P1,D1,P2,D2), (P2,P1,D1,D2), (P2,P1,D2,D1) and (P2,D2,P1,D1)`
+
+`F(n) = F(n-1)*(2n-1)*n`. Insert the new pair into gaps in the sequence.
 
 ## Paths or regions in a 2-D array
 
@@ -605,12 +630,12 @@ Sort the array first and find the pattern.
 
 **416. Partition Equal Subset Sum**: Given a non-empty array containing only positive integers, find if the array can be partitioned into two subsets such that the sum of elements in both subsets is equal.
 
-The problem is equal to finding if there is a subset such that the sum of elements in it is "sum of array" / 2. Then we can use DP to solve it. Let `dp[i, j]` mean whether there can be a sum `j` from a certain subset in `nums[0...i]`. For each `nums[i]`, we check whether we need to include it to achieve `j`. Somewhat like the knapsack problem.
+The problem is equal to finding if there is a subset such that the sum of elements in it is "sum of array" / 2. Then we can use DP to solve it. Let `dp[i, j]` be whether there can be a sum `j` from a certain subset in `nums[0...i]`. For each `nums[i]`, we check whether we need to include it to achieve `j`. Somewhat like the knapsack problem.
 `dp[i, j] = dp[i - 1, j] || dp[i - 1, j - nums[i]]`
 
 **518. Coin Change 2**: You are given coins of different denominations and a total amount of money. Write a function to compute the number of combinations that make up that amount. You may assume that you have infinite number of each kind of coin.
 
-DP. `dp[i, j]` means how many combinations there are, where amount = j and we can only use coins[0...i]. Can be compared with "416. Partition Equal Subset Sum" because they can all be categorized to the Knapsack problem.
+DP. `dp[i, j]` means how many combinations there are, where amount = j and we can only use coins[0...i]. For each `coins[i]`, we have two choices: 1\. Not using `coins[i]`, we have `dp[i - 1, j]` combinations. 2. Use one `coins[i]` first, we have `dp[i, j - coins[i]]` combinations. These two events do not overlap with each other, so we can just add them, and all possibilities are included in these two events. Can be compared with "416. Partition Equal Subset Sum" because they can all be categorized to the Knapsack problem.
 `dp[i, j] = dp[i - 1, j] + dp[i, j - coins[i]]`
 
 **377. Combination Sum IV**: Permutation version of "518. Coin Change 2".
@@ -640,6 +665,11 @@ For each `num` in `arr`, `map[num]` is the length of the longest subsequence tha
 
 DP. `dp[i]` is the maximum possible sum so far such that `dp[i] % 3 == i`.
 
+**1388. Pizza With 3n Slices**: Given an integer array with size 3N, select N integers with maximum sum and any selected integers are not next to each other in the array (the first and last element is also considered next to each other).
+
+Knapsack problem, also similar to "213. House Robber II".
+`dp[i,j] = max(dp[i-1, j], slices[i] + dp[i-2, j-1])`
+
 ## Catalan Number
 
 **22. Generate Parentheses**: Given n pairs of parentheses, write a function to generate all combinations of well-formed parentheses.
@@ -656,6 +686,13 @@ Similar problem: **96. Unique Binary Search Trees**: Given n, how many structura
 **894. All Possible Full Binary Trees**:  A full binary tree is a binary tree where each node has exactly 0 or 2 children. Return a list of all possible full binary trees with N nodes.
 
 Catalan number problem. For each node in the non-leaf nodes, let node be the root.
+
+## Minimax
+
+**877. Stone Game**
+
+Approach 1: DP or DFS with memoization. Try all possible cases.
+Approach 2: Alex (who gets to choose first) always wins.
 
 # Greedy
 
@@ -677,6 +714,19 @@ Try to pair ("xx", "yy") as much as possible, because it only needs 1 swap.
 **1253. Reconstruct a 2-Row Binary Matrix**
 
 Always add "1" to the row with more "available seats", because if later the `colsums` are 0 or 2, upper and lower row will be increasing at equal speed.
+
+**1368. Minimum Cost to Make at Least One Valid Path in a Grid**
+
+Always choose the neighbor with 0 cost first. Another approach: represent the grid as a directed weighted graph and use Dijkstra's algorithm.
+
+**1402. Reducing Dishes**: Given an int array `nums` where the numbers can be negative, find the largest `a1*1 + a2*2 + a3*3 + ... + an*n`, where `a1...an` can be chosen freely from `nums`.
+
+Sort first. `a1*2 + a2*3 + a3*4 = a1*1 + a2*2 + a3*3 + (a1+a2+a3)`
+
+**1405. Longest Happy String**: Given `a`, `b`, `c`, find the longest string `s` such that `s`  contains at most `a` occurrences of the letter 'a', at most `b` occurrences of the letter 'b' and at most `c` occurrences of the letter 'c', and does not have any of the strings 'aaa', 'bbb' or 'ccc'.
+
+Find the maximum number, then we need to "fill the slots" with the other two minor number of letters.
+Easier version: **984. String Without AAA or BBB**
 
 # Tree
 
@@ -853,6 +903,34 @@ DFS.
 
 DFS.
 
+**1361. Validate Binary Tree Nodes**: You have `n` binary tree nodes numbered from `0` to `n - 1` where node `i` has two children `leftChild[i]` and `rightChild[i]`, return `true` if and only if **all** the given nodes form **exactly one** valid binary tree.
+
+Find root and DFS. Be aware of all invalid cases.
+
+**1367. Linked List in Binary Tree**: Given a linked list and a binary tree, return whether the binary tree "contains" the linked list.
+
+Brute-force DFS.
+
+**1372. Longest ZigZag Path in a Binary Tree**
+
+DFS. Maintain a variable for direction (left or right) and the maximum zigzag length.
+
+**1373. Maximum Sum BST in Binary Tree**
+
+Dfs and return a tuple of `(bool isBST, int min, int max, int sum)` for each tree node.
+
+**1376. Time Needed to Inform All Employees**
+
+DFS. Note that the actions of subordinates can be performed simultaneously. So the total time of a node should be the maximum time spent by one of its child node.
+
+**1377. Frog Position After T Seconds**
+
+Each node corresponds to a time and possibility: DFS(node, time, possibility).
+
+**1379. Find a Corresponding Node of a Binary Tree in a Clone of That Tree**
+
+Dfs both the original tree and the cloned tree simultaneously.
+
 # Graph
 
 **79. Word Search**: Given a 2D board and a word, find if the word exists in the grid.
@@ -923,6 +1001,10 @@ BFS.
 
 BFS. Search state is the snake's position.
 
+**1202. Smallest String With Swaps**: You can swap the characters at any pair of indices in the given pairs any number of times. Return the lexicographically smallest string that s can be changed to after using the swaps.
+
+Think of it as a graph problem. A pair is an edge, a character is a vertex. In each connected component, we can freely rearrange the nodes in this component. So we need to find all connected components and sort each component independently.
+
 **1263. Minimum Moves to Move a Box to Their Target Location**
 
 BFS. Represent the search state as `(player_row, player_col, box_row, box_col)`, and maintain the minimum number of pushes needed so far to reach every seen state.
@@ -952,7 +1034,7 @@ Write down the permutations of [1,2,3,4], then observe and find the pattern:
 
 **43\. Multiply Strings**: Multiply two numbers represented as strings.
 
-![](D:\GitHub\CSharp\Algorithms\Algorithms\LeetCode\Notes\pics\43.png)
+![](.\pics\43.png)
 
 **60\. Permutation Sequence**: Given n and k, the set [1,2,3,...,n] contains a total of n! unique permutations. Return the k-th permutation sequence.
 
@@ -995,7 +1077,22 @@ We can find a pattern: from the most significant digit to the least significant 
 
 From right to left, save the maximum digit and a smaller digit in the left of it.
 
-**1291. Sequential Digits**
+**1291. Sequential Digits**: Example: low = 1000, high = 13000 => [1234,2345,3456,4567,5678,6789,12345]
+
+Just find all the valid numbers in the given range. Consider the possible number of digits allowed.
+
+**1354. Construct Target Array With Multiple Sums**: Example:
+Input: target = [9,3,5]
+Output: true
+Explanation: Start with [1, 1, 1] 
+[1, 1, 1], sum = 3 choose index 1 and replace its value with the sum of the array.
+[1, 3, 1], sum = 5 choose index 2 and replace its value with the sum of the array.
+[1, 3, 5], sum = 9 choose index 0 and replace its value with the sum of the array.
+[9, 3, 5], we have reached the target given.
+
+If we reverse the process, then every step is determined: find the current maximum number and the number of its previous step should be (`currMax` - "sum of all other numbers"). Be careful of overflow and corner cases, and we should use mod instead of minus to handle cases like [1,1000000000].
+
+**1363. Largest Multiple of Three**: Our goal is to maximize the number of digits, so we can choose all digits and then try to remove one or two digits.
 
 ## Others
 
@@ -1035,11 +1132,13 @@ Every pair of 2 and 5 results in a trailing zero. 2 is much more than 5, so the 
 **204. Count Primes**: Count the number of prime numbers less than a non-negative number, n.
 
 Sieve of Eratosthenes. For each `i`in [2, n), `i×1`, `i×2`, `i×3`,... should all be marked as non-prime numbers.
-![](D:\GitHub\CSharp\Algorithms\Algorithms\LeetCode\Notes\pics\204.gif)
+![](.\pics\204.gif)
 
 **223. Rectangle Area**
 
-Check every cases.
+Check every  possible case.
+Similar problem: **1401. Circle and Rectangle Overlapping**: Given a circle and a rectangle, return True if the circle and rectangle are overlapped otherwise return False.
+Find the closest point to the center of the circle within the border of the rectangle, then check whether its distance to the center is less than `r`.
 
 **224. Basic Calculator**: The expression string may contain open ( and closing parentheses ), the plus `+` or minus sign `-`, non-negative integers.
 
@@ -1071,6 +1170,9 @@ A generalization of "Problem 264. Ugly Number II", same idea, using priority que
 **343. Integer Break**:  Given a positive integer *n*, break it into the sum of at least two positive integers and maximize the product of those integers. Return the maximum product you can get. 
 
 DP or Math. If an optimal product contains a factor f >= 4, then you can replace it with factors 2 and f-2 without losing optimality, as `2*(f-2) = 2f-4 >= f`. So you never need a factor greater than or equal to 4, meaning you only need factors 1, 2 and 3 (and 1 is of course wasteful and you'd only use it for n=2 and n=3, where it's needed). 3 * 3 is simply better than 2 * 2 * 2, so you'd never use 2 more than twice. For example: 6 = 2 + 2 + 2 = 3 + 3. But 2 * 2 * 2 < 3 * 3.
+
+**1362. Closest Divisors**: Search the factor from square root to 1.
+**1390. Four Divisors**: Search the factor from 1 to square root (Sqrt is an expensive operation, so we can do ` i * i <= num` instead).
 
 ## Brainteaser
 
@@ -1124,12 +1226,7 @@ Approach 1: Similar to the solution of "151. Reverse Words in a String". Reverse
 Approach 2:
 For example: [1,2,3,4,5,6], k=2
 Rotated:         [5,6,1,2,3,4]
-![](D:\GitHub\CSharp\Algorithms\Algorithms\LeetCode\Notes\pics\189.png)
-
-**318. Maximum Product of Word Lengths**:  Given a string array `words`, find the maximum value of `length(word[i]) * length(word[j])` where the two words do not share common letters. You may assume that each word will contain only lower case letters. If no such two words exist, return 0. 
-
-Every word can be represented as a integer, with every letter corresponding to a bit.
-Similar problem: **1239. Maximum Length of a Concatenated String with Unique Characters**
+![](.\pics\189.png)
 
 **169. Majority Element**: Given an array of size n, find the majority element. The majority element is the element that appears more than ⌊n/2⌋ times.
 
@@ -1205,6 +1302,11 @@ Scan the array and update candidates for *arr[i]*, *arr[j]* and *arr[k]*.
 
 First consider the tallest man, then the second tallest man...
 
+**409. Longest Palindrome**: Given a string which consists of lowercase or uppercase letters, find the length of the longest palindromes that can be built with those letters.
+
+Find the letters that appear an odd number of times.
+Similar problem: **1400. Construct K Palindrome Strings**
+
 **419. Battleships in a Board**
 
 Check each 'X' grid's left and top grid.
@@ -1227,6 +1329,7 @@ Somehow avoid unnecessary compares.
 **1252. Cells with Odd Values in a Matrix**
 
 The state of each row and column can be represented by a single variable, so we only need `bool[] rows = new bool[n]` and `bool[] columns = new bool[m]`.
+Similar problem: **1380. Lucky Numbers in a Matrix**: Save the minimum value of each row and maximum value of each column.
 
 **1267. Count Servers that Communicate**
 
@@ -1235,6 +1338,14 @@ Mark each server to corresponding row and column. Similar to "1252. Cells with O
 **1260. Shift 2D Grid**
 
 "189. Rotate Array" with virtual index.
+
+**1371. Find the Longest Substring Containing Vowels in Even Counts**: Given the string `s`, return the size of the longest  substring containing each vowel an even number of times. That is, 'a',  'e', 'i', 'o', and 'u' must appear an even number of times.
+
+For each substring s[0..i], we need to save its state: (number of 'a', number of 'e', number of 'i', number of 'o', number of 'u'). For each state, find the leftmost substring with the same state, because "odd - odd = even, even - even = even, odd - even = odd".
+
+**1375. Bulb Switcher III**: At moment *k* (for *k* from `0` to `n - 1`), we turn on the `light[k]` bulb. A bulb change color to blue only if it is on and all the previous bulbs (to the left) are turned on too. Return the number of moments in which all turned on bulbs are blue.
+
+`rightMostOn` is the number of the rightmost light that is on. All turned on bulbs are blue if and only if the total number of lights that is on so far equals `rightMostOn`.
 
 ## Sort first
 
@@ -1253,6 +1364,7 @@ Sort by width, then find the longest increasing subsequence (Problem 300) of hei
 **1268. Search Suggestions System**: Sort and binary search. Alternative approach: Trie.
 
 **1288. Remove Covered Intervals**
+**1403. Minimum Subsequence in Non-Increasing Order**
 
 ## Others
 
@@ -1291,12 +1403,18 @@ Split the version number by dot.
 
 Find the nature of the problem and we can get the answer: `Math.Min(candies.Length / 2, new HashSet<int>(candies).Count)`
 
+**1392. Longest Happy Prefix**: A string is called a happy prefix if is a non-empty prefix which is also a suffix (excluding itself). Given a string `s`. Return the longest happy prefix of `s`.
+
+KMP or rolling hash.
+
 **228. Summary Ranges**: String and math.
 **289. Game of Life**: Mark visited cell as other numbers in order to do it in place.
 **1217. Play with Chips**: Everything is 0 or 1.
 **1221. Split a String in Balanced Strings**: Count 'L' and 'R'.
 **1222. Queens That Can Attack the King**: Check 8 directions around the king.
 **1272. Remove Interval**: Draw diagrams and consider all possible cases.
+**1386. Cinema Seat Allocation**: Just check all possible cases.
+**1391. Check if There is a Valid Path in a Grid**: Just go down the one direction path.
 
 ## Math
 
@@ -1409,6 +1527,11 @@ A trick: n &(n - 1) is equal to changing the rightmost 1 in n to 0.
 
 After observing, we can find a pattern that makes the problem equal to finding the longest common prefix of two numbers' binary representations.
 
+**318. Maximum Product of Word Lengths**:  Given a string array `words`, find the maximum value of `length(word[i]) * length(word[j])` where the two words do not share common letters. You may assume that each word will contain only lower case letters. If no such two words exist, return 0. 
+
+Every word can be represented as a integer, with every letter corresponding to a bit.
+Similar problem: **1239. Maximum Length of a Concatenated String with Unique Characters**
+
 **371. Sum of Two Integers**: Calculate the sum of two integers a and b, but you are not allowed to use the operator + and -.
 
 Bit manipulation. Simulate addition with XOR, save the carry digits using bitwise AND.
@@ -1424,6 +1547,10 @@ Similar to prefix sums.
 **1318. Minimum Flips to Make a OR b Equal to c**
 
 For every bit, consider all cases.
+
+**1404. Number of Steps to Reduce a Number in Binary Representation to One**
+
+ Division by two is the same as removing the rightmost 0.
 
 # Sort
 
@@ -1450,6 +1577,12 @@ Patience sorting, O(NlogN). Think of the nums as cards. We need to group the car
 
 DP, O(N^2): `dp[i]` with the restriction of `nums[i]` being the tail of the longest increasing subsequence.
 
+**1200. Minimum Absolute Difference**: The minimum absolute difference must be a difference between two consecutive elements in the sorted array.
+
+**1366. Rank Teams by Votes**
+
+Sort by position then by votes.
+
 # Priority Queue
 
 **218. The Skyline Problem**: Output the skyline formed by the buildings given.
@@ -1467,6 +1600,10 @@ Starting from `matrix[0][0]`, add `matrix[i + 1][j]` and `matrix[i][j + 1]` to a
 **373. Find K Pairs with Smallest Sums**: You are given two integer arrays `nums1` and `nums2` sorted in ascending order and an integer k. Define a pair (u,v) which consists of one element from the first array and one element from the second array. Find the k pairs (u1,v1),(u2,v2) ...(uk,vk) with the smallest sums.
 
 Essentially the same as "378. Kth Smallest Element in a Sorted Matrix".
+
+**1383. Maximum Performance of a Team**: Given two arrays: `speed` and `efficiency`, where `speed[i]` and `efficiency[i]` represent the speed and efficiency for the i-th engineer respectively. Return the maximum *performance* of a team composed of at most `k` engineers. The *performance* of a team is the sum of their engineers' speeds multiplied by the minimum efficiency among their engineers. 
+
+For each efficiency `e`, if `e` is the minimum efficiency in the result, then the corresponding maximum sum of speeds should be the sum of the `k`(or less than `k`) highest speeds among the engineers with efficiencies equal or greater than `e`. So we can sort the engineers by their efficiencies in decreasing order, and use a priority queue to keep track of the `k` highest speeds.
 
 # Trie
 
