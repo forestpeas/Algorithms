@@ -1,4 +1,6 @@
-﻿namespace Algorithms.LeetCode
+﻿using System.Linq;
+
+namespace Algorithms.LeetCode
 {
     /* 1409. Queries on a Permutation With Key
      * 
