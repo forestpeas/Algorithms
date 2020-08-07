@@ -1,4 +1,7 @@
-﻿namespace Algorithms.LeetCode
+﻿using System.Collections.Generic;
+using System.Linq;
+
+namespace Algorithms.LeetCode
 {
     /* 316. Remove Duplicate Letters
      * 
@@ -37,6 +40,31 @@
             }
 
             return s[minIdx] + RemoveDuplicateLetters(s.Substring(minIdx + 1).Replace(s[minIdx].ToString(), ""));
+        }
+
+        public string RemoveDuplicateLetters2(string s)
+        {
+            // Same idea using stack. Only pop a letter if it still has "counts".
+            int[] counts = new int[256];
+            foreach (char c in s)
+            {
+                counts[c]++;
+            }
+
+            var stack = new Stack<char>();
+            int[] seen = new int[256];
+            foreach (var c in s)
+            {
+                counts[c]--;
+                if (seen[c]++ > 0) continue;
+                while (stack.Count != 0 && stack.Peek() > c && counts[stack.Peek()] > 0)
+                {
+                    seen[stack.Pop()] = 0;
+                }
+                stack.Push(c);
+            }
+
+            return new string(stack.Reverse().ToArray());
         }
     }
 }
