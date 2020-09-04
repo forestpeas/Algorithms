@@ -24,14 +24,15 @@
             return p;
         }
 
-        public void Union(int p, int q)
+        public bool Union(int p, int q)
         {
             // Give p and q the same root.
             int pRoot = Find(p);
             int qRoot = Find(q);
-            if (pRoot == qRoot) return;
+            if (pRoot == qRoot) return false;
             _id[pRoot] = qRoot;
             Count--;
+            return true;
         }
     }
 }
