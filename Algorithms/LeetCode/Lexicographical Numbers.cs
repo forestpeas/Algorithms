@@ -63,6 +63,25 @@ namespace Algorithms.LeetCode
 
         public IList<int> LexicalOrder2(int n)
         {
+            var res = new List<int>();
+            PreorderTraverse(0);
+            return res;
+
+            void PreorderTraverse(int node)
+            {
+                if (node != 0) res.Add(node);
+                for (int i = 0; i <= 9; i++)
+                {
+                    long child = node * 10 + i;
+                    if (child == 0) continue; // the root is 0, its first child should be 1.
+                    if (child > n) break;
+                    PreorderTraverse((int)child);
+                }
+            }
+        }
+
+        public IList<int> LexicalOrder3(int n)
+        {
             return Enumerable.Range(1, n).OrderBy(i => i.ToString()).ToArray();
         }
     }
