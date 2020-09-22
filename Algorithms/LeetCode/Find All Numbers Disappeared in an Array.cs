@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Algorithms.LeetCode
 {
@@ -48,6 +49,26 @@ namespace Algorithms.LeetCode
             }
 
             return result;
+        }
+
+        public IList<int> FindDisappearedNumbers2(int[] nums)
+        {
+            for (int i = 0; i < nums.Length; i++)
+            {
+                int idx = Math.Abs(nums[i]) - 1;
+                if (nums[idx] > 0)
+                    nums[idx] = -nums[idx];
+            }
+
+            var res = new List<int>();
+            for (int i = 0; i < nums.Length; i++)
+            {
+                if (nums[i] > 0)
+                {
+                    res.Add(i + 1);
+                }
+            }
+            return res;
         }
     }
 }
