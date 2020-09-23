@@ -1,4 +1,6 @@
-﻿namespace Algorithms.LeetCode
+﻿using Algorithms.DataStructures;
+
+namespace Algorithms.LeetCode
 {
     /* 307. Range Sum Query - Mutable
      * 
@@ -90,6 +92,29 @@
                 int leftSum = SumRange(treeIdx * 2, lo, mid, i, mid);
                 int rightSum = SumRange(treeIdx * 2 + 1, mid + 1, hi, mid + 1, j);
                 return leftSum + rightSum;
+            }
+        }
+
+        public class NumArray2
+        {
+            private readonly int[] _nums;
+            private readonly FenwickTree _fenwick;
+
+            public NumArray2(int[] nums)
+            {
+                _nums = nums;
+                _fenwick = new FenwickTree(nums);
+            }
+
+            public void Update(int i, int val)
+            {
+                _fenwick.Add(i, val - _nums[i]);
+                _nums[i] = val;
+            }
+
+            public int SumRange(int i, int j)
+            {
+                return _fenwick.RangeSum(i, j);
             }
         }
     }
