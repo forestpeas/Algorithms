@@ -79,15 +79,9 @@ namespace Algorithms.LeetCode
             return results;
         }
 
-        // DP solution derived from "Problem 139. Word Break", gets Memory Limit Exceeded exception.
-        // How is this solution different from the one above? Maybe it's because this solution searches
-        // for all possible results for all possible substrings, for example, we've found the results of
-        // s[0...s.Length - 2], but when it comes to s[s.Length - 1], there is not any results, so the
-        // effort was wasted. But the solution above only searches for those that might be the final result,
-        // because it first checks for a necessary condition: there must exist a word in wordDict that "s"
-        // starts with.
         public IList<string> WordBreakDP(string s, IList<string> wordDict)
         {
+            // Almost the same as the solution from "139. Word Break".
             var words = new HashSet<string>(wordDict);
             List<string>[] mem = new List<string>[s.Length + 1];
             mem[0] = new List<string>() { string.Empty };
@@ -100,7 +94,7 @@ namespace Algorithms.LeetCode
                     if (mem[j] != null && words.Contains(rightSubStr))
                     {
                         if (mem[i + 1] == null) mem[i + 1] = new List<string>();
-                        if (i != s.Length - 1) rightSubStr = rightSubStr + " ";
+                        if (i != s.Length - 1) rightSubStr += " ";
                         mem[i + 1].AddRange(mem[j].Select(left => left + rightSubStr));
                     }
                 }

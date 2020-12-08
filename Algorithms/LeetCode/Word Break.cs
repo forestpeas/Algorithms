@@ -11,6 +11,7 @@ namespace Algorithms.LeetCode
      * 
      * The same word in the dictionary may be reused multiple times in the segmentation.
      * You may assume the dictionary does not contain duplicate words.
+     * 
      * Example 1:
      * 
      * Input: s = "leetcode", wordDict = ["leet", "code"]
@@ -31,9 +32,33 @@ namespace Algorithms.LeetCode
      */
     public class WordBreakSolution
     {
+        // Recursive solution with memoization.
         public bool WordBreak(string s, IList<string> wordDict)
         {
-            // This DP solution can be derived from a brute-force recursive solution(See "140. Word Break II").
+            return WordBreak(s, wordDict, new Dictionary<string, bool>());
+        }
+
+        private bool WordBreak(string s, IList<string> wordDict, Dictionary<string, bool> mem)
+        {
+            if (mem.TryGetValue(s, out var value)) return value;
+            foreach (string word in wordDict)
+            {
+                if (s.StartsWith(word))
+                {
+                    string nextSubString = s.Substring(word.Length);
+                    if (nextSubString.Length == 0 || WordBreak(nextSubString, wordDict, mem))
+                    {
+                        mem.Add(s, true);
+                        return true;
+                    }
+                }
+            }
+            mem.Add(s, false);
+            return false;
+        }
+
+        public bool WordBreakDP(string s, IList<string> wordDict)
+        {
             // mem[i + 1] means s[0...i] can be segmented.
             var words = new HashSet<string>(wordDict);
             bool[] mem = new bool[s.Length + 1];
