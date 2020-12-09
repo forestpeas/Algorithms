@@ -24,7 +24,7 @@
 
         private static void Merge(int[] array, int[] aux, int lo, int mid, int hi)
         {
-            // Merge array[lo...mid] with array[mid + 1...hi]=
+            // Merge array[lo...mid] with array[mid + 1...hi]
             for (int k = lo; k <= hi; k++) // Copy array[lo..hi] to aux[lo..hi].
             {
                 aux[k] = array[k];

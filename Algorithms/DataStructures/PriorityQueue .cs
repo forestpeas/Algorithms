@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Algorithms.DataStructures
 {
@@ -45,6 +46,7 @@ namespace Algorithms.DataStructures
 
         public T PeekTop()
         {
+            if (_heap.Count == 0) throw new InvalidOperationException("Queue is empty.");
             return _heap[1];
         }
 
