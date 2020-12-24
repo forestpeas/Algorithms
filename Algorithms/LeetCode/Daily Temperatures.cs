@@ -1,4 +1,6 @@
-﻿namespace Algorithms.LeetCode
+﻿using System.Collections.Generic;
+
+namespace Algorithms.LeetCode
 {
     /* 739. Daily Temperatures
      * 
@@ -39,6 +41,22 @@
             }
 
             return result;
+        }
+
+        public int[] DailyTemperatures2(int[] T)
+        {
+            var stack = new Stack<int>();
+            int[] res = new int[T.Length];
+            for (int i = 0; i < T.Length; i++)
+            {
+                while (stack.Count != 0 && T[i] > T[stack.Peek()])
+                {
+                    int idx = stack.Pop();
+                    res[idx] = i - idx;
+                }
+                stack.Push(i);
+            }
+            return res;
         }
     }
 }
