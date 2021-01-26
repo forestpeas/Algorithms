@@ -49,8 +49,7 @@ namespace Algorithms.LeetCode
                     int r = l + k;
                     for (int i = l + 1; i < r; i++)
                     {
-                        dp[l, r] = Math.Max(dp[l, r],
-                        nums[l] * nums[i] * nums[r] + dp[l, i] + dp[i, r]);
+                        dp[l, r] = Math.Max(dp[l, r], nums[l] * nums[i] * nums[r] + dp[l, i] + dp[i, r]);
                     }
                 }
             }
