@@ -4,6 +4,10 @@
     {
         /* 427. Construct Quad Tree
          * 
+         * Given a n * n matrix grid of 0's and 1's only. We want to represent the grid with a Quad-Tree.
+         * 
+         * Return the root of the Quad-Tree representing the grid.
+         * 
          * https://leetcode.com/problems/construct-quad-tree/
          */
         public Node Construct(int[][] grid)
@@ -24,6 +28,7 @@
                     bottomRight = Construct(new Point(topLeft.x + n, topLeft.y + n), n),
                 };
 
+                // "merge" four nodes with the same value into one
                 bool sameLeaves =
                     node.topLeft.isLeaf &&
                     node.topRight.isLeaf &&
