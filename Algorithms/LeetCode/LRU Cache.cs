@@ -33,17 +33,68 @@ namespace Algorithms.LeetCode
      * cache.get(3);       // returns 3
      * cache.get(4);       // returns 4
      */
+
     public class LRUCache
     {
         // We can maintain a list. Every time an element is accessed, move it to the head
         // of the list. When the cache reaches its capacity, remove the element from the
         // tail of the list. We can use a linked list because deleting and inserting are
-        // all O(1) operations.
+        // all O(1) operations. Similar to LinkedHashMap in Java.
+        private readonly int _capacity;
+        private readonly Dictionary<int, LinkedListNode<Item>> _dict = new Dictionary<int, LinkedListNode<Item>>();
+        private readonly LinkedList<Item> _list = new LinkedList<Item>();
+
+        public LRUCache(int capacity)
+        {
+            _capacity = capacity;
+        }
+
+        public int Get(int key)
+        {
+            if (_dict.TryGetValue(key, out var node))
+            {
+                _list.Remove(node);
+                _list.AddFirst(node);
+                return node.Value.Val;
+            }
+            return -1;
+        }
+
+        public void Put(int key, int value)
+        {
+            if (_dict.TryGetValue(key, out var node))
+            {
+                node.Value.Val = value;
+                _list.Remove(node);
+                _list.AddFirst(node);
+            }
+            else
+            {
+                if (_dict.Count >= _capacity)
+                {
+                    _dict.Remove(_list.Last.Value.Key);
+                    _list.RemoveLast();
+                }
+
+                _list.AddFirst(new Item() { Key = key, Val = value });
+                _dict.Add(key, _list.First);
+            }
+        }
+
+        private class Item
+        {
+            public int Key { get; set; }
+
+            public int Val { get; set; }
+        }
+    }
+
+    public class LRUCache2
+    {
+        // Implement the linked list ourselves.
         // Initialize _head and _tail to two dummy nodes. Always add a new node right after
         // _head, and remove the node right before _tail. In this way, we don't have to deal
         // with special cases such as removing the head or tail.
-        // Another alternative: use LinkedHashMap (only available in Java but we can simply
-        // write one). The idea is the same.
         private class ListNode
         {
             public int Key { get; }
@@ -63,7 +114,7 @@ namespace Algorithms.LeetCode
         private ListNode _tail;
         private readonly int _capacity;
 
-        public LRUCache(int capacity)
+        public LRUCache2(int capacity)
         {
             if (capacity < 1) throw new ArgumentOutOfRangeException();
             _capacity = capacity;
