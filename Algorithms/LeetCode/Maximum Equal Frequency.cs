@@ -41,7 +41,7 @@ namespace Algorithms.LeetCode
         {
             int result = 0;
             var frequencies = new Dictionary<int, int>(); // Frequencies of each number.
-            var frequencyCounts = new Dictionary<int, int>(); // frequencyCounts[2,3] means that the number of numbers that appear 2 times is 3, e.g. [1,1,2,2,3,3].
+            var frequencyCounts = new Dictionary<int, int>(); // frequencyCounts[2] = 3 means that the number of numbers that appear 2 times is 3, e.g. [1,1,2,2,3,3].
             for (int i = 0; i < nums.Length; i++)
             {
                 frequencies[nums[i]] = frequencies.GetValueOrDefault(nums[i]) + 1;
@@ -58,7 +58,7 @@ namespace Algorithms.LeetCode
                 {
                     // If all numbers appears exactly once, e.g. [1,2,3,4,5,6],
                     // or if there is only one number, e.g. [1,1,1,1,1,1].
-                    if (frequencyCounts.Keys.First() == 1 || frequencyCounts.Values.First() == 1) result = Math.Max(result, i + 1);
+                    if (frequencyCounts.Keys.First() == 1 || frequencyCounts.Values.First() == 1) result = i + 1;
                 }
                 else if (frequencyCounts.Keys.Count == 2)
                 {
@@ -67,8 +67,8 @@ namespace Algorithms.LeetCode
                     // Two cases.
                     // 1. [1,1,2,2,3,3,4,4,4]
                     // 2. [1,1,2,2,3,3,4]
-                    if (frequencyCounts[larger] == 1 && larger - smaller == 1) result = Math.Max(result, i + 1);
-                    else if (smaller == 1 && frequencyCounts[smaller] == 1) result = Math.Max(result, i + 1);
+                    if (frequencyCounts[larger] == 1 && larger - smaller == 1) result = i + 1;
+                    else if (smaller == 1 && frequencyCounts[smaller] == 1) result = i + 1;
                 }
             }
 
