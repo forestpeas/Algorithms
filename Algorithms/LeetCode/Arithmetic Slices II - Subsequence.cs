@@ -47,8 +47,9 @@ namespace Algorithms.LeetCode
     {
         public int NumberOfArithmeticSlices(int[] A)
         {
-            // mem[i][diff] is the number of elements that ends with A[i], not including A[i],
-            // and these elements form arithmetic subsequences with the difference of "diff".
+            // mem[i][diff] represents the length of the longest arithmetic subsequence that ends with A[i]
+            // (actually it's "length - 1"), and these elements form arithmetic subsequences with the
+            // difference of "diff".
             var mem = new Dictionary<long, int>[A.Length];
             int res = 0;
             for (int i = 0; i < A.Length; i++)

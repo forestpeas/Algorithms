@@ -36,7 +36,7 @@
             //                   ↑
             //              rotated point
             // If we use the same code from "Problem 33. Search in Rotated Sorted Array", we end up finding nums[0].
-            // In this example, the "rotated point" should be nums[4], how do we find it?
+            // In this example, the "rotated point" should be nums[5], how do we find it?
             // We can see that it should be in the end of the array, so we eliminate the duplicates from the beginning.
             // Another example:
             // [2,2,1,2]

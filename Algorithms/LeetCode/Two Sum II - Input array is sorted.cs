@@ -44,24 +44,5 @@ namespace Algorithms.LeetCode
 
             return new int[] { -1, -1 }; // Invalid input.
         }
-        public int[] TwoSum2(int[] numbers, int target)
-        {
-            // My first attempt on this problem.
-            // Try to find the complement of numbers[lo] in numbers[lo + 1,...,hi].
-            // If found, simply return the result.
-            // If not found, we can rule out numbers[lo] because the result must not contain number[0].
-            // Note that the complement is always decreasing, so hi can also shrink.
-            // I think the time complexity maybe is O(NlogN).
-            int lo = 0;
-            int hi = numbers.Length - 1;
-            while (true)
-            {
-                int complement = target - numbers[lo];
-                int idx = Array.BinarySearch(numbers, lo + 1, hi - lo, complement);
-                if (idx > 0) return new int[] { lo + 1, idx + 1 };
-                hi = ~idx - 1; // Next time, complement will only be smaller.
-                lo++; // Rule out numbers[lo].
-            }
-        }
     }
 }

@@ -46,7 +46,7 @@
                     continue;
                 }
 
-                result += r - l - 1; // A[l..r], A[l+1..r], ..., A[r-2,r]. The last subarry's length is 3.
+                result += r - l - 1; // A[l..r], A[l+1..r], ..., A[r-2,r]
             }
 
             return result;
