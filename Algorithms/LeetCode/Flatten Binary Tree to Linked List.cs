@@ -31,9 +31,7 @@ namespace Algorithms.LeetCode
     {
         public void Flatten(TreeNode root)
         {
-            // Maybe the intension of this problem is for the interviewee himself to
-            // figure out how the binary tree is flattened. We can see from the example
-            // above that
+            // We can see from the example above that
             //   2                       2
             //  / \     is flattened to   \
             // 3   4                       3

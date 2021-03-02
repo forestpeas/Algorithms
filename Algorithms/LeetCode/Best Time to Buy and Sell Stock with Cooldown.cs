@@ -33,7 +33,7 @@ namespace Algorithms.LeetCode
             for (int i = 1; i < prices.Length; i++)
             {
                 // Do not buy at i, or do buy at i and include the profit that we gained from sell[i - 2].
-                // (Not sell[i -1] because of cooldown)
+                // (Not sell[i-1] because of cooldown)
                 int lastSell = i < 2 ? 0 : sell[i - 2];
                 buy[i] = Math.Max(buy[i - 1], lastSell - prices[i]);
                 // Do not sell at i, or do sell at i and include the profit that we gained from buy[i - 1].

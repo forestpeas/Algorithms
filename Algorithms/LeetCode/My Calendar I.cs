@@ -8,7 +8,6 @@ namespace Algorithms.LeetCode
      */
     public class MyCalendar
     {
-
         private readonly List<int[]> calendar = new List<int[]>();
 
         public bool Book(int start, int end)

@@ -39,17 +39,17 @@ namespace Algorithms.LeetCode
         public IList<int> GrayCode(int n)
         {
             // We can get GrayCode(n) from GrayCode(n-1)
-            // For example: n = 3
+            // For example: n = 2
             // 00
             // 01
             // 11
             // 10
-            // If we want to get the result of n = 4, first we just add a "0" to each code above.
+            // If we want to get the result of n = 3, first we just add a "0" to each code above.
             // 000
             // 001
             // 011
             // 010
-            // Then we add a "1" to the codes of n = 3, from bottom to the top.
+            // Then we add a "1" to the codes of n = 2, from bottom to the top.
             // 110
             // 111
             // 101

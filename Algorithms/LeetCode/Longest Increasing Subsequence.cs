@@ -27,8 +27,8 @@ namespace Algorithms.LeetCode
             // Patience sorting: https://www.cs.princeton.edu/courses/archive/spring13/cos423/lectures/LongestIncreasingSubsequence.pdf
             // Think of the nums as cards. We need to group the cards into piles. For each of the cards
             // from left to right, place the card onto the leftmost pile whose top card has a value higher
-            // than (or equal to, for example:[2,5,5]) the current card's value, if there is no such pile,
-            // form a new pile on the right. The number of piles is the length of longest increasing subsequence.
+            // than the current card's value, if there is no such pile, form a new pile on the right. The
+            // number of piles is the length of longest increasing subsequence.
             var piles = new List<int>(nums.Length);
             foreach (int num in nums)
             {

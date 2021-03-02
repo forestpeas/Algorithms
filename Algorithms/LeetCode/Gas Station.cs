@@ -63,8 +63,7 @@
             int sum = 0; // total sum
             int currentSum = 0; // accumulative sum
             int result = 0;
-            int i = 0;
-            for (; i < gas.Length; i++)
+            for (int i = 0; i < gas.Length; i++)
             {
                 int diff = gas[i] - cost[i];
                 sum += diff;

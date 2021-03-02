@@ -4,8 +4,8 @@ namespace Algorithms.LeetCode
 {
     /* 421. Maximum XOR of Two Numbers in an Array
      * 
-     * Given a non-empty array of numbers, a0, a1, a2, … , an-1, where 0 ≤ ai < 231.
-     * Find the maximum result of ai XOR aj, where 0 ≤ i, j < n.
+     * Given an integer array nums, return the maximum result of nums[i] XOR nums[j],
+     * where 0 ≤ i ≤ j < n.
      * 
      * Could you do this in O(n) runtime?
      * 

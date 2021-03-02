@@ -9,6 +9,23 @@ namespace Algorithms.LeetCode
      * 
      * Since the answer may not fit in an integer data type, return the answer as a string.
      * If there is no answer return an empty string.
+     * 
+     * Example 1:
+     * 
+     * Input: digits = [8,1,9]
+     * Output: "981"
+     * Example 2:
+     * 
+     * Input: digits = [8,6,7,1,0]
+     * Output: "8760"
+     * Example 3:
+     * 
+     * Input: digits = [1]
+     * Output: ""
+     * Example 4:
+     * 
+     * Input: digits = [0,0,0,0,0,0]
+     * Output: "0"
      */
     public class Largest_Multiple_of_Three
     {
