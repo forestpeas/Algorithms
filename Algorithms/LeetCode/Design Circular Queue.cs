@@ -54,24 +54,27 @@
             private readonly int[] _queue;
             private int _head = 0;
             private int _tail = 0;
+            private int _count = 0;
 
             public MyCircularQueue(int k)
             {
-                _queue = new int[k + 1];
+                _queue = new int[k];
             }
 
             public bool EnQueue(int value)
             {
                 if (IsFull()) return false;
+                if (!IsEmpty()) _tail = (_tail + 1) % _queue.Length;
                 _queue[_tail] = value;
-                _tail = (_tail + 1) % _queue.Length;
+                _count++;
                 return true;
             }
 
             public bool DeQueue()
             {
                 if (IsEmpty()) return false;
-                _head = (_head + 1) % _queue.Length;
+                if (_count != 1) _head = (_head + 1) % _queue.Length;
+                _count--;
                 return true;
             }
 
@@ -84,17 +87,17 @@
             public int Rear()
             {
                 if (IsEmpty()) return -1;
-                return _queue[(_tail + _queue.Length - 1) % _queue.Length];
+                return _queue[_tail];
             }
 
             public bool IsEmpty()
             {
-                return _tail == _head;
+                return _count == 0;
             }
 
             public bool IsFull()
             {
-                return ((_tail + 1) % _queue.Length) == _head;
+                return _count == _queue.Length;
             }
         }
     }
