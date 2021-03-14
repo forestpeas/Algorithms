@@ -33,14 +33,13 @@ namespace Algorithms.LeetCode
             // Same as "435. Non-overlapping Intervals".
             if (points.Length == 0) return 0;
             points = points.OrderBy(p => p[1]).ToArray();
+            int r = points[0][1];
             int res = 1;
-            int[] first = points[0];
-            for (int i = 1; i < points.Length; i++)
+            foreach (int[] point in points)
             {
-                int[] second = points[i];
-                if (second[0] > first[1])
+                if (point[0] > r)
                 {
-                    first = second;
+                    r = point[1];
                     res++;
                 }
             }

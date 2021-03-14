@@ -34,6 +34,26 @@ namespace Algorithms.LeetCode
     {
         public int EraseOverlapIntervals(int[][] intervals)
         {
+            // Interval Scheduling.
+            // Find the maximum number of intervals that are non-overlapping.
+            if (intervals.Length == 0) return 0;
+            intervals = intervals.OrderBy(i => i[1]).ToArray();
+            int r = intervals[0][1];
+            int res = 1;
+            foreach (int[] interval in intervals)
+            {
+                if (interval[0] >= r)
+                {
+                    r = interval[1];
+                    res++;
+                }
+            }
+            return intervals.Length - res;
+        }
+
+        public int EraseOverlapIntervals2(int[][] intervals)
+        {
+            // same idea as above
             if (intervals.Length == 0) return 0;
             intervals = intervals.OrderBy(i => i[0]).ToArray();
             int res = 0;
@@ -56,27 +76,6 @@ namespace Algorithms.LeetCode
                 }
             }
             return res;
-        }
-
-        public int EraseOverlapIntervals2(int[][] intervals)
-        {
-            // Interval Scheduling.
-            // The idea is the same as the approach above.
-            // Find the maximum number of intervals that are non-overlapping.
-            if (intervals.Length == 0) return 0;
-            intervals = intervals.OrderBy(i => i[1]).ToArray();
-            int count = 1;
-            int[] first = intervals[0];
-            for (int i = 1; i < intervals.Length; i++)
-            {
-                int[] second = intervals[i];
-                if (second[0] >= first[1])
-                {
-                    first = second;
-                    count++;
-                }
-            }
-            return intervals.Length - count;
         }
     }
 }
