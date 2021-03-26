@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Algorithms.DataStructures
 {
-    public class PriorityQueue<T>
+    public class PriorityQueue<T> : IEnumerable<T>
     {
         private readonly List<T> _heap = new List<T>() { default }; // _heap[0] is not used.
         private readonly IComparer<T> _comparer;
@@ -37,6 +39,7 @@ namespace Algorithms.DataStructures
         /// </summary>
         public T DeleteTop()
         {
+            ThrowIfEmpty();
             T max = _heap[1];
             Swap(1, _heap.Count - 1);
             _heap.RemoveAt(_heap.Count - 1);
@@ -46,7 +49,7 @@ namespace Algorithms.DataStructures
 
         public T PeekTop()
         {
-            if (_heap.Count == 0) throw new InvalidOperationException("Queue is empty.");
+            ThrowIfEmpty();
             return _heap[1];
         }
 
@@ -78,6 +81,21 @@ namespace Algorithms.DataStructures
             T tmp = _heap[i];
             _heap[i] = _heap[j];
             _heap[j] = tmp;
+        }
+
+        private void ThrowIfEmpty()
+        {
+            if (IsEmpty) throw new InvalidOperationException("Queue is empty.");
+        }
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            return _heap.Skip(1).GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
     }
 }
