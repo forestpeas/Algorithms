@@ -28,75 +28,48 @@ namespace Algorithms.LeetCode
             // i and j are two indexes pointing to the first element on the right side of the "split line".
             // Every element on the left should be smaller than those on the right.
             // For example:
-            // 1 | 2 5
-            // 3 | 7
+            // 1 | 2 
+            // 3 | 4 5
+            // step 1: i = 1, j = 1
             //
-            // 1 2 | 5
-            //     | 3 7
-            // step 1: i points to 2, j points to 7
-            // step 2: i points to 5, j points to 3
+            // 1 2 |
+            //     | 3 4 5
+            // step 2: i = 2, j = 0
             int m = nums1.Length, n = nums2.Length;
-            if (m < n) // Because the final splitting line will always cuts through the longer array.
+            if (m > n)
             {
+                // Because the final splitting line will always cuts through the longer array,
+                // and we don't want negative i or j (variables used below).
                 return FindMedianSortedArrays(nums2, nums1);
             }
-            if (n == 0) return (m & 1) == 1 ? nums1[m / 2] : ((double)nums1[m / 2] + nums1[m / 2 - 1]) / 2;
+            if (m + n == 1) return nums2[0];
 
             int lo = 0, hi = m;
             while (lo <= hi)
             {
-                int i = (hi + lo) / 2;
+                int i = (lo + hi) / 2;
                 int j = (m + n) / 2 - i; // i + j = m - i + n - j
-                if (j < 0) // When i is too big, we may not find a proper j in nums2 to counteract i.
+                if (i > 0 && nums1[i - 1] > nums2[j])
                 {
                     hi = i;
                 }
-                else if (j > n) // Similarly, i can't be too small.
-                {
-                    lo = i + 1;
-                }
-                else if (i != 0 && j != n && nums1[i - 1] > nums2[j])
-                {
-                    hi = i;
-                }
-                else if (j != 0 && i != m && nums2[j - 1] > nums1[i])
+                else if (i < m && nums2[j - 1] > nums1[i])
                 {
                     lo = i + 1;
                 }
                 else
                 {
-                    int left;
-                    int right;
-                    if (i == 0)
-                    {
-                        left = nums2[j - 1];
-                    }
-                    else if (j == 0)
-                    {
-                        left = nums1[i - 1];
-                    }
-                    else
-                    {
-                        left = Math.Max(nums1[i - 1], nums2[j - 1]);
-                    }
+                    int leftMax, rightMin;
+                    if (i == 0) leftMax = nums2[j - 1];
+                    else if (j == 0) leftMax = nums1[i - 1];
+                    else leftMax = Math.Max(nums1[i - 1], nums2[j - 1]);
 
-                    if (i == m)
-                    {
-                        right = nums2[j];
-                    }
-                    else if (j == n)
-                    {
-                        right = nums1[i];
-                    }
-                    else
-                    {
-                        right = Math.Min(nums1[i], nums2[j]);
-                    }
-                    if (i + j < m - i + n - j)
-                    {
-                        return right;
-                    }
-                    return ((double)left + right) / 2;
+                    if (i == m) rightMin = nums2[j];
+                    else if (j == n) rightMin = nums1[i];
+                    else rightMin = Math.Min(nums1[i], nums2[j]);
+
+                    if (i + j < m - i + n - j) return rightMin;
+                    return ((double)leftMax + rightMin) / 2;
                 }
             }
             throw new ArgumentException();
