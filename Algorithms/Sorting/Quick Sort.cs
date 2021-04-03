@@ -27,7 +27,7 @@ namespace Algorithms.Sorting
         {
             int v = array[lo]; // partitioning item
             int i = lo + 1, j = hi;
-            // Be careful of the edge case where i = j, if array[j] > v, j must still decrease
+            // Be careful of the edge case where i = j, if array[j] >= v, j must still decrease
             // by 1 to ensure that j points to an element smaller than(or equal to) v.
             while (i <= j)
             {

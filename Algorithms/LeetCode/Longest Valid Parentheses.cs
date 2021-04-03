@@ -40,10 +40,7 @@ namespace Algorithms.LeetCode
                 {
                     if (stack.Count == 0)
                     {
-                        if (currentLength > result)
-                        {
-                            result = currentLength;
-                        }
+                        result = Math.Max(result, currentLength);
                         currentLength = 0;
                     }
                     else
