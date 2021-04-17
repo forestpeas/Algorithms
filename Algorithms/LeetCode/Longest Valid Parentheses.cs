@@ -4,7 +4,8 @@ using System.Collections.Generic;
 namespace Algorithms.LeetCode
 {
     /* 32. Longest Valid Parentheses
-     * Given a string containing just the characters '(' and ')', find the length of the longest valid (well-formed) parentheses substring.
+     * Given a string containing just the characters '(' and ')', find the length of the longest valid
+     * (well-formed) parentheses substring.
      * 
      * Example 1:
      * 
@@ -20,7 +21,83 @@ namespace Algorithms.LeetCode
      */
     public class LongestValidParenthesesSolution
     {
-        public int LongestValidParenthesesUsingStack(string s)
+        public int LongestValidParentheses(string s)
+        {
+            // for example: ()(()(()))
+            int res = 0;
+            var stack = new Stack<int>();
+            stack.Push(-1); // the left boundary of a valid substring
+            for (int i = 0; i < s.Length; i++)
+            {
+                if (s[i] == '(')
+                {
+                    stack.Push(i);
+                }
+                else
+                {
+                    stack.Pop();
+                    if (stack.Count == 0)
+                    {
+                        stack.Push(i); // the left boundary of a valid substring
+                    }
+                    else
+                    {
+                        res = Math.Max(res, i - stack.Peek());
+                    }
+                }
+            }
+            return res;
+        }
+
+        public int LongestValidParentheses2(string s)
+        {
+            // from https://leetcode.com/articles/longest-valid-parentheses/
+            int left = 0, right = 0, maxlength = 0;
+            for (int i = 0; i < s.Length; i++)
+            {
+                if (s[i] == '(')
+                {
+                    left++;
+                }
+                else
+                {
+                    right++;
+                }
+
+                if (left == right)
+                {
+                    maxlength = Math.Max(maxlength, 2 * right);
+                }
+                else if (right > left)
+                {
+                    left = right = 0;
+                }
+            }
+            left = right = 0;
+            for (int i = s.Length - 1; i >= 0; i--)
+            {
+                if (s[i] == '(')
+                {
+                    left++;
+                }
+                else
+                {
+                    right++;
+                }
+
+                if (left == right)
+                {
+                    maxlength = Math.Max(maxlength, 2 * left);
+                }
+                else if (left > right)
+                {
+                    left = right = 0;
+                }
+            }
+            return maxlength;
+        }
+
+        public int LongestValidParentheses3(string s)
         {
             // stack contains the length of a longest valid string on the left side of a "("
             // when we encounter a ")" that corresponds to that "(", we pop the length from the stack and add it to the total length.
@@ -60,58 +137,6 @@ namespace Algorithms.LeetCode
                 result = Math.Max(result, stack.Pop());
             }
             return result;
-        }
-
-        // Constant space solution inspired by "Approach 4: Without extra space" of https://leetcode.com/articles/longest-valid-parentheses/.
-        // Scan from left to right and then right to left.
-        // Count the numbers of left and right parentheses and get a result when they are equal.
-        // Reset the numbers when necessary.
-        // I think the validity of this solution is probably bacause the longest valid string
-        // always contains the same number of left and right parentheses. But you have to check
-        // both directions to avoid "over count", e.g. "(((())".
-        public int LongestValidParentheses(string s)
-        {
-            int left = 0, right = 0, maxlength = 0;
-            for (int i = 0; i < s.Length; i++)
-            {
-                if (s[i] == '(')
-                {
-                    left++;
-                }
-                else
-                {
-                    right++;
-                }
-                if (left == right)
-                {
-                    maxlength = Math.Max(maxlength, 2 * right);
-                }
-                else if (right >= left)
-                {
-                    left = right = 0;
-                }
-            }
-            left = right = 0;
-            for (int i = s.Length - 1; i >= 0; i--)
-            {
-                if (s[i] == '(')
-                {
-                    left++;
-                }
-                else
-                {
-                    right++;
-                }
-                if (left == right)
-                {
-                    maxlength = Math.Max(maxlength, 2 * left);
-                }
-                else if (left >= right)
-                {
-                    left = right = 0;
-                }
-            }
-            return maxlength;
         }
     }
 }
