@@ -72,7 +72,7 @@ namespace Algorithms.LeetCode
             TreeNode node = root;
             TreeNode mistakenNode = null;
             TreeNode mistakenNodeNext = null;
-            TreeNode last = null;
+            TreeNode prev = null;
             while (stack.Count != 0 || node != null)
             {
                 while (node != null)
@@ -83,7 +83,7 @@ namespace Algorithms.LeetCode
 
                 node = stack.Pop();
 
-                if (last != null && node.val <= last.val)
+                if (prev != null && node.val <= prev.val)
                 {
                     if (mistakenNode != null)
                     {
@@ -91,10 +91,10 @@ namespace Algorithms.LeetCode
                         Swap(node, mistakenNode);
                         return;
                     }
-                    mistakenNode = last;
+                    mistakenNode = prev;
                     mistakenNodeNext = node;
                 }
-                last = node;
+                prev = node;
                 node = node.right;
             }
             Swap(mistakenNode, mistakenNodeNext);

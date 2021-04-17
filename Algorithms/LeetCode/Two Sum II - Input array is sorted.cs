@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Algorithms.LeetCode
+﻿namespace Algorithms.LeetCode
 {
     /* 167. Two Sum II - Input array is sorted
      * 

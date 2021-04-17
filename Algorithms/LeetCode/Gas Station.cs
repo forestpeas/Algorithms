@@ -50,6 +50,34 @@
     {
         public int CanCompleteCircuit(int[] gas, int[] cost)
         {
+            int currentSum = 0;
+            int result = 0;
+            for (int i = 0; i < gas.Length; i++)
+            {
+                int diff = gas[i] - cost[i];
+                currentSum += diff;
+                if (currentSum < 0)
+                {
+                    currentSum = 0;
+                    result = i + 1;
+                }
+            }
+
+            if (result == gas.Length) return -1;
+
+            currentSum = 0;
+            for (int i = 0; i < gas.Length; i++)
+            {
+                int j = (i + result) % gas.Length;
+                int diff = gas[j] - cost[j];
+                currentSum += diff;
+                if (currentSum < 0) return -1;
+            }
+            return result;
+        }
+
+        public int CanCompleteCircuit2(int[] gas, int[] cost)
+        {
             // Let diff = gas[i] - cost[i], for example:
             // gas  = [1, 2, 3, 4, 5]
             // cost = [3, 4, 5, 1, 2]

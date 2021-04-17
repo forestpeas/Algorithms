@@ -18,7 +18,7 @@ namespace Algorithms.LeetCode
         public int[] TwoSum(int[] nums, int target)
         {
             // Use a hash table to store the numbers we've visited.
-            var map = new Dictionary<int, int>(nums.Length * 2);
+            var map = new Dictionary<int, int>(nums.Length);
             for (int i = 0; i < nums.Length; i++)
             {
                 int complement = target - nums[i];
